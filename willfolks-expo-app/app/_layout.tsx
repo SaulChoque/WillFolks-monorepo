@@ -1,14 +1,19 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
+import {
+  DarkTheme,
+  DefaultTheme,
+  ThemeProvider,
+} from "@react-navigation/native";
+import { Stack } from "expo-router";
+import { StatusBar } from "expo-status-bar";
+import "react-native-reanimated";
 
-import AlarmModal from '@/components/alarm/AlarmModal';
-import useAlarm from '@/hooks/use-alarm';
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import AlarmModal from "@/components/alarm/AlarmModal";
+import { AppHeader } from "@/components/layout/app-header";
+import useAlarm from "@/hooks/use-alarm";
+import { useColorScheme } from "@/hooks/use-color-scheme";
 
 export const unstable_settings = {
-  anchor: '(tabs)',
+  anchor: "(tabs)",
 };
 
 export default function RootLayout() {
@@ -16,12 +21,20 @@ export default function RootLayout() {
   const { activeAlarm, snooze, stop } = useAlarm();
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
+    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+      <Stack screenOptions={{ header: () => <AppHeader /> }}>
+        <Stack.Screen name="(tabs)" />
+        <Stack.Screen
+          name="modal"
+          options={{ presentation: "modal", title: "Modal" }}
+        />
       </Stack>
-      <AlarmModal visible={Boolean(activeAlarm)} activity={activeAlarm} onSnooze={snooze} onStop={stop} />
+      <AlarmModal
+        visible={Boolean(activeAlarm)}
+        activity={activeAlarm}
+        onSnooze={snooze}
+        onStop={stop}
+      />
       <StatusBar style="auto" />
     </ThemeProvider>
   );

@@ -17,6 +17,7 @@ import {
   View,
 } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
+// eslint-disable-next-line import/no-unresolved
 import { Accordion, AccordionItem } from '@mustapha-ghlissi/react-native-accordion';
 
 import { DaySelector } from './day-selector';
