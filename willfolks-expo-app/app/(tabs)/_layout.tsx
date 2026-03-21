@@ -28,7 +28,7 @@ function CenterTabButton({
       >
         <View style={styles.centerButtonInner}>
           <MaterialIcons
-            name={"sentiment_calm" as never}
+            name={"mood" as never}
             size={30}
             color={isActive ? "#2563eb" : "#4f46e5"}
           />
@@ -85,15 +85,6 @@ export default function TabLayout() {
           title: "Activities",
           tabBarIcon: ({ color }) => (
             <MaterialIcons name="grid-view" size={24} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="account"
-        options={{
-          title: "Account",
-          tabBarIcon: ({ color }) => (
-            <MaterialIcons name="person-outline" size={24} color={color} />
           ),
         }}
       />

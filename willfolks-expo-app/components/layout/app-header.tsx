@@ -14,7 +14,7 @@ export function AppHeader() {
           accessibilityRole="button"
           accessibilityLabel="Ir a account"
           style={styles.avatarButton}
-          onPress={() => router.push("/(tabs)/account")}
+          onPress={() => router.push("/account")}
         >
           <Text style={styles.avatarLabel}>S</Text>
         </Pressable>
