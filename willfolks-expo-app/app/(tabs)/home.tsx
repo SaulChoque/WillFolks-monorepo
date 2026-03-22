@@ -1,13 +1,14 @@
+import { t } from "@/i18n";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Canvas, useFrame } from "@react-three/fiber/native";
 import React, { useEffect, useMemo } from "react";
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import {
-    AmbientLight,
-    DirectionalLight,
-    IcosahedronGeometry,
-    Mesh,
-    MeshStandardMaterial,
+  AmbientLight,
+  DirectionalLight,
+  IcosahedronGeometry,
+  Mesh,
+  MeshStandardMaterial,
 } from "three";
 
 const Primitive = "primitive" as unknown as React.ComponentType<{
@@ -77,17 +78,17 @@ export default function Home3DTabScreen() {
                 />
               </View>
             </View>
-            <Text style={styles.badgeLabel}>Mood</Text>
+            <Text style={styles.badgeLabel}>{t("home3d.mood")}</Text>
           </View>
 
           <View style={styles.streakBadge}>
             <MaterialIcons name="whatshot" size={28} color="#111111" />
-            <Text style={styles.badgeLabel}>Racha</Text>
+            <Text style={styles.badgeLabel}>{t("home3d.streak")}</Text>
           </View>
         </View>
 
         <View style={styles.modelCard}>
-          <Text style={styles.modelTitle}>3D Model</Text>
+          <Text style={styles.modelTitle}>{t("home3d.petTitle")}</Text>
           <View style={styles.canvasContainer}>
             <Canvas camera={{ position: [0, 0, 4], fov: 50 }}>
               <SceneLights />

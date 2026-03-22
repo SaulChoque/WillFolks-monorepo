@@ -1,0 +1,161 @@
+{
+  "common": {
+    "cancel": "Cancelar",
+    "close": "Cerrar",
+    "confirm": "Confirmar",
+    "save": "Guardar",
+    "enabled": "Activado",
+    "disabled": "Desactivado",
+    "none": "Ninguno"
+  },
+  "navigation": {
+    "modal": "Modal",
+    "time": "Tiempo",
+    "dashboard": "Inicio",
+    "home3d": "Inicio 3D",
+    "activities": "Actividades",
+    "settings": "Ajustes"
+  },
+  "header": {
+    "goToAccount": "Ir a cuenta",
+    "comments": "Comentarios"
+  },
+  "modalScreen": {
+    "title": "Este es un modal",
+    "goHome": "Ir a la pantalla principal"
+  },
+  "time": {
+    "header": "Tiempo",
+    "friendsTimezones": "Husos horarios de amigos",
+    "localTime": "Hora local"
+  },
+  "dashboard": {
+    "welcomeBack": "Bienvenido de vuelta, {{name}}",
+    "recentActivity": "Actividad reciente"
+  },
+  "activities": {
+    "title": "Mis actividades",
+    "newActivity": "Nueva actividad",
+    "hour": "h",
+    "hours": "h",
+    "minute": "min",
+    "minutes": "min"
+  },
+  "activity": {
+    "notFound": "Actividad no encontrada.",
+    "notifications": "Notificaciones",
+    "amount": "Monto",
+    "cancel": "Cancelar",
+    "noRepeat": "Sin repetición",
+    "type": "Tipo",
+    "alarm": "Alarma",
+    "timer": "Temporizador",
+    "timeAndDate": "Hora y fecha",
+    "start": "Inicio",
+    "end": "Fin",
+    "music": "Música",
+    "vibration": "Vibración",
+    "app": "App",
+    "maxTimePerDay": "Tiempo máximo al día",
+    "selectType": "Selecciona el tipo de actividad",
+    "selectApp": "Selecciona una app",
+    "titlePlaceholder": "Título de actividad",
+    "repeatPlaceholder": "Repetición",
+    "saveActivity": "Guardar actividad",
+    "selectAudio": "Seleccionar audio"
+  },
+  "focus": {
+    "session": "Sesión",
+    "focusSession": "Sesión de enfoque"
+  },
+  "home3d": {
+    "mood": "Estado",
+    "streak": "Racha",
+    "petTitle": "Tu WillPet"
+  },
+  "settings": {
+    "title": "Ajustes",
+    "experience": "Experiencia",
+    "hapticFeedback": "Retroalimentación háptica",
+    "hapticFeedbackDesc": "Usa vibración al interactuar con pestañas y acciones.",
+    "showSeconds": "Mostrar segundos en el reloj",
+    "showSecondsDesc": "Muestra los segundos en el reloj en vivo de la pestaña Tiempo.",
+    "alarmFocus": "Alarma y enfoque",
+    "alarmReminders": "Recordatorios de alarma",
+    "alarmRemindersDesc": "Activa alertas modales cuando se dispare una actividad de alarma.",
+    "alarmVibration": "Vibración de alarma",
+    "alarmVibrationDesc": "Permite vibración repetida mientras la alarma esté activa.",
+    "openAccount": "Abrir perfil de cuenta",
+    "openAccountDesc": "Ir a detalles de cuenta e información personal.",
+    "wallet": "Wallet",
+    "address": "Dirección",
+    "privateKey": "Clave privada",
+    "mnemonic": "Mnemónico",
+    "generatingWallet": "Generando wallet...",
+    "hiddenSensitiveTitle": "Clave privada y mnemónico ocultos",
+    "hiddenSensitiveDesc": "Autentica tu huella para ver estos datos sensibles.",
+    "unlockWithBiometric": "Desbloquear con huella",
+    "hideSensitiveData": "Ocultar datos sensibles"
+  },
+  "account": {
+    "title": "Cuenta",
+    "dateOfInvitation": "Fecha de invitación",
+    "chain": "Red",
+    "totalTransacted": "Total transaccionado",
+    "generalScore": "Puntaje general",
+    "location": "Ubicación",
+    "numberOfFriends": "Número de amigos",
+    "goalsAchieved": "Metas logradas",
+    "favoriteFriend": "Amigo favorito",
+    "streak": "Racha",
+    "deleteAccount": "Eliminar cuenta"
+  },
+  "biometricModal": {
+    "title": "Activa la protección por huella",
+    "description": "Para proteger tu wallet, confirma tu huella antes de continuar.",
+    "authenticate": "Autenticar con huella"
+  },
+  "alarmModal": {
+    "defaultTitle": "Alarma",
+    "snoozeFive": "Posponer 5 minutos",
+    "stop": "Parar",
+    "hint": "Puedes bloquear la pantalla; la alarma seguirá sonando mientras la app esté en primer plano."
+  },
+  "walletSecurity": {
+    "seedGenerationFailed": "No fue posible generar la frase semilla.",
+    "noBiometricSetup": "No hay huella configurada en este dispositivo. Configúrala para continuar.",
+    "initializationError": "Error al inicializar la seguridad de la wallet.",
+    "biometricUnavailable": "La autenticación por huella no está disponible en este dispositivo.",
+    "authenticatePrompt": "Autentica con tu huella",
+    "authenticateCancel": "Cancelar",
+    "validationFailed": "No fue posible validar la huella. Inténtalo de nuevo.",
+    "contextError": "useWalletSecurity debe usarse dentro de WalletSecurityProvider"
+  },
+  "mock": {
+    "differencePlus": "+{{count}} h",
+    "differenceMinus": "-{{count}} h",
+    "days": "{{count}} días",
+    "titles": {
+      "missedAlarm": "Alarma perdida",
+      "finishTestFirst": "Termina primero la prueba",
+      "wakeUppp": "¡Despierta!",
+      "redditTimer": "Temporizador de Reddit"
+    },
+    "music": {
+      "morningVibes": "Vibras matutinas",
+      "focusPlaylist": "Playlist de enfoque",
+      "favorites": "Favoritos",
+      "default": "Predeterminado"
+    }
+  },
+  "days": {
+    "monShort": "L",
+    "tueShort": "M",
+    "wedShort": "X",
+    "thuShort": "J",
+    "friShort": "V",
+    "satShort": "S",
+    "sunShort": "D",
+    "workWeekLabel": "Lun, Mar, Mié, Jue, Vie"
+  }
+}

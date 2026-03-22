@@ -1,5 +1,6 @@
-import { Activity, ActivityDraftState, ActivitySchedule, DaySelection } from '@/types/home';
+import { t } from '@/i18n';
 import { AccountInfo } from '@/types/account';
+import { Activity, ActivityDraftState, ActivitySchedule, DaySelection } from '@/types/home';
 
 export interface FriendTimeZone {
   id: string;
@@ -16,13 +17,13 @@ export interface InstalledApp {
 }
 
 const DAY_TEMPLATE: Pick<DaySelection, 'id' | 'label'>[] = [
-  { id: 'mon', label: 'M' },
-  { id: 'tue', label: 'T' },
-  { id: 'wed', label: 'W' },
-  { id: 'thu', label: 'T' },
-  { id: 'fri', label: 'F' },
-  { id: 'sat', label: 'S' },
-  { id: 'sun', label: 'S' },
+  { id: 'mon', label: t('days.monShort') },
+  { id: 'tue', label: t('days.tueShort') },
+  { id: 'wed', label: t('days.wedShort') },
+  { id: 'thu', label: t('days.thuShort') },
+  { id: 'fri', label: t('days.friShort') },
+  { id: 'sat', label: t('days.satShort') },
+  { id: 'sun', label: t('days.sunShort') },
 ];
 
 const buildDaySelection = (activeIds: string[]): DaySelection[] =>
@@ -38,26 +39,26 @@ export const friendTimeZones: FriendTimeZone[] = [
     id: 'cdmx',
     city: 'Ciudad de México',
     timeZone: 'America/Mexico_City',
-    differenceLabel: 'Local time',
+    differenceLabel: t('time.localTime'),
     isHighlighted: true,
   },
   {
     id: 'buenos-aires',
     city: 'Buenos Aires',
     timeZone: 'America/Argentina/Buenos_Aires',
-    differenceLabel: '+1 hr',
+    differenceLabel: t('mock.differencePlus', { count: 1 }),
   },
   {
     id: 'xela',
     city: 'Xela',
     timeZone: 'America/Guatemala',
-    differenceLabel: '-2 hrs',
+    differenceLabel: t('mock.differenceMinus', { count: 2 }),
   },
   {
     id: 'asuncion',
     city: 'Asunción',
     timeZone: 'America/Asuncion',
-    differenceLabel: '+0 hrs',
+    differenceLabel: t('mock.differencePlus', { count: 0 }),
   },
 ];
 
@@ -71,8 +72,8 @@ export const installedApps: InstalledApp[] = [
 export const activitiesMock: Activity[] = [
   {
     id: 'missed-alarm',
-    title: 'Missed alarm',
-    repeatLabel: 'No repeat',
+    title: t('mock.titles.missedAlarm'),
+    repeatLabel: t('activity.noRepeat'),
     summaryLabel: '07:41',
     amountLabel: '-2 USDC',
     amountKind: 'debit',
@@ -84,14 +85,14 @@ export const activitiesMock: Activity[] = [
     type: 'alarm',
     alarmSettings: {
       alarmTime: '2025-10-23T07:41:00',
-      musicTitle: 'Morning vibes',
+      musicTitle: t('mock.music.morningVibes'),
       vibrationEnabled: true,
     },
   },
   {
     id: 'instagram-limit',
     title: 'Instagram',
-    repeatLabel: 'No repeat',
+    repeatLabel: t('activity.noRepeat'),
     summaryLabel: '3 hrs',
     amountLabel: '-0 USDC',
     amountKind: 'neutral',
@@ -109,8 +110,8 @@ export const activitiesMock: Activity[] = [
   },
   {
     id: 'finish-test',
-    title: 'Finish the test first',
-    repeatLabel: 'No repeat',
+    title: t('mock.titles.finishTestFirst'),
+    repeatLabel: t('activity.noRepeat'),
     summaryLabel: '15:41',
     amountLabel: '+5 USDC',
     amountKind: 'credit',
@@ -122,14 +123,14 @@ export const activitiesMock: Activity[] = [
     type: 'alarm',
     alarmSettings: {
       alarmTime: '2025-09-08T15:41:00',
-      musicTitle: 'Focus playlist',
+      musicTitle: t('mock.music.focusPlaylist'),
       vibrationEnabled: true,
     },
   },
   {
     id: 'wake-uppp',
-    title: 'wake Uppp!!',
-    repeatLabel: 'No repeat',
+    title: t('mock.titles.wakeUppp'),
+    repeatLabel: t('activity.noRepeat'),
     summaryLabel: '06:30',
     amountLabel: '5 USDC',
     amountKind: 'credit',
@@ -141,14 +142,14 @@ export const activitiesMock: Activity[] = [
     type: 'alarm',
     alarmSettings: {
       alarmTime: '2025-10-23T06:30:00',
-      musicTitle: 'Favorites',
+      musicTitle: t('mock.music.favorites'),
       vibrationEnabled: true,
     },
   },
   {
     id: 'reddit-timer',
-    title: 'Reddit Timer',
-    repeatLabel: 'No repeat',
+    title: t('mock.titles.redditTimer'),
+    repeatLabel: t('activity.noRepeat'),
     summaryLabel: '2 hrs',
     amountLabel: '5 USDC',
     amountKind: 'neutral',
@@ -167,7 +168,7 @@ export const activitiesMock: Activity[] = [
   {
     id: 'alarm-0615',
     title: '06:15',
-    repeatLabel: 'Mon, Tues, Wed, Thurs, Fri',
+    repeatLabel: t('days.workWeekLabel'),
     summaryLabel: '06:15',
     amountLabel: '0 USDC',
     amountKind: 'neutral',
@@ -179,14 +180,14 @@ export const activitiesMock: Activity[] = [
     type: 'alarm',
     alarmSettings: {
       alarmTime: '2025-10-24T06:15:00',
-      musicTitle: 'Default',
+      musicTitle: t('mock.music.default'),
       vibrationEnabled: false,
     },
   },
   {
     id: 'alarm-0630',
     title: '06:30',
-    repeatLabel: 'Mon, Tues, Wed, Thurs, Fri',
+    repeatLabel: t('days.workWeekLabel'),
     summaryLabel: '06:30',
     amountLabel: '0 USDC',
     amountKind: 'neutral',
@@ -198,14 +199,14 @@ export const activitiesMock: Activity[] = [
     type: 'alarm',
     alarmSettings: {
       alarmTime: '2025-10-24T06:30:00',
-      musicTitle: 'Default',
+      musicTitle: t('mock.music.default'),
       vibrationEnabled: false,
     },
   },
   {
     id: 'alarm-0645',
     title: '06:45',
-    repeatLabel: 'Mon, Tues, Wed, Thurs, Fri',
+    repeatLabel: t('days.workWeekLabel'),
     summaryLabel: '06:45',
     amountLabel: '0 USDC',
     amountKind: 'neutral',
@@ -217,7 +218,7 @@ export const activitiesMock: Activity[] = [
     type: 'alarm',
     alarmSettings: {
       alarmTime: '2025-10-24T06:45:00',
-      musicTitle: 'Default',
+      musicTitle: t('mock.music.default'),
       vibrationEnabled: false,
     },
   },
@@ -231,8 +232,8 @@ export function createEmptyActivityDraft(): ActivityDraftState {
 
   return {
     id: `draft-${now.getTime()}`,
-    title: 'New activity',
-    repeatLabel: 'No repeat',
+    title: t('activities.newActivity'),
+    repeatLabel: t('activity.noRepeat'),
     summaryLabel: '--:--',
     amountLabel: '0 USDC',
     amountKind: 'neutral',
@@ -244,7 +245,7 @@ export function createEmptyActivityDraft(): ActivityDraftState {
     type: 'alarm',
     alarmSettings: {
       alarmTime: now.toISOString(),
-      musicTitle: 'Select audio',
+      musicTitle: t('activity.selectAudio'),
       vibrationEnabled: true,
     },
     timerSettings: {
@@ -267,5 +268,5 @@ export const accountInfo: AccountInfo = {
   numberOfFriends: 15,
   goalsAchieved: 5,
   favoriteFriend: 'Noemiel',
-  streak: '16 days',
+  streak: t('mock.days', { count: 16 }),
 };

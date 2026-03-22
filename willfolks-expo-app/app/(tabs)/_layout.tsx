@@ -7,6 +7,7 @@ import { Pressable, StyleSheet, View } from "react-native";
 import { HapticTab } from "@/components/haptic-tab";
 import { Colors } from "@/constants/theme";
 import { useColorScheme } from "@/hooks/use-color-scheme";
+import { t } from "@/i18n";
 
 function CenterTabButton({
   onPress,
@@ -56,7 +57,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "Time",
+          title: t("navigation.time"),
           tabBarIcon: ({ color }) => (
             <MaterialIcons name="access-time" size={24} color={color} />
           ),
@@ -65,7 +66,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="dashboard"
         options={{
-          title: "Home",
+          title: t("navigation.dashboard"),
           tabBarIcon: ({ color }) => (
             <MaterialIcons name="home-filled" size={24} color={color} />
           ),
@@ -74,7 +75,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="home"
         options={{
-          title: "Home 3D",
+          title: t("navigation.home3d"),
           tabBarButton: (props) => <CenterTabButton {...props} />,
           tabBarIcon: () => null,
         }}
@@ -82,7 +83,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="activities"
         options={{
-          title: "Activities",
+          title: t("navigation.activities"),
           tabBarIcon: ({ color }) => (
             <MaterialIcons name="grid-view" size={24} color={color} />
           ),
@@ -91,7 +92,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="settings"
         options={{
-          title: "Settings",
+          title: t("navigation.settings"),
           tabBarIcon: ({ color }) => (
             <MaterialIcons name="settings" size={24} color={color} />
           ),

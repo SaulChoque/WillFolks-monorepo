@@ -11,6 +11,7 @@ import {
 
 import { Card } from "@/components/ui/card";
 import { accountInfo } from "@/constants/mock-data";
+import { t } from "@/i18n";
 
 export default function AccountScreen() {
   return (
@@ -20,7 +21,7 @@ export default function AccountScreen() {
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.headerRow}>
-          <Text style={styles.headerTitle}>Account</Text>
+          <Text style={styles.headerTitle}>{t("account.title")}</Text>
           <Pressable style={styles.iconButton} accessibilityRole="button">
             <MaterialIcons name="share" size={22} color="#111111" />
           </Pressable>
@@ -42,27 +43,27 @@ export default function AccountScreen() {
           <View style={styles.detailGroup}>
             <DetailRow
               icon="event"
-              label="Date of invitation"
+              label={t("account.dateOfInvitation")}
               value={accountInfo.dateOfInvitation}
             />
             <DetailRow
               icon="device-hub"
-              label="Chain"
+              label={t("account.chain")}
               value={accountInfo.chain}
             />
             <DetailRow
               icon="payments"
-              label="Total transacted"
+              label={t("account.totalTransacted")}
               value={accountInfo.totalTransacted}
             />
             <DetailRow
               icon="star"
-              label="General Score"
+              label={t("account.generalScore")}
               value={accountInfo.generalScore}
             />
             <DetailRow
               icon="location-on"
-              label="Location"
+              label={t("account.location")}
               value={accountInfo.location}
             />
           </View>
@@ -71,22 +72,22 @@ export default function AccountScreen() {
         <Card style={styles.secondaryCard}>
           <DetailRow
             icon="groups"
-            label="Number of friends"
+            label={t("account.numberOfFriends")}
             value={String(accountInfo.numberOfFriends)}
           />
           <DetailRow
             icon="flag"
-            label="Goals achieved"
+            label={t("account.goalsAchieved")}
             value={String(accountInfo.goalsAchieved)}
           />
           <DetailRow
             icon="favorite"
-            label="Favorite Friend"
+            label={t("account.favoriteFriend")}
             value={accountInfo.favoriteFriend}
           />
           <DetailRow
             icon="whatshot"
-            label="Streak"
+            label={t("account.streak")}
             value={accountInfo.streak}
           />
         </Card>
@@ -98,7 +99,7 @@ export default function AccountScreen() {
             color="#d92d20"
             style={styles.deleteIcon}
           />
-          <Text style={styles.deleteLabel}>Delete account</Text>
+          <Text style={styles.deleteLabel}>{t("account.deleteAccount")}</Text>
         </Pressable>
       </ScrollView>
     </SafeAreaView>

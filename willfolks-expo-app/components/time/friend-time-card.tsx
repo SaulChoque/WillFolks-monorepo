@@ -1,7 +1,8 @@
-import { memo, useMemo } from 'react';
-import { Animated, StyleSheet, Text, View } from 'react-native';
+import { memo, useMemo } from "react";
+import { Animated, StyleSheet, Text, View } from "react-native";
 
-import { FriendTimeZone } from '@/constants/mock-data';
+import { FriendTimeZone } from "@/constants/mock-data";
+import { getDeviceLocaleTag } from "@/i18n";
 
 interface FriendTimeCardProps {
   item: FriendTimeZone;
@@ -11,8 +12,15 @@ interface FriendTimeCardProps {
 
 const AnimatedView = Animated.createAnimatedComponent(View);
 
-export const FriendTimeCard = memo(function FriendTimeCard({ item, currentDate, index }: FriendTimeCardProps) {
-  const clockLabel = useMemo(() => formattedTimeForZone(item.timeZone, currentDate), [item.timeZone, currentDate]);
+export const FriendTimeCard = memo(function FriendTimeCard({
+  item,
+  currentDate,
+  index,
+}: FriendTimeCardProps) {
+  const clockLabel = useMemo(
+    () => formattedTimeForZone(item.timeZone, currentDate),
+    [item.timeZone, currentDate],
+  );
 
   return (
     <AnimatedView style={[styles.container, { opacity: 0.9 + index * 0.03 }]}>
@@ -27,28 +35,32 @@ export const FriendTimeCard = memo(function FriendTimeCard({ item, currentDate, 
 
 function formattedTimeForZone(timeZone: string, date: Date): string {
   try {
-    return new Intl.DateTimeFormat('en-US', {
+    return new Intl.DateTimeFormat(getDeviceLocaleTag(), {
       timeZone,
-      hour: '2-digit',
-      minute: '2-digit',
+      hour: "2-digit",
+      minute: "2-digit",
       hour12: false,
     }).format(date);
   } catch {
-    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+    return date.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    });
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#ffffff',
+    backgroundColor: "#ffffff",
     borderRadius: 24,
     paddingHorizontal: 20,
     paddingVertical: 18,
     marginBottom: 16,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    shadowColor: '#0f172a',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    shadowColor: "#0f172a",
     shadowOffset: { width: 0, height: 10 },
     shadowOpacity: 0.08,
     shadowRadius: 28,
@@ -56,18 +68,18 @@ const styles = StyleSheet.create({
   },
   city: {
     fontSize: 20,
-    fontWeight: '700',
-    color: '#111111',
+    fontWeight: "700",
+    color: "#111111",
   },
   difference: {
     marginTop: 6,
     fontSize: 14,
-    color: 'rgba(17,17,17,0.6)',
+    color: "rgba(17,17,17,0.6)",
   },
   time: {
     fontSize: 26,
-    fontWeight: '700',
-    color: '#111111',
-    fontVariant: ['tabular-nums'],
+    fontWeight: "700",
+    color: "#111111",
+    fontVariant: ["tabular-nums"],
   },
 });

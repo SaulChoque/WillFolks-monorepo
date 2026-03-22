@@ -1,3 +1,4 @@
+import { t } from "@/i18n";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { Pressable, StyleSheet, Text, View } from "react-native";
@@ -12,7 +13,7 @@ export function AppHeader() {
       <View style={styles.content}>
         <Pressable
           accessibilityRole="button"
-          accessibilityLabel="Ir a account"
+          accessibilityLabel={t("header.goToAccount")}
           style={styles.avatarButton}
           onPress={() => router.push("/account")}
         >
@@ -21,7 +22,7 @@ export function AppHeader() {
 
         <Pressable
           accessibilityRole="button"
-          accessibilityLabel="Comentarios"
+          accessibilityLabel={t("header.comments")}
           style={styles.commentButton}
         >
           <MaterialIcons name="chat-bubble-outline" size={25} color="#ffffff" />

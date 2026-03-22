@@ -1,7 +1,14 @@
-import type { HomeActivity } from '@/types/home';
-import React, { useEffect, useRef } from 'react';
-import { Modal, StyleSheet, Text, TouchableOpacity, Vibration, View } from 'react-native';
-
+import { t } from "@/i18n";
+import type { HomeActivity } from "@/types/home";
+import React, { useEffect, useRef } from "react";
+import {
+  Modal,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  Vibration,
+  View,
+} from "react-native";
 
 interface Props {
   visible: boolean;
@@ -10,7 +17,12 @@ interface Props {
   onStop: () => void;
 }
 
-export default function AlarmModal({ visible, activity, onSnooze, onStop }: Props) {
+export default function AlarmModal({
+  visible,
+  activity,
+  onSnooze,
+  onStop,
+}: Props) {
   const soundRef = useRef<any | null>(null);
 
   useEffect(() => {
@@ -19,13 +31,16 @@ export default function AlarmModal({ visible, activity, onSnooze, onStop }: Prop
     async function startSoundAndVibrate() {
       // Dynamic require of expo-av to avoid runtime crash when native module isn't available
       try {
-        const ExpoAV = await import('expo-av');
+        const ExpoAV = await import("expo-av");
         const Audio = ExpoAV?.Audio;
         if (Audio && Audio.Sound) {
           try {
-            const asset = require('../../assets/alarm.mp3');
+            const asset = require("../../assets/alarm.mp3");
             if (Audio.setAudioModeAsync) {
-              Audio.setAudioModeAsync({ playsInSilentModeIOS: true, staysActiveInBackground: false }).catch(() => {});
+              Audio.setAudioModeAsync({
+                playsInSilentModeIOS: true,
+                staysActiveInBackground: false,
+              }).catch(() => {});
             }
             const { sound } = await Audio.Sound.createAsync(asset, {
               shouldPlay: true,
@@ -42,7 +57,10 @@ export default function AlarmModal({ visible, activity, onSnooze, onStop }: Prop
       }
 
       // Start vibration if enabled on activity
-      if (activity?.type === 'alarm' && activity.alarmSettings.vibrationEnabled) {
+      if (
+        activity?.type === "alarm" &&
+        activity.alarmSettings.vibrationEnabled
+      ) {
         Vibration.vibrate([1000, 500], true);
       }
     }
@@ -72,22 +90,41 @@ export default function AlarmModal({ visible, activity, onSnooze, onStop }: Prop
   }, [visible, activity]);
 
   return (
-    <Modal visible={visible} animationType="slide" transparent={false} statusBarTranslucent={true}>
+    <Modal
+      visible={visible}
+      animationType="slide"
+      transparent={false}
+      statusBarTranslucent={true}
+    >
       <View style={styles.container}>
         <View style={styles.card}>
-          <Text style={styles.title}>{activity?.title ?? 'Alarm'}</Text>
-          <Text style={styles.time}>{activity && activity.type === 'alarm' ? new Date(activity.alarmSettings.alarmTime).toLocaleTimeString() : ''}</Text>
+          <Text style={styles.title}>
+            {activity?.title ?? t("alarmModal.defaultTitle")}
+          </Text>
+          <Text style={styles.time}>
+            {activity && activity.type === "alarm"
+              ? new Date(activity.alarmSettings.alarmTime).toLocaleTimeString()
+              : ""}
+          </Text>
 
           <View style={styles.buttonsRow}>
-            <TouchableOpacity style={[styles.button, styles.snooze]} onPress={onSnooze}>
-              <Text style={styles.buttonText}>Posponer 5 minutos</Text>
+            <TouchableOpacity
+              style={[styles.button, styles.snooze]}
+              onPress={onSnooze}
+            >
+              <Text style={styles.buttonText}>
+                {t("alarmModal.snoozeFive")}
+              </Text>
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.button, styles.stop]} onPress={onStop}>
-              <Text style={styles.buttonText}>Parar</Text>
+            <TouchableOpacity
+              style={[styles.button, styles.stop]}
+              onPress={onStop}
+            >
+              <Text style={styles.buttonText}>{t("alarmModal.stop")}</Text>
             </TouchableOpacity>
           </View>
 
-          <Text style={styles.hint}>Puedes bloquear la pantalla; la alarma seguirá sonando mientras la app esté en primer plano.</Text>
+          <Text style={styles.hint}>{t("alarmModal.hint")}</Text>
         </View>
       </View>
     </Modal>
@@ -97,32 +134,32 @@ export default function AlarmModal({ visible, activity, onSnooze, onStop }: Prop
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000000',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#000000",
+    alignItems: "center",
+    justifyContent: "center",
   },
   card: {
-    width: '90%',
-    backgroundColor: '#111',
+    width: "90%",
+    backgroundColor: "#111",
     borderRadius: 12,
     padding: 24,
-    alignItems: 'center',
+    alignItems: "center",
   },
   title: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 22,
-    fontWeight: '700',
+    fontWeight: "700",
     marginBottom: 8,
   },
   time: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 28,
     marginBottom: 24,
   },
   buttonsRow: {
-    flexDirection: 'row',
-    width: '100%',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    width: "100%",
+    justifyContent: "space-between",
   },
   button: {
     flex: 1,
@@ -130,22 +167,22 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     borderRadius: 8,
     marginHorizontal: 6,
-    alignItems: 'center',
+    alignItems: "center",
   },
   snooze: {
-    backgroundColor: '#3b82f6',
+    backgroundColor: "#3b82f6",
   },
   stop: {
-    backgroundColor: '#ef4444',
+    backgroundColor: "#ef4444",
   },
   buttonText: {
-    color: '#fff',
-    fontWeight: '600',
+    color: "#fff",
+    fontWeight: "600",
   },
   hint: {
-    color: '#aaa',
+    color: "#aaa",
     marginTop: 18,
     fontSize: 12,
-    textAlign: 'center',
+    textAlign: "center",
   },
 });

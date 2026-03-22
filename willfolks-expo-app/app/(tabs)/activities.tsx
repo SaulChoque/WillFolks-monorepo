@@ -1,14 +1,22 @@
-import { MaterialIcons } from '@expo/vector-icons';
-import { useCallback, useState } from 'react';
-import { FlatList, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { MaterialIcons } from "@expo/vector-icons";
+import { useCallback, useState } from "react";
+import { FlatList, SafeAreaView, StyleSheet, Text, View } from "react-native";
 
-import ActivityCard, { ActivityDraftCard } from '@/components/activity/activity-card';
-import { FloatingActionButton } from '@/components/ui/floating-action-button';
-import { activitiesMock, createEmptyActivityDraft } from '@/constants/mock-data';
-import { Activity, ActivityDraftState, MaterialIconName } from '@/types/home';
+import ActivityCard, {
+  ActivityDraftCard,
+} from "@/components/activity/activity-card";
+import { FloatingActionButton } from "@/components/ui/floating-action-button";
+import {
+  activitiesMock,
+  createEmptyActivityDraft,
+} from "@/constants/mock-data";
+import { t } from "@/i18n";
+import { Activity, ActivityDraftState, MaterialIconName } from "@/types/home";
 
 export default function ActivitiesScreen() {
-  const [activities, setActivities] = useState<Activity[]>(() => [...activitiesMock]);
+  const [activities, setActivities] = useState<Activity[]>(() => [
+    ...activitiesMock,
+  ]);
   const [draft, setDraft] = useState<ActivityDraftState | null>(null);
 
   const handleAddDraft = useCallback(() => {
@@ -23,14 +31,11 @@ export default function ActivitiesScreen() {
     setDraft(null);
   }, []);
 
-  const handleSaveDraft = useCallback(
-    (nextDraft: ActivityDraftState) => {
-      const nextActivity = mapDraftToActivity(nextDraft);
-      setActivities((prev) => [nextActivity, ...prev]);
-      setDraft(null);
-    },
-    [],
-  );
+  const handleSaveDraft = useCallback((nextDraft: ActivityDraftState) => {
+    const nextActivity = mapDraftToActivity(nextDraft);
+    setActivities((prev) => [nextActivity, ...prev]);
+    setDraft(null);
+  }, []);
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -49,7 +54,7 @@ export default function ActivitiesScreen() {
         ListHeaderComponent={
           <View style={styles.headerContainer}>
             <View style={styles.headerRow}>
-              <Text style={styles.pageTitle}>My activities</Text>
+              <Text style={styles.pageTitle}>{t("activities.title")}</Text>
             </View>
             {draft ? (
               <View style={styles.draftSpacing}>
@@ -72,14 +77,14 @@ export default function ActivitiesScreen() {
 }
 
 function mapDraftToActivity(draft: ActivityDraftState): Activity {
-  const iconName: MaterialIconName = draft.type === 'alarm' ? 'alarm' : 'timer';
+  const iconName: MaterialIconName = draft.type === "alarm" ? "alarm" : "timer";
 
   const base = {
     id: `activity-${Date.now()}`,
-    title: draft.title.trim() || 'New activity',
+    title: draft.title.trim() || t("activities.newActivity"),
     repeatLabel: draft.repeatLabel,
     summaryLabel:
-      draft.type === 'alarm'
+      draft.type === "alarm"
         ? formatTimeLabel(draft.alarmSettings.alarmTime)
         : formatDurationLabel(draft.timerSettings.maxDailyMinutes),
     amountLabel: draft.amountLabel,
@@ -91,17 +96,17 @@ function mapDraftToActivity(draft: ActivityDraftState): Activity {
     schedule: { ...draft.schedule },
   };
 
-  if (draft.type === 'alarm') {
+  if (draft.type === "alarm") {
     return {
       ...base,
-      type: 'alarm',
+      type: "alarm",
       alarmSettings: { ...draft.alarmSettings },
     };
   }
 
   return {
     ...base,
-    type: 'timer',
+    type: "timer",
     timerSettings: { ...draft.timerSettings },
   };
 }
@@ -109,27 +114,31 @@ function mapDraftToActivity(draft: ActivityDraftState): Activity {
 function formatTimeLabel(isoValue: string) {
   const date = new Date(isoValue);
   if (Number.isNaN(date.getTime())) {
-    return '--:--';
+    return "--:--";
   }
-  return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+  return date.toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
 }
 
 function formatDurationLabel(totalMinutes: number) {
   const hours = Math.floor(totalMinutes / 60);
   const minutes = totalMinutes % 60;
   if (minutes === 0) {
-    return `${hours} ${hours === 1 ? 'hr' : 'hrs'}`;
+    return `${hours} ${hours === 1 ? t("activities.hour") : t("activities.hours")}`;
   }
   if (hours === 0) {
-    return `${minutes} ${minutes === 1 ? 'min' : 'mins'}`;
+    return `${minutes} ${minutes === 1 ? t("activities.minute") : t("activities.minutes")}`;
   }
-  return `${hours}h ${minutes}m`;
+  return `${hours}${t("activities.hour")} ${minutes}${t("activities.minute")}`;
 }
 
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: "#f5f5f5",
   },
   content: {
     paddingHorizontal: 20,
@@ -140,15 +149,15 @@ const styles = StyleSheet.create({
     paddingBottom: 16,
   },
   headerRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginBottom: 12,
   },
   pageTitle: {
     fontSize: 22,
-    fontWeight: '700',
-    color: '#111111',
+    fontWeight: "700",
+    color: "#111111",
   },
   draftSpacing: {
     marginBottom: 8,
@@ -163,8 +172,9 @@ const styles = StyleSheet.create({
     borderRadius: 24,
   },
   fab: {
-    position: 'absolute',
-    alignSelf: 'center',
-    bottom: 32,
+    position: "absolute",
+    right: 16,
+    bottom: 96,
+    zIndex: 20,
   },
 });

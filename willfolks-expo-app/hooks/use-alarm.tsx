@@ -1,7 +1,8 @@
-import { activitiesMock } from '@/constants/mock-data';
-import type { HomeActivity } from '@/types/home';
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { NativeModules, PermissionsAndroid, Platform } from 'react-native';
+import { activitiesMock } from "@/constants/mock-data";
+import { t } from "@/i18n";
+import type { HomeActivity } from "@/types/home";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { NativeModules, PermissionsAndroid, Platform } from "react-native";
 
 type ActiveAlarm = HomeActivity | null;
 
@@ -16,13 +17,13 @@ export default function useAlarm() {
   const AlarmNative = (NativeModules as any).AlarmModule;
 
   const requestNotificationPermission = useCallback(async () => {
-    if (Platform.OS !== 'android') return;
+    if (Platform.OS !== "android") return;
     try {
       const apiLevel = Platform.constants?.Version ?? 0;
       // Android 13 (API 33) requires POST_NOTIFICATIONS at runtime
       if (apiLevel >= 33) {
         const granted = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS
+          PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS,
         );
         // We don't strictly need the permission to vibrate/play audio inside the app,
         // but the permission helps for showing notifications if we implement them.
@@ -43,16 +44,25 @@ export default function useAlarm() {
     // schedule alarms for activitiesMock (only those with future time)
     const now = Date.now();
     activitiesMock.forEach((activity) => {
-      if (activity.type !== 'alarm') return;
+      if (activity.type !== "alarm") return;
       const alarmTime = Date.parse(activity.alarmSettings.alarmTime);
       if (Number.isNaN(alarmTime)) return;
       const ms = alarmTime - now;
       if (ms <= 0) return;
 
       // If native AlarmModule is available on Android, delegate scheduling to native
-      if (Platform.OS === 'android' && AlarmNative && AlarmNative.scheduleAlarm) {
+      if (
+        Platform.OS === "android" &&
+        AlarmNative &&
+        AlarmNative.scheduleAlarm
+      ) {
         try {
-          AlarmNative.scheduleAlarm(activity.id, alarmTime, activity.title ?? "Alarm", activity.alarmSettings.vibrationEnabled ?? true);
+          AlarmNative.scheduleAlarm(
+            activity.id,
+            alarmTime,
+            activity.title ?? t("alarmModal.defaultTitle"),
+            activity.alarmSettings.vibrationEnabled ?? true,
+          );
         } catch {
           // fallback to JS timer if native scheduling fails
         }
@@ -82,9 +92,9 @@ export default function useAlarm() {
   const stop = useCallback(() => {
     setActiveAlarm(null);
     // cancel native alarm if available
-    if (Platform.OS === 'android' && AlarmNative) {
+    if (Platform.OS === "android" && AlarmNative) {
       try {
-        AlarmNative.cancelAlarm(activeAlarm?.id ?? '');
+        AlarmNative.cancelAlarm(activeAlarm?.id ?? "");
       } catch {}
     }
   }, [AlarmNative, activeAlarm?.id]);
@@ -95,14 +105,19 @@ export default function useAlarm() {
     const snoozeMs = 5 * 60 * 1000;
     setActiveAlarm(null);
     // If native module exists, schedule native snooze
-    if (Platform.OS === 'android' && AlarmNative && AlarmNative.scheduleAlarm) {
+    if (Platform.OS === "android" && AlarmNative && AlarmNative.scheduleAlarm) {
       try {
         const newTime = Date.now() + snoozeMs;
-        AlarmNative.scheduleAlarm(activeAlarm.id, newTime, activeAlarm.title ?? 'Alarm', activeAlarm.alarmSettings.vibrationEnabled ?? true);
+        AlarmNative.scheduleAlarm(
+          activeAlarm.id,
+          newTime,
+          activeAlarm.title ?? t("alarmModal.defaultTitle"),
+          activeAlarm.alarmSettings.vibrationEnabled ?? true,
+        );
         return;
       } catch {
-          // fallback to JS timer
-        }
+        // fallback to JS timer
+      }
     }
 
     const id = setTimeout(() => {

@@ -1,0 +1,161 @@
+{
+  "common": {
+    "cancel": "Cancel",
+    "close": "Close",
+    "confirm": "Confirm",
+    "save": "Save",
+    "enabled": "Enabled",
+    "disabled": "Disabled",
+    "none": "None"
+  },
+  "navigation": {
+    "modal": "Modal",
+    "time": "Time",
+    "dashboard": "Home",
+    "home3d": "Home 3D",
+    "activities": "Activities",
+    "settings": "Settings"
+  },
+  "header": {
+    "goToAccount": "Go to account",
+    "comments": "Comments"
+  },
+  "modalScreen": {
+    "title": "This is a modal",
+    "goHome": "Go to home screen"
+  },
+  "time": {
+    "header": "Time",
+    "friendsTimezones": "Friends timezones",
+    "localTime": "Local time"
+  },
+  "dashboard": {
+    "welcomeBack": "Welcome back, {{name}}",
+    "recentActivity": "Recent activity"
+  },
+  "activities": {
+    "title": "My activities",
+    "newActivity": "New activity",
+    "hour": "hr",
+    "hours": "hrs",
+    "minute": "min",
+    "minutes": "mins"
+  },
+  "activity": {
+    "notFound": "Activity not found.",
+    "notifications": "Notifications",
+    "amount": "Amount",
+    "cancel": "Cancel",
+    "noRepeat": "No repeat",
+    "type": "Type",
+    "alarm": "Alarm",
+    "timer": "Timer",
+    "timeAndDate": "Time and date",
+    "start": "Start",
+    "end": "End",
+    "music": "Music",
+    "vibration": "Vibration",
+    "app": "App",
+    "maxTimePerDay": "Max time a day",
+    "selectType": "Select activity type",
+    "selectApp": "Select app",
+    "titlePlaceholder": "Activity title",
+    "repeatPlaceholder": "Repeat",
+    "saveActivity": "Save activity",
+    "selectAudio": "Select audio"
+  },
+  "focus": {
+    "session": "Session",
+    "focusSession": "Focus session"
+  },
+  "home3d": {
+    "mood": "Mood",
+    "streak": "Streak",
+    "petTitle": "Your WillPet"
+  },
+  "settings": {
+    "title": "Settings",
+    "experience": "Experience",
+    "hapticFeedback": "Haptic feedback",
+    "hapticFeedbackDesc": "Use vibration feedback when interacting with tabs and actions.",
+    "showSeconds": "Show seconds in clock",
+    "showSecondsDesc": "Display seconds in the Time tab live clock.",
+    "alarmFocus": "Alarm & focus",
+    "alarmReminders": "Alarm reminders",
+    "alarmRemindersDesc": "Enable modal alerts when an alarm activity is triggered.",
+    "alarmVibration": "Alarm vibration",
+    "alarmVibrationDesc": "Allow repeated vibration while alarm is active.",
+    "openAccount": "Open account profile",
+    "openAccountDesc": "Go to account details and personal information.",
+    "wallet": "Wallet",
+    "address": "Address",
+    "privateKey": "Private key",
+    "mnemonic": "Mnemonic",
+    "generatingWallet": "Generating wallet...",
+    "hiddenSensitiveTitle": "Private key and mnemonic hidden",
+    "hiddenSensitiveDesc": "Authenticate with your fingerprint to view these sensitive details.",
+    "unlockWithBiometric": "Unlock with fingerprint",
+    "hideSensitiveData": "Hide sensitive data"
+  },
+  "account": {
+    "title": "Account",
+    "dateOfInvitation": "Date of invitation",
+    "chain": "Chain",
+    "totalTransacted": "Total transacted",
+    "generalScore": "General score",
+    "location": "Location",
+    "numberOfFriends": "Number of friends",
+    "goalsAchieved": "Goals achieved",
+    "favoriteFriend": "Favorite friend",
+    "streak": "Streak",
+    "deleteAccount": "Delete account"
+  },
+  "biometricModal": {
+    "title": "Enable fingerprint protection",
+    "description": "To protect your wallet, confirm your fingerprint before continuing.",
+    "authenticate": "Authenticate with fingerprint"
+  },
+  "alarmModal": {
+    "defaultTitle": "Alarm",
+    "snoozeFive": "Snooze 5 minutes",
+    "stop": "Stop",
+    "hint": "You can lock the screen; the alarm keeps sounding while the app stays in foreground."
+  },
+  "walletSecurity": {
+    "seedGenerationFailed": "Could not generate seed phrase.",
+    "noBiometricSetup": "No fingerprint is configured on this device. Set it up to continue.",
+    "initializationError": "Error initializing wallet security.",
+    "biometricUnavailable": "Fingerprint authentication is not available on this device.",
+    "authenticatePrompt": "Authenticate with your fingerprint",
+    "authenticateCancel": "Cancel",
+    "validationFailed": "Could not validate the fingerprint. Try again.",
+    "contextError": "useWalletSecurity must be used within WalletSecurityProvider"
+  },
+  "mock": {
+    "differencePlus": "+{{count}} hrs",
+    "differenceMinus": "-{{count}} hrs",
+    "days": "{{count}} days",
+    "titles": {
+      "missedAlarm": "Missed alarm",
+      "finishTestFirst": "Finish the test first",
+      "wakeUppp": "Wake uppp!!",
+      "redditTimer": "Reddit timer"
+    },
+    "music": {
+      "morningVibes": "Morning vibes",
+      "focusPlaylist": "Focus playlist",
+      "favorites": "Favorites",
+      "default": "Default"
+    }
+  },
+  "days": {
+    "monShort": "M",
+    "tueShort": "T",
+    "wedShort": "W",
+    "thuShort": "T",
+    "friShort": "F",
+    "satShort": "S",
+    "sunShort": "S",
+    "workWeekLabel": "Mon, Tue, Wed, Thu, Fri"
+  }
+}
