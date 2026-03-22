@@ -1,68 +1,25 @@
 import { AppColors } from "@/constants/theme";
 import { t } from "@/i18n";
 import { MaterialIcons } from "@expo/vector-icons";
-import { Canvas, useFrame } from "@react-three/fiber/native";
-import React, { useEffect, useMemo } from "react";
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
-import {
-    AmbientLight,
-    DirectionalLight,
-    IcosahedronGeometry,
-    Mesh,
-    MeshStandardMaterial,
-} from "three";
+import React from "react";
+import { Image, SafeAreaView, StyleSheet, Text, View } from "react-native";
+// import { Canvas, useFrame } from "@react-three/fiber/native";
+// import { Asset } from "expo-asset";
+// import {
+//   AmbientLight,
+//   Box3,
+//   DirectionalLight,
+//   IcosahedronGeometry,
+//   Mesh,
+//   MeshStandardMaterial,
+//   Object3D,
+//   Vector3,
+// } from "three";
+// import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+// import glepBin from "../../assets/3d/Glep.bin";
+// import glepGltf from "../../assets/3d/Glep.gltf";
 
-const Primitive = "primitive" as unknown as React.ComponentType<{
-  object: unknown;
-}>;
-
-function CalmCharacter() {
-  const mesh = useMemo(() => {
-    const geometry = new IcosahedronGeometry(1, 1);
-    const material = new MeshStandardMaterial({
-      color: "#8b5cf6",
-      roughness: 0.3,
-      metalness: 0.2,
-    });
-    const nextMesh = new Mesh(geometry, material);
-    nextMesh.scale.setScalar(1.1);
-    return nextMesh;
-  }, []);
-
-  useEffect(() => {
-    return () => {
-      mesh.geometry.dispose();
-      if (Array.isArray(mesh.material)) {
-        mesh.material.forEach((item) => item.dispose());
-      } else {
-        mesh.material.dispose();
-      }
-    };
-  }, [mesh]);
-
-  useFrame((_state, delta) => {
-    mesh.rotation.y += delta * 0.7;
-    mesh.rotation.x += delta * 0.15;
-  });
-
-  return <Primitive object={mesh} />;
-}
-
-function SceneLights() {
-  const ambient = useMemo(() => new AmbientLight("#ffffff", 0.65), []);
-  const directional = useMemo(() => {
-    const light = new DirectionalLight("#ffffff", 1.1);
-    light.position.set(2, 3, 5);
-    return light;
-  }, []);
-
-  return (
-    <>
-      <Primitive object={ambient} />
-      <Primitive object={directional} />
-    </>
-  );
-}
+const TENNA_GIF = require("../../assets/gif/deltarune-tenna.gif");
 
 export default function Home3DTabScreen() {
   return (
@@ -95,10 +52,9 @@ export default function Home3DTabScreen() {
         <View style={styles.modelCard}>
           <Text style={styles.modelTitle}>{t("home3d.petTitle")}</Text>
           <View style={styles.canvasContainer}>
-            <Canvas camera={{ position: [0, 0, 4], fov: 50 }}>
-              <SceneLights />
-              <CalmCharacter />
-            </Canvas>
+            {/* Render 3D desactivado por problemas de carga en Android.
+                Se reemplaza por GIF local. */}
+            <Image source={TENNA_GIF} style={styles.gif} resizeMode="contain" />
           </View>
         </View>
       </View>
@@ -186,5 +142,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#f8f8f8",
     borderWidth: 1,
     borderColor: AppColors.lilac.border,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  gif: {
+    width: "100%",
+    height: "100%",
   },
 });
