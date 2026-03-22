@@ -27,6 +27,27 @@ export const Colors = {
   },
 };
 
+export const AppColors = {
+  lilac: {
+    textPrimary: '#6d28d9',
+    textSecondary: 'rgba(109,40,217,0.68)',
+    icon: '#7c3aed',
+    iconStrong: '#5b21b6',
+    switchOn: '#8b5cf6',
+    switchOff: 'rgba(139,92,246,0.24)',
+    chip: 'rgba(124,58,237,0.12)',
+    border: 'rgba(124,58,237,0.22)',
+  },
+  limeGlass: {
+    tint: 'rgba(131, 204, 22, 0.57)',
+    highlight: 'rgba(236, 253, 245, 0.71)',
+    stroke: 'rgba(190, 242, 100, 0.37)',
+    tintStrong: 'rgb(131, 204, 22)',
+    highlightStrong: 'rgba(236, 253, 245, 0.47)',
+    strokeStrong: 'rgba(190, 242, 100, 0.31)',
+  },
+};
+
 export const Fonts = Platform.select({
   ios: {
     /** iOS `UIFontDescriptorSystemDesignDefault` */

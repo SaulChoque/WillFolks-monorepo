@@ -2,6 +2,7 @@ import { memo, useMemo } from "react";
 import { Animated, StyleSheet, Text, View } from "react-native";
 
 import { FriendTimeZone } from "@/constants/mock-data";
+import { AppColors } from "@/constants/theme";
 import { getDeviceLocaleTag } from "@/i18n";
 
 interface FriendTimeCardProps {
@@ -69,17 +70,17 @@ const styles = StyleSheet.create({
   city: {
     fontSize: 20,
     fontWeight: "700",
-    color: "#111111",
+    color: AppColors.lilac.textPrimary,
   },
   difference: {
     marginTop: 6,
     fontSize: 14,
-    color: "rgba(17,17,17,0.6)",
+    color: AppColors.lilac.textSecondary,
   },
   time: {
     fontSize: 26,
     fontWeight: "700",
-    color: "#111111",
+    color: AppColors.lilac.textPrimary,
     fontVariant: ["tabular-nums"],
   },
 });

@@ -2,18 +2,19 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { useMemo, useState } from "react";
 import {
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Switch,
-  Text,
-  View,
+    SafeAreaView,
+    ScrollView,
+    StyleSheet,
+    Switch,
+    Text,
+    View,
 } from "react-native";
 
 import { DaySelector } from "@/components/activity/day-selector";
 import { Card } from "@/components/ui/card";
 import { FloatingActionButton } from "@/components/ui/floating-action-button";
 import { activitiesMock } from "@/constants/mock-data";
+import { AppColors } from "@/constants/theme";
 import { t } from "@/i18n";
 import { HomeActivity } from "@/types/home";
 
@@ -56,7 +57,10 @@ export default function ActivityDetailScreen() {
             <Switch
               value={enabled}
               onValueChange={setEnabled}
-              trackColor={{ false: "rgba(17,17,17,0.12)", true: "#111111" }}
+              trackColor={{
+                false: AppColors.lilac.switchOff,
+                true: AppColors.lilac.switchOn,
+              }}
               thumbColor="#ffffff"
             />
           </View>
@@ -73,18 +77,29 @@ export default function ActivityDetailScreen() {
             <Switch
               value={notificationsEnabled}
               onValueChange={setNotificationsEnabled}
-              trackColor={{ false: "rgba(17,17,17,0.12)", true: "#111111" }}
+              trackColor={{
+                false: AppColors.lilac.switchOff,
+                true: AppColors.lilac.switchOn,
+              }}
               thumbColor="#ffffff"
             />
           </View>
           <View style={[styles.secondaryRow, styles.sectionSpacingLarge]}>
             <View style={[styles.secondaryItem, styles.secondaryItemSpacing]}>
-              <MaterialIcons name="payments" size={22} color="#111111" />
+              <MaterialIcons
+                name="payments"
+                size={22}
+                color={AppColors.lilac.iconStrong}
+              />
               <Text style={styles.secondaryLabel}>{t("activity.amount")}</Text>
               <Text style={styles.secondaryValue}>{activity.amountLabel}</Text>
             </View>
             <View style={styles.secondaryItem}>
-              <MaterialIcons name="cancel" size={22} color="#111111" />
+              <MaterialIcons
+                name="cancel"
+                size={22}
+                color={AppColors.lilac.iconStrong}
+              />
               <Text style={styles.secondaryLabel}>{t("activity.cancel")}</Text>
               <Text style={styles.secondaryValue}>
                 {t("activity.noRepeat")}
@@ -94,7 +109,11 @@ export default function ActivityDetailScreen() {
         </Card>
       </ScrollView>
       <FloatingActionButton style={styles.fab} onPress={handleNavigateToFocus}>
-        <MaterialIcons name="play-arrow" size={30} color="#ffffff" />
+        <MaterialIcons
+          name="play-arrow"
+          size={30}
+          color={AppColors.lilac.iconStrong}
+        />
       </FloatingActionButton>
     </SafeAreaView>
   );
@@ -114,7 +133,7 @@ const styles = StyleSheet.create({
     marginTop: 48,
     textAlign: "center",
     fontSize: 16,
-    color: "#111111",
+    color: AppColors.lilac.textPrimary,
   },
   card: {},
   headerRow: {
@@ -125,17 +144,17 @@ const styles = StyleSheet.create({
   activityTitle: {
     fontSize: 26,
     fontWeight: "700",
-    color: "#111111",
+    color: AppColors.lilac.textPrimary,
   },
   subtitle: {
     marginTop: 4,
     fontSize: 14,
-    color: "rgba(17,17,17,0.6)",
+    color: AppColors.lilac.textSecondary,
   },
   timeLabel: {
     fontSize: 32,
     fontWeight: "700",
-    color: "#111111",
+    color: AppColors.lilac.textPrimary,
   },
   toggleRow: {
     flexDirection: "row",
@@ -146,7 +165,7 @@ const styles = StyleSheet.create({
   toggleLabel: {
     fontSize: 16,
     fontWeight: "600",
-    color: "#111111",
+    color: AppColors.lilac.textPrimary,
   },
   secondaryRow: {
     flexDirection: "row",
@@ -154,9 +173,9 @@ const styles = StyleSheet.create({
   secondaryItem: {
     flex: 1,
     borderRadius: 18,
-    backgroundColor: "rgba(17,17,17,0.04)",
+    backgroundColor: AppColors.lilac.chip,
     borderWidth: 1,
-    borderColor: "rgba(17,17,17,0.08)",
+    borderColor: AppColors.lilac.border,
     paddingVertical: 16,
     paddingHorizontal: 14,
   },
@@ -166,13 +185,13 @@ const styles = StyleSheet.create({
   secondaryLabel: {
     marginTop: 8,
     fontSize: 14,
-    color: "rgba(17,17,17,0.6)",
+    color: AppColors.lilac.textSecondary,
   },
   secondaryValue: {
     marginTop: 4,
     fontSize: 18,
     fontWeight: "700",
-    color: "#111111",
+    color: AppColors.lilac.textPrimary,
   },
   sectionSpacing: {
     marginTop: 18,

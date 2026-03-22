@@ -5,8 +5,8 @@ import React from "react";
 import { Pressable, StyleSheet, View } from "react-native";
 
 import { HapticTab } from "@/components/haptic-tab";
-import { Colors } from "@/constants/theme";
-import { useColorScheme } from "@/hooks/use-color-scheme";
+import { SkiaGlassSurface } from "@/components/ui/skia-glass-surface";
+import { AppColors } from "@/constants/theme";
 import { t } from "@/i18n";
 
 function CenterTabButton({
@@ -27,11 +27,18 @@ function CenterTabButton({
           isActive && styles.centerButtonOuterActive,
         ]}
       >
+        <SkiaGlassSurface
+          borderRadius={39}
+          style={styles.centerButtonGlass}
+          tintColor={AppColors.limeGlass.tintStrong}
+          highlightColor={AppColors.limeGlass.highlightStrong}
+          strokeColor={AppColors.limeGlass.strokeStrong}
+        />
         <View style={styles.centerButtonInner}>
           <MaterialIcons
             name={"mood" as never}
             size={30}
-            color={isActive ? "#2563eb" : "#4f46e5"}
+            color={isActive ? AppColors.lilac.iconStrong : AppColors.lilac.icon}
           />
         </View>
       </View>
@@ -40,17 +47,25 @@ function CenterTabButton({
 }
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
-  const palette = Colors[colorScheme ?? "light"];
-
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: palette.background,
-        tabBarInactiveTintColor: "rgba(255,255,255,0.55)",
+        tabBarActiveTintColor: AppColors.lilac.iconStrong,
+        tabBarInactiveTintColor: AppColors.lilac.textSecondary,
         headerShown: false,
         tabBarButton: HapticTab,
         tabBarShowLabel: false,
+        tabBarItemStyle: styles.tabBarItem,
+        tabBarBackground: () => (
+          <SkiaGlassSurface
+            borderRadius={20}
+            style={StyleSheet.absoluteFill}
+            tintColor="rgba(131, 204, 22, 0.62)"
+            highlightColor="rgba(236, 253, 245, 0.58)"
+            strokeColor="rgba(190, 242, 100, 0.58)"
+
+          />
+        ),
         tabBarStyle: styles.tabBar,
       }}
     >
@@ -108,35 +123,45 @@ const styles = StyleSheet.create({
     left: 16,
     right: 16,
     bottom: 14,
-    height: 66,
+    height: 72,
+    margin: 10,
     borderRadius: 20,
     borderTopWidth: 0,
-    backgroundColor: "#0f0f10",
+    backgroundColor: "transparent",
     paddingHorizontal: 12,
+    paddingBottom: 8,
+    paddingTop: 8,
+    elevation: 0,
+    shadowOpacity: 0,
+  },
+  tabBarItem: {
+    marginTop: 9,
   },
   centerButtonWrapper: {
-    top: -24,
+    top: -18,
     justifyContent: "center",
     alignItems: "center",
   },
   centerButtonOuter: {
-    width: 78,
-    height: 78,
-    borderRadius: 39,
-    backgroundColor: "#d4d4d8",
+    width: 74,
+    height: 74,
+    borderRadius: 37,
+    backgroundColor: "transparent",
     justifyContent: "center",
     alignItems: "center",
-    borderWidth: 4,
-    borderColor: "#f4f4f5",
+    overflow: "hidden",
+  },
+  centerButtonGlass: {
+    ...StyleSheet.absoluteFillObject,
   },
   centerButtonOuterActive: {
     transform: [{ scale: 1.02 }],
   },
   centerButtonInner: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    backgroundColor: "#f4f4f5",
+    width: 56,
+    height: 56,
+    borderRadius: 28,
+    backgroundColor: "rgba(255,255,255,0.3)",
     justifyContent: "center",
     alignItems: "center",
   },

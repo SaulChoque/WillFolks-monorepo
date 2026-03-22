@@ -4,10 +4,11 @@ import { SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
 import { RecentActivityCard } from "@/components/dashboard/recent-activity-card";
 import { FloatingActionButton } from "@/components/ui/floating-action-button";
 import {
-  accountInfo,
-  activitiesMock,
-  dashboardActivityIds,
+    accountInfo,
+    activitiesMock,
+    dashboardActivityIds,
 } from "@/constants/mock-data";
+import { AppColors } from "@/constants/theme";
 import { t } from "@/i18n";
 
 export default function DashboardScreen() {
@@ -33,7 +34,11 @@ export default function DashboardScreen() {
             </Text>
           </View>
           <View style={styles.avatar}>
-            <MaterialIcons name="person" size={24} color="#111111" />
+            <MaterialIcons
+              name="person"
+              size={24}
+              color={AppColors.lilac.iconStrong}
+            />
           </View>
         </View>
         <View style={styles.listContent}>
@@ -45,7 +50,11 @@ export default function DashboardScreen() {
         </View>
       </ScrollView>
       <FloatingActionButton style={styles.fab}>
-        <MaterialIcons name="add" size={28} color="#ffffff" />
+        <MaterialIcons
+          name="add"
+          size={28}
+          color={AppColors.lilac.iconStrong}
+        />
       </FloatingActionButton>
     </SafeAreaView>
   );
@@ -70,12 +79,12 @@ const styles = StyleSheet.create({
   greetingTitle: {
     fontSize: 22,
     fontWeight: "700",
-    color: "#111111",
+    color: AppColors.lilac.textPrimary,
   },
   greetingSubtitle: {
     marginTop: 6,
     fontSize: 14,
-    color: "rgba(17,17,17,0.6)",
+    color: AppColors.lilac.textSecondary,
   },
   avatar: {
     width: 44,

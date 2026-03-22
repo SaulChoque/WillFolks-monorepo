@@ -13,6 +13,7 @@ import {
 } from "react-native";
 
 import { Card } from "@/components/ui/card";
+import { AppColors } from "@/constants/theme";
 import { useWalletSecurity } from "@/hooks/use-wallet-security";
 import { t } from "@/i18n";
 
@@ -94,7 +95,11 @@ export default function SettingsScreen() {
             onPress={() => router.push("/account")}
           >
             <View style={styles.accountIcon}>
-              <MaterialIcons name="person" size={20} color="#111111" />
+              <MaterialIcons
+                name="person"
+                size={20}
+                color={AppColors.lilac.iconStrong}
+              />
             </View>
             <View style={styles.accountText}>
               <Text style={styles.accountTitle}>
@@ -107,7 +112,7 @@ export default function SettingsScreen() {
             <MaterialIcons
               name="chevron-right"
               size={24}
-              color="rgba(17,17,17,0.6)"
+              color={AppColors.lilac.textSecondary}
             />
           </Pressable>
         </Card>
@@ -202,7 +207,11 @@ function SettingRow({
   return (
     <View style={styles.settingRow}>
       <View style={styles.settingIcon}>
-        <MaterialIcons name={icon} size={19} color="#111111" />
+        <MaterialIcons
+          name={icon}
+          size={19}
+          color={AppColors.lilac.iconStrong}
+        />
       </View>
       <View style={styles.settingText}>
         <Text style={styles.settingLabel}>{label}</Text>
@@ -211,7 +220,10 @@ function SettingRow({
       <Switch
         value={value}
         onValueChange={onValueChange}
-        trackColor={{ false: "rgba(17,17,17,0.14)", true: "#111111" }}
+        trackColor={{
+          false: AppColors.lilac.switchOff,
+          true: AppColors.lilac.switchOn,
+        }}
         thumbColor="#ffffff"
       />
     </View>
@@ -232,12 +244,12 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 22,
     fontWeight: "700",
-    color: "#111111",
+    color: AppColors.lilac.textPrimary,
   },
   sectionTitle: {
     fontSize: 14,
     fontWeight: "700",
-    color: "rgba(17,17,17,0.6)",
+    color: AppColors.lilac.textSecondary,
     letterSpacing: 0.6,
     textTransform: "uppercase",
     marginBottom: 10,
@@ -251,7 +263,7 @@ const styles = StyleSheet.create({
     width: 38,
     height: 38,
     borderRadius: 19,
-    backgroundColor: "rgba(17,17,17,0.08)",
+    backgroundColor: AppColors.lilac.chip,
     alignItems: "center",
     justifyContent: "center",
     marginRight: 12,
@@ -262,12 +274,12 @@ const styles = StyleSheet.create({
   settingLabel: {
     fontSize: 15,
     fontWeight: "600",
-    color: "#111111",
+    color: AppColors.lilac.textPrimary,
   },
   settingDescription: {
     marginTop: 2,
     fontSize: 12,
-    color: "rgba(17,17,17,0.6)",
+    color: AppColors.lilac.textSecondary,
   },
   accountLink: {
     flexDirection: "row",
@@ -278,7 +290,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: "rgba(17,17,17,0.08)",
+    backgroundColor: AppColors.lilac.chip,
     alignItems: "center",
     justifyContent: "center",
     marginRight: 12,
@@ -289,52 +301,52 @@ const styles = StyleSheet.create({
   accountTitle: {
     fontSize: 16,
     fontWeight: "700",
-    color: "#111111",
+    color: AppColors.lilac.textPrimary,
   },
   accountDescription: {
     marginTop: 2,
     fontSize: 13,
-    color: "rgba(17,17,17,0.6)",
+    color: AppColors.lilac.textSecondary,
   },
   walletItem: {
     paddingVertical: 8,
     borderTopWidth: 1,
-    borderTopColor: "rgba(17,17,17,0.08)",
+    borderTopColor: AppColors.lilac.border,
   },
   walletLabel: {
     fontSize: 13,
     fontWeight: "700",
-    color: "rgba(17,17,17,0.6)",
+    color: AppColors.lilac.textSecondary,
     marginBottom: 5,
     textTransform: "uppercase",
     letterSpacing: 0.4,
   },
   walletValue: {
     fontSize: 13,
-    color: "#111111",
+    color: AppColors.lilac.textPrimary,
     lineHeight: 19,
   },
   sensitiveLockBox: {
     marginTop: 8,
     paddingTop: 12,
     borderTopWidth: 1,
-    borderTopColor: "rgba(17,17,17,0.08)",
+    borderTopColor: AppColors.lilac.border,
   },
   lockedTitle: {
     fontSize: 15,
     fontWeight: "700",
-    color: "#111111",
+    color: AppColors.lilac.textPrimary,
   },
   lockedDescription: {
     marginTop: 4,
     fontSize: 13,
-    color: "rgba(17,17,17,0.6)",
+    color: AppColors.lilac.textSecondary,
   },
   unlockButton: {
     marginTop: 12,
     height: 44,
     borderRadius: 12,
-    backgroundColor: "#111111",
+    backgroundColor: AppColors.lilac.switchOn,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -351,18 +363,18 @@ const styles = StyleSheet.create({
     height: 44,
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: "rgba(17,17,17,0.16)",
+    borderColor: AppColors.lilac.border,
     alignItems: "center",
     justifyContent: "center",
   },
   lockButtonText: {
     fontSize: 14,
     fontWeight: "700",
-    color: "#111111",
+    color: AppColors.lilac.textPrimary,
   },
   walletError: {
     marginTop: 8,
     fontSize: 13,
-    color: "#111111",
+    color: AppColors.lilac.textPrimary,
   },
 });

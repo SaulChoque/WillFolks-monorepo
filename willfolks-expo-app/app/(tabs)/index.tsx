@@ -5,6 +5,7 @@ import { SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
 import { FriendTimeCard } from "@/components/time/friend-time-card";
 import { FloatingActionButton } from "@/components/ui/floating-action-button";
 import { friendTimeZones } from "@/constants/mock-data";
+import { AppColors } from "@/constants/theme";
 import { getDeviceLocaleTag, t } from "@/i18n";
 
 export default function TimeScreen() {
@@ -39,7 +40,11 @@ export default function TimeScreen() {
         ))}
       </ScrollView>
       <FloatingActionButton style={styles.fab}>
-        <MaterialIcons name="add" size={28} color="#ffffff" />
+        <MaterialIcons
+          name="add"
+          size={28}
+          color={AppColors.lilac.iconStrong}
+        />
       </FloatingActionButton>
     </SafeAreaView>
   );
@@ -76,7 +81,7 @@ const styles = StyleSheet.create({
     marginTop: 16,
     fontSize: 18,
     fontWeight: "600",
-    color: "rgba(17,17,17,0.6)",
+    color: AppColors.lilac.textSecondary,
   },
   clockWrapper: {
     borderRadius: 32,
@@ -94,13 +99,13 @@ const styles = StyleSheet.create({
   clock: {
     fontSize: 48,
     fontWeight: "700",
-    color: "#111111",
+    color: AppColors.lilac.textPrimary,
     fontVariant: ["tabular-nums"],
   },
   date: {
     marginTop: 12,
     fontSize: 16,
-    color: "rgba(17,17,17,0.6)",
+    color: AppColors.lilac.textSecondary,
   },
   sectionHeader: {
     marginTop: 24,
@@ -108,7 +113,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 18,
     fontWeight: "700",
-    color: "#111111",
+    color: AppColors.lilac.textPrimary,
   },
   fab: {
     position: "absolute",

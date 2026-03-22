@@ -1,14 +1,15 @@
+import { AppColors } from "@/constants/theme";
 import { t } from "@/i18n";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Canvas, useFrame } from "@react-three/fiber/native";
 import React, { useEffect, useMemo } from "react";
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import {
-  AmbientLight,
-  DirectionalLight,
-  IcosahedronGeometry,
-  Mesh,
-  MeshStandardMaterial,
+    AmbientLight,
+    DirectionalLight,
+    IcosahedronGeometry,
+    Mesh,
+    MeshStandardMaterial,
 } from "three";
 
 const Primitive = "primitive" as unknown as React.ComponentType<{
@@ -74,7 +75,7 @@ export default function Home3DTabScreen() {
                 <MaterialIcons
                   name="sentiment-satisfied-alt"
                   size={30}
-                  color="#111111"
+                  color={AppColors.lilac.iconStrong}
                 />
               </View>
             </View>
@@ -82,7 +83,11 @@ export default function Home3DTabScreen() {
           </View>
 
           <View style={styles.streakBadge}>
-            <MaterialIcons name="whatshot" size={28} color="#111111" />
+            <MaterialIcons
+              name="whatshot"
+              size={28}
+              color={AppColors.lilac.iconStrong}
+            />
             <Text style={styles.badgeLabel}>{t("home3d.streak")}</Text>
           </View>
         </View>
@@ -126,9 +131,9 @@ const styles = StyleSheet.create({
     height: 64,
     borderRadius: 32,
     borderWidth: 5,
-    borderColor: "rgba(17,17,17,0.14)",
-    borderTopColor: "#22c55e",
-    borderRightColor: "#22c55e",
+    borderColor: AppColors.lilac.border,
+    borderTopColor: AppColors.lilac.icon,
+    borderRightColor: AppColors.lilac.icon,
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#ffffff",
@@ -149,13 +154,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderWidth: 1,
-    borderColor: "rgba(17,17,17,0.08)",
+    borderColor: AppColors.lilac.border,
   },
   badgeLabel: {
     marginTop: 6,
     fontSize: 12,
     fontWeight: "600",
-    color: "rgba(17,17,17,0.65)",
+    color: AppColors.lilac.textSecondary,
   },
   modelCard: {
     flex: 1,
@@ -171,7 +176,7 @@ const styles = StyleSheet.create({
   modelTitle: {
     fontSize: 20,
     fontWeight: "700",
-    color: "#111111",
+    color: AppColors.lilac.textPrimary,
     marginBottom: 12,
   },
   canvasContainer: {
@@ -180,6 +185,6 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     backgroundColor: "#f8f8f8",
     borderWidth: 1,
-    borderColor: "rgba(17,17,17,0.08)",
+    borderColor: AppColors.lilac.border,
   },
 });

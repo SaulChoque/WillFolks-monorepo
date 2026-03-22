@@ -3,13 +3,14 @@ import { useCallback, useState } from "react";
 import { FlatList, SafeAreaView, StyleSheet, Text, View } from "react-native";
 
 import ActivityCard, {
-  ActivityDraftCard,
+    ActivityDraftCard,
 } from "@/components/activity/activity-card";
 import { FloatingActionButton } from "@/components/ui/floating-action-button";
 import {
-  activitiesMock,
-  createEmptyActivityDraft,
+    activitiesMock,
+    createEmptyActivityDraft,
 } from "@/constants/mock-data";
+import { AppColors } from "@/constants/theme";
 import { t } from "@/i18n";
 import { Activity, ActivityDraftState, MaterialIconName } from "@/types/home";
 
@@ -70,7 +71,11 @@ export default function ActivitiesScreen() {
         }
       />
       <FloatingActionButton style={styles.fab} onPress={handleAddDraft}>
-        <MaterialIcons name="add" size={28} color="#ffffff" />
+        <MaterialIcons
+          name="add"
+          size={28}
+          color={AppColors.lilac.iconStrong}
+        />
       </FloatingActionButton>
     </SafeAreaView>
   );
@@ -157,7 +162,7 @@ const styles = StyleSheet.create({
   pageTitle: {
     fontSize: 22,
     fontWeight: "700",
-    color: "#111111",
+    color: AppColors.lilac.textPrimary,
   },
   draftSpacing: {
     marginBottom: 8,

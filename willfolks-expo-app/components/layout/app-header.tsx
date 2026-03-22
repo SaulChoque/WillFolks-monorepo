@@ -4,12 +4,22 @@ import { useRouter } from "expo-router";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+import { SkiaGlassSurface } from "@/components/ui/skia-glass-surface";
+import { AppColors } from "@/constants/theme";
+
 export function AppHeader() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
 
   return (
-    <View style={[styles.wrapper, { paddingTop: insets.top + 8 }]}>
+    <View style={[styles.wrapper, { paddingTop: 12}]}>
+      <SkiaGlassSurface
+        borderRadius={22}
+        style={styles.glassBackground}
+        tintColor="rgba(132,204,22,0.34)"
+        highlightColor="rgba(236,253,245,0.3)"
+        strokeColor="rgba(190,242,100,0.4)"
+      />
       <View style={styles.content}>
         <Pressable
           accessibilityRole="button"
@@ -25,7 +35,11 @@ export function AppHeader() {
           accessibilityLabel={t("header.comments")}
           style={styles.commentButton}
         >
-          <MaterialIcons name="chat-bubble-outline" size={25} color="#ffffff" />
+          <MaterialIcons
+            name="chat-bubble-outline"
+            size={25}
+            color={AppColors.lilac.iconStrong}
+          />
         </Pressable>
       </View>
     </View>
@@ -34,9 +48,17 @@ export function AppHeader() {
 
 const styles = StyleSheet.create({
   wrapper: {
-    backgroundColor: "#000000",
+    marginHorizontal: 12,
+    marginTop: 30,
+    borderRadius: 22,
+    overflow: "hidden",
     paddingBottom: 12,
     paddingHorizontal: 18,
+  },
+  glassBackground: {
+    ...StyleSheet.absoluteFillObject,
+    borderRadius: 22,
+    transform: [{ scale: 1.02 }],
   },
   content: {
     flexDirection: "row",
@@ -49,10 +71,10 @@ const styles = StyleSheet.create({
     borderRadius: 22,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#0a73c9",
+    backgroundColor: "rgba(124,58,237,0.18)",
   },
   avatarLabel: {
-    color: "#cdeaff",
+    color: AppColors.lilac.iconStrong,
     fontSize: 22,
     fontWeight: "700",
     textTransform: "lowercase",
@@ -63,5 +85,6 @@ const styles = StyleSheet.create({
     borderRadius: 22,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "rgba(124,58,237,0.12)",
   },
 });

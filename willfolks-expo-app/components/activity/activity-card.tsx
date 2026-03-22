@@ -1,29 +1,30 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import DateTimePicker, {
-  DateTimePickerAndroid,
-  DateTimePickerEvent,
+    DateTimePickerAndroid,
+    DateTimePickerEvent,
 } from "@react-native-community/datetimepicker";
 import * as DocumentPicker from "expo-document-picker";
 import { ReactNode, useCallback, useEffect, useState } from "react";
 import {
-  FlatList,
-  Modal,
-  Platform,
-  Pressable,
-  StyleSheet,
-  Switch,
-  Text,
-  TextInput,
-  View,
+    FlatList,
+    Modal,
+    Platform,
+    Pressable,
+    StyleSheet,
+    Switch,
+    Text,
+    TextInput,
+    View,
 } from "react-native";
 import Animated, { FadeInDown } from "react-native-reanimated";
-// eslint-disable-next-line import/no-unresolved
+ 
 import {
-  Accordion,
-  AccordionItem,
+    Accordion,
+    AccordionItem,
 } from "@mustapha-ghlissi/react-native-accordion";
 
 import { InstalledApp, installedApps } from "@/constants/mock-data";
+import { AppColors } from "@/constants/theme";
 import { t } from "@/i18n";
 import { Activity, ActivityDraftState, MaterialIconName } from "@/types/home";
 import { formatDateTime, formatDuration, formatTime } from "@/utils/datetime";
@@ -50,7 +51,10 @@ export default function ActivityCard({ activity }: ActivityCardProps) {
       <Switch
         value={isActive}
         onValueChange={setIsActive}
-        trackColor={{ false: "rgba(17,17,17,0.12)", true: "#111111" }}
+        trackColor={{
+          false: AppColors.lilac.switchOff,
+          true: AppColors.lilac.switchOn,
+        }}
         thumbColor="#ffffff"
       />
     </View>
@@ -66,7 +70,7 @@ export default function ActivityCard({ activity }: ActivityCardProps) {
               <MaterialIcons
                 name="keyboard-arrow-right"
                 size={22}
-                color="#111111"
+                color={AppColors.lilac.iconStrong}
               />
             </View>
           }
@@ -154,7 +158,10 @@ function AlarmDetails({
           <Switch
             value={notificationsEnabled}
             onValueChange={setNotificationsEnabled}
-            trackColor={{ false: "rgba(17,17,17,0.12)", true: "#111111" }}
+            trackColor={{
+              false: AppColors.lilac.switchOff,
+              true: AppColors.lilac.switchOn,
+            }}
             thumbColor="#ffffff"
           />
         }
@@ -215,7 +222,10 @@ function TimerDetails({
           <Switch
             value={notificationsEnabled}
             onValueChange={setNotificationsEnabled}
-            trackColor={{ false: "rgba(17,17,17,0.12)", true: "#111111" }}
+            trackColor={{
+              false: AppColors.lilac.switchOff,
+              true: AppColors.lilac.switchOn,
+            }}
             thumbColor="#ffffff"
           />
         }
@@ -408,7 +418,10 @@ export function ActivityDraftCard({
               onValueChange={(value) =>
                 updateForm((prev) => ({ ...prev, isActive: value }))
               }
-              trackColor={{ false: "rgba(17,17,17,0.12)", true: "#111111" }}
+              trackColor={{
+                false: AppColors.lilac.switchOff,
+                true: AppColors.lilac.switchOn,
+              }}
               thumbColor="#ffffff"
             />
           </View>
@@ -467,8 +480,8 @@ export function ActivityDraftCard({
                         }))
                       }
                       trackColor={{
-                        false: "rgba(17,17,17,0.12)",
-                        true: "#111111",
+                        false: AppColors.lilac.switchOff,
+                        true: AppColors.lilac.switchOn,
                       }}
                       thumbColor="#ffffff"
                     />
@@ -540,7 +553,10 @@ export function ActivityDraftCard({
                       notificationsEnabled: value,
                     }))
                   }
-                  trackColor={{ false: "rgba(17,17,17,0.12)", true: "#111111" }}
+                  trackColor={{
+                    false: AppColors.lilac.switchOff,
+                    true: AppColors.lilac.switchOn,
+                  }}
                   thumbColor="#ffffff"
                 />
               }
@@ -590,7 +606,11 @@ export function ActivityDraftCard({
                   {typeLabel(typeOption)}
                 </Text>
                 {form.type === typeOption ? (
-                  <MaterialIcons name="check" size={20} color="#111111" />
+                  <MaterialIcons
+                    name="check"
+                    size={20}
+                    color={AppColors.lilac.iconStrong}
+                  />
                 ) : null}
               </Pressable>
             ))}
@@ -624,12 +644,16 @@ export function ActivityDraftCard({
                   <MaterialIcons
                     name={item.iconName as MaterialIconName}
                     size={20}
-                    color="#111111"
+                    color={AppColors.lilac.iconStrong}
                     style={styles.modalOptionIcon}
                   />
                   <Text style={styles.modalOptionText}>{item.name}</Text>
                   {form.timerSettings.appId === item.id ? (
-                    <MaterialIcons name="check" size={20} color="#111111" />
+                    <MaterialIcons
+                      name="check"
+                      size={20}
+                      color={AppColors.lilac.iconStrong}
+                    />
                   ) : null}
                 </Pressable>
               )}
@@ -717,7 +741,7 @@ function DetailRow({
   const Wrapper = onPress ? Pressable : View;
   const wrapperProps = onPress
     ? {
-        android_ripple: { color: "rgba(17,17,17,0.04)" },
+        android_ripple: { color: AppColors.lilac.chip },
         onPress,
       }
     : {};
@@ -725,7 +749,11 @@ function DetailRow({
   return (
     <Wrapper style={styles.detailRow} {...wrapperProps}>
       <View style={styles.detailIcon}>
-        <MaterialIcons name={icon} size={20} color="#111111" />
+        <MaterialIcons
+          name={icon}
+          size={20}
+          color={AppColors.lilac.iconStrong}
+        />
       </View>
       <View style={styles.detailTexts}>
         <Text style={styles.detailLabel}>{label}</Text>
@@ -790,18 +818,18 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: "700",
-    color: "#111111",
+    color: AppColors.lilac.textPrimary,
   },
   subtitle: {
     marginTop: 4,
     fontSize: 14,
-    color: "rgba(17,17,17,0.6)",
+    color: AppColors.lilac.textSecondary,
   },
   chevronBadge: {
     width: 32,
     height: 32,
     borderRadius: 16,
-    backgroundColor: "rgba(17,17,17,0.08)",
+    backgroundColor: AppColors.lilac.chip,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -821,7 +849,7 @@ const styles = StyleSheet.create({
     width: 36,
     height: 36,
     borderRadius: 18,
-    backgroundColor: "rgba(17,17,17,0.08)",
+    backgroundColor: AppColors.lilac.chip,
     alignItems: "center",
     justifyContent: "center",
     marginRight: 12,
@@ -833,13 +861,13 @@ const styles = StyleSheet.create({
     fontSize: 12,
     textTransform: "uppercase",
     letterSpacing: 0.5,
-    color: "rgba(17,17,17,0.6)",
+    color: AppColors.lilac.textSecondary,
   },
   detailValue: {
     marginTop: 4,
     fontSize: 16,
     fontWeight: "600",
-    color: "#111111",
+    color: AppColors.lilac.textPrimary,
   },
   sectionTitle: {
     marginTop: 12,
@@ -847,7 +875,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     textTransform: "uppercase",
     letterSpacing: 0.5,
-    color: "rgba(17,17,17,0.6)",
+    color: AppColors.lilac.textSecondary,
   },
   dangerButton: {
     marginTop: 16,
@@ -872,12 +900,12 @@ const styles = StyleSheet.create({
   titleInput: {
     fontSize: 20,
     fontWeight: "700",
-    color: "#111111",
+    color: AppColors.lilac.textPrimary,
   },
   subtitleInput: {
     marginTop: 4,
     fontSize: 14,
-    color: "#111111",
+    color: AppColors.lilac.textPrimary,
   },
   durationRow: {
     flexDirection: "row",
@@ -895,14 +923,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: "rgba(17,17,17,0.16)",
+    borderColor: AppColors.lilac.border,
     textAlign: "center",
-    color: "#111111",
+    color: AppColors.lilac.textPrimary,
     fontWeight: "600",
   },
   durationSeparator: {
     fontSize: 14,
-    color: "rgba(17,17,17,0.6)",
+    color: AppColors.lilac.textSecondary,
   },
   amountRow: {
     marginTop: 12,
@@ -914,11 +942,11 @@ const styles = StyleSheet.create({
     marginLeft: 12,
     flex: 1,
     borderWidth: 1,
-    borderColor: "rgba(17,17,17,0.16)",
+    borderColor: AppColors.lilac.border,
     borderRadius: 10,
     paddingHorizontal: 12,
     paddingVertical: 8,
-    color: "#111111",
+    color: AppColors.lilac.textPrimary,
     fontWeight: "600",
   },
   draftActions: {
@@ -930,19 +958,19 @@ const styles = StyleSheet.create({
     flex: 1,
     borderRadius: 16,
     borderWidth: 1,
-    borderColor: "rgba(17,17,17,0.12)",
+    borderColor: AppColors.lilac.border,
     alignItems: "center",
     paddingVertical: 12,
   },
   secondaryButtonLabel: {
     fontSize: 15,
     fontWeight: "600",
-    color: "#111111",
+    color: AppColors.lilac.textPrimary,
   },
   primaryButton: {
     flex: 1,
     borderRadius: 16,
-    backgroundColor: "#111111",
+    backgroundColor: AppColors.lilac.switchOn,
     alignItems: "center",
     paddingVertical: 12,
   },
@@ -969,7 +997,7 @@ const styles = StyleSheet.create({
   modalTitle: {
     fontSize: 18,
     fontWeight: "700",
-    color: "#111111",
+    color: AppColors.lilac.textPrimary,
   },
   modalOption: {
     flexDirection: "row",
@@ -979,7 +1007,7 @@ const styles = StyleSheet.create({
   },
   modalOptionText: {
     fontSize: 16,
-    color: "#111111",
+    color: AppColors.lilac.textPrimary,
     flex: 1,
   },
   modalOptionIcon: {
@@ -992,7 +1020,7 @@ const styles = StyleSheet.create({
   },
   modalCancelText: {
     fontSize: 14,
-    color: "rgba(17,17,17,0.6)",
+    color: AppColors.lilac.textSecondary,
   },
   modalPickerActions: {
     flexDirection: "row",
@@ -1002,7 +1030,7 @@ const styles = StyleSheet.create({
   modalConfirm: {
     paddingVertical: 8,
     paddingHorizontal: 16,
-    backgroundColor: "#111111",
+    backgroundColor: AppColors.lilac.switchOn,
     borderRadius: 12,
   },
   modalConfirmText: {
