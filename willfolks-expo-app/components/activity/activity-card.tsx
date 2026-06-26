@@ -4,6 +4,7 @@ import DateTimePicker, {
     DateTimePickerEvent,
 } from "@react-native-community/datetimepicker";
 import * as DocumentPicker from "expo-document-picker";
+import * as ImagePicker from "expo-image-picker";
 import { ReactNode, useCallback, useEffect, useState } from "react";
 import {
     FlatList,
@@ -17,20 +18,22 @@ import {
     View,
 } from "react-native";
 import Animated, { FadeInDown } from "react-native-reanimated";
- 
-import {
-    Accordion,
-    AccordionItem,
-} from "@mustapha-ghlissi/react-native-accordion";
 
 import { InstalledApp, installedApps } from "@/constants/mock-data";
 import { AppColors } from "@/constants/theme";
 import { t } from "@/i18n";
-import { Activity, ActivityDraftState, MaterialIconName } from "@/types/home";
+import {
+    Activity,
+    ActivityDraftState,
+    DaySelection,
+    MaterialIconName,
+} from "@/types/home";
 import { formatDateTime, formatDuration, formatTime } from "@/utils/datetime";
 import { DaySelector } from "./day-selector";
 
-type PickerField = "start" | "end" | "alarm";
+type PickerField = "start" | "end" | "objective";
+
+type WilliamType = ActivityDraftState["type"];
 
 export interface ActivityCardProps {
   activity: Activity;
@@ -38,205 +41,157 @@ export interface ActivityCardProps {
 
 export default function ActivityCard({ activity }: ActivityCardProps) {
   const [isActive, setIsActive] = useState(activity.isActive);
-  const [notificationsEnabled, setNotificationsEnabled] = useState(
-    activity.notificationsEnabled,
-  );
 
-  const headerContent = (
-    <View style={styles.headerContent}>
-      <View>
-        <Text style={styles.title}>{activity.title}</Text>
-        <Text style={styles.subtitle}>{activity.repeatLabel}</Text>
-      </View>
-      <Switch
-        value={isActive}
-        onValueChange={setIsActive}
-        trackColor={{
-          false: AppColors.lilac.switchOff,
-          true: AppColors.lilac.switchOn,
-        }}
-        thumbColor="#ffffff"
-      />
-    </View>
-  );
+  const typeText = typeLabel(activity.type);
 
   return (
     <Animated.View entering={FadeInDown.springify()}>
-      <Accordion containerStyle={styles.accordionContainer}>
-        <AccordionItem
-          title={headerContent}
-          rightIcon={
-            <View style={styles.chevronBadge}>
-              <MaterialIcons
-                name="keyboard-arrow-right"
-                size={22}
-                color={AppColors.lilac.iconStrong}
-              />
+      <View style={styles.card}>
+        <View style={styles.header}>
+          <View style={styles.headerContent}>
+            <View style={styles.titleContainer}>
+              <Text style={styles.title}>{activity.titulo}</Text>
+              <Text
+                style={styles.subtitle}
+              >{`${typeText} · ${activity.estado}`}</Text>
             </View>
-          }
-          headerStyle={styles.header}
-          titleContainerStyle={styles.titleContainer}
-          itemContainerStyle={styles.card}
-          contentContainerStyle={styles.contentContainer}
-        >
-          <View style={styles.sectionSpacing}>
-            <DaySelector days={activity.days} />
+            <Switch
+              value={isActive}
+              onValueChange={setIsActive}
+              trackColor={{
+                false: AppColors.lilac.switchOff,
+                true: AppColors.lilac.switchOn,
+              }}
+              thumbColor="#ffffff"
+            />
           </View>
-          <View style={styles.sectionSpacing}>
-            {activity.type === "alarm" ? (
-              <AlarmDetails
-                activity={activity}
-                notificationsEnabled={notificationsEnabled}
-                setNotificationsEnabled={setNotificationsEnabled}
-              />
-            ) : (
-              <TimerDetails
-                activity={activity}
-                notificationsEnabled={notificationsEnabled}
-                setNotificationsEnabled={setNotificationsEnabled}
-              />
-            )}
-          </View>
-        </AccordionItem>
-      </Accordion>
+        </View>
+
+        <View style={styles.contentContainer}>
+          <DetailRow
+            icon="payments"
+            label={t("activity.stakeAmount")}
+            value={`${activity.montoStake} USDC`}
+          />
+          <DetailRow
+            icon="group"
+            label={t("activity.participants")}
+            value={formatParticipants(activity.participantes)}
+          />
+          <DetailRow
+            icon="groups"
+            label={t("activity.isGroup")}
+            value={
+              activity.esGrupal ? t("common.enabled") : t("common.disabled")
+            }
+          />
+          <DetailRow
+            icon="event"
+            label={t("activity.start")}
+            value={formatDateTime(activity.fechaInicio)}
+          />
+          <DetailRow
+            icon="hourglass-bottom"
+            label={t("activity.end")}
+            value={formatDateTime(activity.fechaFin)}
+          />
+          <DetailRow
+            icon="lock-clock"
+            label={t("activity.defiLockDays")}
+            value={`${activity.diasBloqueoDefiExtra}`}
+          />
+          <DetailRow
+            icon="percent"
+            label={t("activity.devTipPercentage")}
+            value={`${activity.porcentajeTipDev}%`}
+          />
+
+          {activity.type === "irl" ? <IRLDetails activity={activity} /> : null}
+          {activity.type === "alarm" ? (
+            <AlarmDetails activity={activity} />
+          ) : null}
+          {activity.type === "timer" ? (
+            <AppTimerDetails activity={activity} />
+          ) : null}
+
+          {/* Campos legacy (fuera del UML): se mantienen comentados y no se eliminan.
+          <DetailRow icon="notifications" label={t("activity.notifications")} value={activity.notificationsEnabled ? t("common.enabled") : t("common.disabled")} />
+          <DetailRow icon="payments" label={t("activity.amount")} value={activity.amountLabel} />
+          */}
+        </View>
+      </View>
     </Animated.View>
   );
 }
 
-interface AlarmDetailsProps {
-  activity: Extract<Activity, { type: "alarm" }>;
-  notificationsEnabled: boolean;
-  setNotificationsEnabled: (value: boolean) => void;
+function IRLDetails({
+  activity,
+}: {
+  activity: Extract<Activity, { type: "irl" }>;
+}) {
+  return (
+    <>
+      <SectionTitle label={t("activity.irlSection")} />
+      <DetailRow
+        icon="psychology"
+        label={t("activity.aiPrompt")}
+        value={activity.promptIA || t("common.none")}
+      />
+      <DetailRow
+        icon="photo-library"
+        label={t("activity.evidenceCids")}
+        value={t("activity.irlEvidenceCount", {
+          count: activity.cidsEvidencia.length,
+        })}
+      />
+    </>
+  );
 }
 
 function AlarmDetails({
   activity,
-  notificationsEnabled,
-  setNotificationsEnabled,
-}: AlarmDetailsProps) {
+}: {
+  activity: Extract<Activity, { type: "alarm" }>;
+}) {
   return (
-    <View>
-      <DetailRow
-        icon="notifications-active"
-        label={t("activity.type")}
-        value={t("activity.alarm")}
-      />
+    <>
+      <SectionTitle label={t("activity.alarmSection")} />
       <DetailRow
         icon="alarm"
-        label={t("activity.alarm")}
-        value={formatTime(activity.alarmSettings.alarmTime)}
-      />
-      <SectionTitle label={t("activity.timeAndDate")} />
-      <DetailRow
-        icon="event"
-        label={t("activity.start")}
-        value={formatDateTime(activity.schedule.start)}
+        label={t("activity.objectiveTime")}
+        value={formatTime(activity.horaObjetivo)}
       />
       <DetailRow
-        icon="hourglass-bottom"
-        label={t("activity.end")}
-        value={formatDateTime(activity.schedule.end)}
+        icon="calendar-today"
+        label={t("activity.activeDays")}
+        value={formatActiveDays(activity.diasActivos)}
       />
       <DetailRow
-        icon="library-music"
-        label={t("activity.music")}
-        value={activity.alarmSettings.musicTitle}
+        icon="timer"
+        label={t("activity.maxReactionSeconds")}
+        value={`${activity.tiempoMaximoReaccionSegundos}s`}
       />
-      <DetailRow
-        icon="vibration"
-        label={t("activity.vibration")}
-        value={
-          activity.alarmSettings.vibrationEnabled
-            ? t("common.enabled")
-            : t("common.disabled")
-        }
-      />
-      <DetailRow
-        icon="notifications"
-        label={t("activity.notifications")}
-        trailing={
-          <Switch
-            value={notificationsEnabled}
-            onValueChange={setNotificationsEnabled}
-            trackColor={{
-              false: AppColors.lilac.switchOff,
-              true: AppColors.lilac.switchOn,
-            }}
-            thumbColor="#ffffff"
-          />
-        }
-      />
-      <DetailRow
-        icon="payments"
-        label={t("activity.amount")}
-        value={activity.amountLabel}
-      />
-      <DangerButton label={t("activity.cancel")} />
-    </View>
+    </>
   );
 }
 
-interface TimerDetailsProps {
-  activity: Extract<Activity, { type: "timer" }>;
-  notificationsEnabled: boolean;
-  setNotificationsEnabled: (value: boolean) => void;
-}
-
-function TimerDetails({
+function AppTimerDetails({
   activity,
-  notificationsEnabled,
-  setNotificationsEnabled,
-}: TimerDetailsProps) {
+}: {
+  activity: Extract<Activity, { type: "timer" }>;
+}) {
+  const appName = activity.timerSettings.appName || activity.appObjetivoId;
+
   return (
-    <View>
-      <DetailRow
-        icon="timer"
-        label={t("activity.type")}
-        value={t("activity.timer")}
-      />
-      <SectionTitle label={t("activity.timeAndDate")} />
-      <DetailRow
-        icon="event"
-        label={t("activity.start")}
-        value={formatDateTime(activity.schedule.start)}
-      />
-      <DetailRow
-        icon="hourglass-bottom"
-        label={t("activity.end")}
-        value={formatDateTime(activity.schedule.end)}
-      />
-      <DetailRow
-        icon="apps"
-        label={t("activity.app")}
-        value={activity.timerSettings.appName}
-      />
+    <>
+      <SectionTitle label={t("activity.appTimerSection")} />
+      <DetailRow icon="apps" label={t("activity.targetApp")} value={appName} />
       <DetailRow
         icon="timelapse"
-        label={t("activity.maxTimePerDay")}
-        value={formatDuration(activity.timerSettings.maxDailyMinutes)}
+        label={t("activity.weeklyMaxMinutes")}
+        value={formatDuration(activity.minutosMaximosSemana)}
       />
-      <DetailRow
-        icon="notifications"
-        label={t("activity.notifications")}
-        trailing={
-          <Switch
-            value={notificationsEnabled}
-            onValueChange={setNotificationsEnabled}
-            trackColor={{
-              false: AppColors.lilac.switchOff,
-              true: AppColors.lilac.switchOn,
-            }}
-            thumbColor="#ffffff"
-          />
-        }
-      />
-      <DetailRow
-        icon="payments"
-        label={t("activity.amount")}
-        value={activity.amountLabel}
-      />
-      <DangerButton label={t("activity.cancel")} />
-    </View>
+    </>
   );
 }
 
@@ -276,20 +231,12 @@ export function ActivityDraftCard({
     [onChange],
   );
 
-  const handleToggleDay = (id: string) => {
-    updateForm((prev) => ({
-      ...prev,
-      days: prev.days.map((day) =>
-        day.id === id ? { ...day, isActive: !day.isActive } : day,
-      ),
-    }));
-  };
-
-  const handleTypeSelect = (type: "alarm" | "timer") => {
+  const handleTypeSelect = (type: WilliamType) => {
     updateForm((prev) => ({
       ...prev,
       type,
-      iconName: type === "alarm" ? "alarm" : "timer",
+      iconName:
+        type === "alarm" ? "alarm" : type === "timer" ? "timer" : "psychology",
     }));
     setTypeModalVisible(false);
   };
@@ -297,6 +244,7 @@ export function ActivityDraftCard({
   const handleAppSelect = (app: InstalledApp) => {
     updateForm((prev) => ({
       ...prev,
+      appObjetivoId: app.id,
       timerSettings: {
         ...prev.timerSettings,
         appId: app.id,
@@ -306,13 +254,22 @@ export function ActivityDraftCard({
     setAppModalVisible(false);
   };
 
+  const handleToggleAlarmDay = (id: string) => {
+    updateForm((prev) => ({
+      ...prev,
+      diasActivos: prev.diasActivos.map((day) =>
+        day.id === id ? { ...day, isActive: !day.isActive } : day,
+      ),
+    }));
+  };
+
   const openDatePicker = (field: PickerField) => {
     const currentValue = new Date(
-      field === "alarm"
-        ? form.alarmSettings.alarmTime
+      field === "objective"
+        ? form.horaObjetivo
         : field === "start"
-          ? form.schedule.start
-          : form.schedule.end,
+          ? form.fechaInicio
+          : form.fechaFin,
     );
 
     if (Platform.OS === "android") {
@@ -324,19 +281,22 @@ export function ActivityDraftCard({
 
   const persistDate = (field: PickerField, value: Date) => {
     updateForm((prev) => {
-      if (field === "alarm") {
+      if (field === "objective") {
         return {
           ...prev,
+          horaObjetivo: value.toISOString(),
           alarmSettings: {
             ...prev.alarmSettings,
             alarmTime: value.toISOString(),
           },
-          summaryLabel: formatTime(value.toISOString()),
         };
       }
+
+      const targetKey = field === "start" ? "fechaInicio" : "fechaFin";
       const scheduleKey = field === "start" ? "start" : "end";
       return {
         ...prev,
+        [targetKey]: value.toISOString(),
         schedule: {
           ...prev.schedule,
           [scheduleKey]: value.toISOString(),
@@ -345,245 +305,326 @@ export function ActivityDraftCard({
     });
   };
 
-  const handleMusicPick = async () => {
-    const result = await DocumentPicker.getDocumentAsync({
-      type: "audio/*",
-      multiple: false,
-    });
-    if (result.canceled || !result.assets?.length) return;
-    const file = result.assets[0];
+  const handlePickEvidenceFile = async () => {
+    const result = await DocumentPicker.getDocumentAsync({ multiple: false });
+    if (result.canceled || !result.assets.length) {
+      return;
+    }
+
+    const asset = result.assets[0];
     updateForm((prev) => ({
       ...prev,
-      alarmSettings: {
-        ...prev.alarmSettings,
-        musicTitle: file.name,
-      },
+      cidsEvidencia: [...prev.cidsEvidencia, asset.uri],
     }));
   };
 
-  const handleSave = () => {
-    onSave(form);
+  const handleCaptureEvidence = async () => {
+    const permission = await ImagePicker.requestCameraPermissionsAsync();
+    if (!permission.granted) {
+      return;
+    }
+
+    const result = await ImagePicker.launchCameraAsync({
+      mediaTypes: ["images"],
+      quality: 0.8,
+    });
+
+    if (result.canceled || !result.assets.length) {
+      return;
+    }
+
+    updateForm((prev) => ({
+      ...prev,
+      cidsEvidencia: [...prev.cidsEvidencia, result.assets[0].uri],
+    }));
   };
 
-  const hoursValue = Math.floor(
-    form.timerSettings.maxDailyMinutes / 60,
-  ).toString();
-  const minutesValue = (form.timerSettings.maxDailyMinutes % 60)
+  const handleParticipantsChange = (text: string) => {
+    updateForm((prev) => ({
+      ...prev,
+      participantes: text
+        .split(",")
+        .map((item) => item.trim())
+        .filter(Boolean),
+    }));
+  };
+
+  const handleSave = () => onSave(form);
+
+  const weeklyHours = Math.floor(form.minutosMaximosSemana / 60).toString();
+  const weeklyMinutes = (form.minutosMaximosSemana % 60)
     .toString()
     .padStart(2, "0");
 
-  const handleDurationChange = (part: "hours" | "minutes", value: string) => {
+  const handleWeeklyDuration = (part: "hours" | "minutes", value: string) => {
     const numeric = Number.parseInt(value, 10);
-    if (Number.isNaN(numeric) || numeric < 0) return;
+    if (Number.isNaN(numeric) || numeric < 0) {
+      return;
+    }
+
     updateForm((prev) => {
-      const currentMinutes = prev.timerSettings.maxDailyMinutes;
-      const hours =
-        part === "hours" ? numeric : Math.floor(currentMinutes / 60);
-      const minutes = part === "minutes" ? numeric : currentMinutes % 60;
+      const current = prev.minutosMaximosSemana;
+      const hours = part === "hours" ? numeric : Math.floor(current / 60);
+      const minutes = part === "minutes" ? numeric : current % 60;
       return {
         ...prev,
-        timerSettings: {
-          ...prev.timerSettings,
-          maxDailyMinutes: hours * 60 + minutes,
-        },
+        minutosMaximosSemana: hours * 60 + minutes,
       };
     });
   };
 
   return (
-    <View style={styles.draftCardWrapper}>
-      <View style={styles.card}>
-        <View style={styles.header}>
-          <View style={styles.headerContent}>
-            <View>
-              <TextInput
-                value={form.title}
-                onChangeText={(text) =>
-                  updateForm((prev) => ({ ...prev, title: text }))
-                }
-                placeholder={t("activity.titlePlaceholder")}
-                style={styles.titleInput}
-              />
-              <TextInput
-                value={form.repeatLabel}
-                onChangeText={(text) =>
-                  updateForm((prev) => ({ ...prev, repeatLabel: text }))
-                }
-                placeholder={t("activity.repeatPlaceholder")}
-                style={styles.subtitleInput}
-              />
-            </View>
-            <Switch
-              value={form.isActive}
-              onValueChange={(value) =>
-                updateForm((prev) => ({ ...prev, isActive: value }))
+    <View style={styles.card}>
+      <View style={styles.header}>
+        <View style={styles.headerContent}>
+          <View style={styles.titleContainer}>
+            <TextInput
+              value={form.titulo}
+              onChangeText={(value) =>
+                updateForm((prev) => ({ ...prev, titulo: value, title: value }))
               }
-              trackColor={{
-                false: AppColors.lilac.switchOff,
-                true: AppColors.lilac.switchOn,
-              }}
-              thumbColor="#ffffff"
+              placeholder={t("activity.titlePlaceholder")}
+              style={styles.titleInput}
             />
+            <Text style={styles.subtitle}>{typeLabel(form.type)}</Text>
           </View>
+          <Switch
+            value={form.esGrupal}
+            onValueChange={(value) =>
+              updateForm((prev) => ({ ...prev, esGrupal: value }))
+            }
+            trackColor={{
+              false: AppColors.lilac.switchOff,
+              true: AppColors.lilac.switchOn,
+            }}
+            thumbColor="#ffffff"
+          />
         </View>
-        <View style={styles.contentContainer}>
-          <View style={styles.sectionSpacing}>
-            <DaySelector days={form.days} onToggleDay={handleToggleDay} />
-          </View>
-          <View style={styles.sectionSpacing}>
-            <DetailRow
-              icon="category"
-              label={t("activity.type")}
-              value={typeLabel(form.type)}
-              onPress={() => setTypeModalVisible(true)}
-            />
-            {form.type === "alarm" ? (
-              <>
-                <DetailRow
-                  icon="alarm"
-                  label={t("activity.alarm")}
-                  value={formatTime(form.alarmSettings.alarmTime)}
-                  onPress={() => openDatePicker("alarm")}
-                />
-                <SectionTitle label={t("activity.timeAndDate")} />
-                <DetailRow
-                  icon="event"
-                  label={t("activity.start")}
-                  value={formatDateTime(form.schedule.start)}
-                  onPress={() => openDatePicker("start")}
-                />
-                <DetailRow
-                  icon="hourglass-bottom"
-                  label={t("activity.end")}
-                  value={formatDateTime(form.schedule.end)}
-                  onPress={() => openDatePicker("end")}
-                />
-                <DetailRow
-                  icon="library-music"
-                  label={t("activity.music")}
-                  value={form.alarmSettings.musicTitle}
-                  onPress={handleMusicPick}
-                />
-                <DetailRow
-                  icon="vibration"
-                  label={t("activity.vibration")}
-                  trailing={
-                    <Switch
-                      value={form.alarmSettings.vibrationEnabled}
-                      onValueChange={(value) =>
-                        updateForm((prev) => ({
-                          ...prev,
-                          alarmSettings: {
-                            ...prev.alarmSettings,
-                            vibrationEnabled: value,
-                          },
-                        }))
-                      }
-                      trackColor={{
-                        false: AppColors.lilac.switchOff,
-                        true: AppColors.lilac.switchOn,
-                      }}
-                      thumbColor="#ffffff"
-                    />
-                  }
-                />
-              </>
-            ) : (
-              <>
-                <SectionTitle label={t("activity.timeAndDate")} />
-                <DetailRow
-                  icon="event"
-                  label={t("activity.start")}
-                  value={formatDateTime(form.schedule.start)}
-                  onPress={() => openDatePicker("start")}
-                />
-                <DetailRow
-                  icon="hourglass-bottom"
-                  label={t("activity.end")}
-                  value={formatDateTime(form.schedule.end)}
-                  onPress={() => openDatePicker("end")}
-                />
-                <DetailRow
-                  icon="apps"
-                  label={t("activity.app")}
-                  value={form.timerSettings.appName}
-                  onPress={() => setAppModalVisible(true)}
-                />
-                <View style={styles.durationRow}>
-                  <DetailRow
-                    icon="timelapse"
-                    label={t("activity.maxTimePerDay")}
-                  />
-                  <View style={styles.durationInputs}>
-                    <TextInput
-                      value={hoursValue}
-                      keyboardType="numeric"
-                      onChangeText={(value) =>
-                        handleDurationChange("hours", value)
-                      }
-                      style={styles.durationInput}
-                    />
-                    <Text style={styles.durationSeparator}>
-                      {t("activities.hour")}
-                    </Text>
-                    <TextInput
-                      value={minutesValue}
-                      keyboardType="numeric"
-                      onChangeText={(value) =>
-                        handleDurationChange("minutes", value)
-                      }
-                      style={styles.durationInput}
-                    />
-                    <Text style={styles.durationSeparator}>
-                      {t("activities.minute")}
-                    </Text>
-                  </View>
-                </View>
-              </>
-            )}
-            <DetailRow
-              icon="notifications"
-              label={t("activity.notifications")}
-              trailing={
-                <Switch
-                  value={form.notificationsEnabled}
-                  onValueChange={(value) =>
-                    updateForm((prev) => ({
-                      ...prev,
-                      notificationsEnabled: value,
-                    }))
-                  }
-                  trackColor={{
-                    false: AppColors.lilac.switchOff,
-                    true: AppColors.lilac.switchOn,
-                  }}
-                  thumbColor="#ffffff"
-                />
+      </View>
+
+      <View style={styles.contentContainer}>
+        <DetailRow
+          icon="category"
+          label={t("activity.type")}
+          value={typeLabel(form.type)}
+          onPress={() => setTypeModalVisible(true)}
+        />
+
+        <SectionTitle label={t("activity.baseSection")} />
+
+        <InputRow
+          icon="group"
+          label={t("activity.participants")}
+          value={form.participantes.join(", ")}
+          onChangeText={handleParticipantsChange}
+          placeholder={t("activity.participantsPlaceholder")}
+        />
+
+        <InputRow
+          icon="payments"
+          label={t("activity.stakeAmount")}
+          value={String(form.montoStake)}
+          onChangeText={(value) =>
+            updateForm((prev) => ({
+              ...prev,
+              montoStake: Number.parseFloat(value || "0") || 0,
+            }))
+          }
+          keyboardType="numeric"
+        />
+
+        <DetailRow
+          icon="event"
+          label={t("activity.start")}
+          value={formatDateTime(form.fechaInicio)}
+          onPress={() => openDatePicker("start")}
+        />
+        <DetailRow
+          icon="hourglass-bottom"
+          label={t("activity.end")}
+          value={formatDateTime(form.fechaFin)}
+          onPress={() => openDatePicker("end")}
+        />
+
+        <InputRow
+          icon="lock-clock"
+          label={t("activity.defiLockDays")}
+          value={String(form.diasBloqueoDefiExtra)}
+          onChangeText={(value) =>
+            updateForm((prev) => ({
+              ...prev,
+              diasBloqueoDefiExtra: Number.parseInt(value || "0", 10) || 0,
+            }))
+          }
+          keyboardType="numeric"
+        />
+
+        <InputRow
+          icon="percent"
+          label={t("activity.devTipPercentage")}
+          value={String(form.porcentajeTipDev)}
+          onChangeText={(value) =>
+            updateForm((prev) => ({
+              ...prev,
+              porcentajeTipDev: Number.parseFloat(value || "0") || 0,
+            }))
+          }
+          keyboardType="numeric"
+        />
+
+        <InputRow
+          icon="flag"
+          label={t("activity.status")}
+          value={form.estado}
+          onChangeText={(value) =>
+            updateForm((prev) => ({
+              ...prev,
+              estado: normalizeStatus(value),
+            }))
+          }
+        />
+
+        {form.type === "irl" ? (
+          <>
+            <SectionTitle label={t("activity.irlSection")} />
+            <InputRow
+              icon="psychology"
+              label={t("activity.aiPrompt")}
+              value={form.promptIA}
+              onChangeText={(value) =>
+                updateForm((prev) => ({ ...prev, promptIA: value }))
               }
+              multiline
             />
-            <View style={styles.amountRow}>
-              <DetailRow icon="payments" label={t("activity.amount")} />
-              <TextInput
-                value={form.amountLabel}
-                onChangeText={(value) =>
-                  updateForm((prev) => ({ ...prev, amountLabel: value }))
-                }
-                style={styles.amountInput}
-              />
+
+            <DetailRow
+              icon="photo-library"
+              label={t("activity.evidenceCids")}
+              value={t("activity.irlEvidenceCount", {
+                count: form.cidsEvidencia.length,
+              })}
+            />
+
+            <View style={styles.inlineButtonsRow}>
+              <Pressable
+                style={styles.secondaryButtonSmall}
+                onPress={handleCaptureEvidence}
+              >
+                <MaterialIcons
+                  name="photo-camera"
+                  size={16}
+                  color={AppColors.lilac.iconStrong}
+                />
+                <Text style={styles.secondaryButtonLabel}>
+                  {t("activity.captureEvidence")}
+                </Text>
+              </Pressable>
+              <Pressable
+                style={styles.secondaryButtonSmall}
+                onPress={handlePickEvidenceFile}
+              >
+                <MaterialIcons
+                  name="attach-file"
+                  size={16}
+                  color={AppColors.lilac.iconStrong}
+                />
+                <Text style={styles.secondaryButtonLabel}>
+                  {t("activity.attachEvidence")}
+                </Text>
+              </Pressable>
             </View>
-          </View>
-          <View style={styles.draftActions}>
-            <Pressable style={styles.secondaryButton} onPress={onDiscard}>
-              <Text style={styles.secondaryButtonLabel}>
-                {t("common.cancel")}
-              </Text>
-            </Pressable>
-            <Pressable style={styles.primaryButton} onPress={handleSave}>
-              <Text style={styles.primaryButtonLabel}>
-                {t("activity.saveActivity")}
-              </Text>
-            </Pressable>
-          </View>
+          </>
+        ) : null}
+
+        {form.type === "alarm" ? (
+          <>
+            <SectionTitle label={t("activity.alarmSection")} />
+            <DetailRow
+              icon="alarm"
+              label={t("activity.objectiveTime")}
+              value={formatTime(form.horaObjetivo)}
+              onPress={() => openDatePicker("objective")}
+            />
+
+            <InputRow
+              icon="timer"
+              label={t("activity.maxReactionSeconds")}
+              value={String(form.tiempoMaximoReaccionSegundos)}
+              onChangeText={(value) =>
+                updateForm((prev) => ({
+                  ...prev,
+                  tiempoMaximoReaccionSegundos:
+                    Number.parseInt(value || "0", 10) || 0,
+                }))
+              }
+              keyboardType="numeric"
+            />
+
+            <SectionTitle label={t("activity.activeDays")} />
+            <DaySelector
+              days={form.diasActivos}
+              onToggleDay={handleToggleAlarmDay}
+            />
+          </>
+        ) : null}
+
+        {form.type === "timer" ? (
+          <>
+            <SectionTitle label={t("activity.appTimerSection")} />
+            <DetailRow
+              icon="apps"
+              label={t("activity.targetApp")}
+              value={form.timerSettings.appName || form.appObjetivoId}
+              onPress={() => setAppModalVisible(true)}
+            />
+
+            <View style={styles.durationRow}>
+              <DetailRow
+                icon="timelapse"
+                label={t("activity.weeklyMaxMinutes")}
+              />
+              <View style={styles.durationInputs}>
+                <TextInput
+                  value={weeklyHours}
+                  keyboardType="numeric"
+                  onChangeText={(value) => handleWeeklyDuration("hours", value)}
+                  style={styles.durationInput}
+                />
+                <Text style={styles.durationSeparator}>
+                  {t("activities.hour")}
+                </Text>
+                <TextInput
+                  value={weeklyMinutes}
+                  keyboardType="numeric"
+                  onChangeText={(value) =>
+                    handleWeeklyDuration("minutes", value)
+                  }
+                  style={styles.durationInput}
+                />
+                <Text style={styles.durationSeparator}>
+                  {t("activities.minute")}
+                </Text>
+              </View>
+            </View>
+          </>
+        ) : null}
+
+        {/* Campos legacy (fuera del UML): se mantienen comentados y no se eliminan.
+        <InputRow icon="payments" label={t("activity.amount")} value={form.amountLabel} onChangeText={(value) => updateForm((prev) => ({ ...prev, amountLabel: value }))} />
+        <DetailRow icon="notifications" label={t("activity.notifications")} trailing={<Switch value={form.notificationsEnabled} onValueChange={(value) => updateForm((prev) => ({ ...prev, notificationsEnabled: value }))} />} />
+        */}
+
+        <View style={styles.draftActions}>
+          <Pressable style={styles.secondaryButton} onPress={onDiscard}>
+            <Text style={styles.secondaryButtonLabel}>
+              {t("common.cancel")}
+            </Text>
+          </Pressable>
+          <Pressable style={styles.primaryButton} onPress={handleSave}>
+            <Text style={styles.primaryButtonLabel}>
+              {t("activity.saveActivity")}
+            </Text>
+          </Pressable>
         </View>
       </View>
 
@@ -596,16 +637,14 @@ export function ActivityDraftCard({
         <View style={styles.modalBackdrop}>
           <View style={styles.modalContent}>
             <Text style={styles.modalTitle}>{t("activity.selectType")}</Text>
-            {(["alarm", "timer"] as const).map((typeOption) => (
+            {(["irl", "alarm", "timer"] as const).map((option) => (
               <Pressable
-                key={typeOption}
+                key={option}
                 style={styles.modalOption}
-                onPress={() => handleTypeSelect(typeOption)}
+                onPress={() => handleTypeSelect(option)}
               >
-                <Text style={styles.modalOptionText}>
-                  {typeLabel(typeOption)}
-                </Text>
-                {form.type === typeOption ? (
+                <Text style={styles.modalOptionText}>{typeLabel(option)}</Text>
+                {form.type === option ? (
                   <MaterialIcons
                     name="check"
                     size={20}
@@ -648,7 +687,7 @@ export function ActivityDraftCard({
                     style={styles.modalOptionIcon}
                   />
                   <Text style={styles.modalOptionText}>{item.name}</Text>
-                  {form.timerSettings.appId === item.id ? (
+                  {form.appObjetivoId === item.id ? (
                     <MaterialIcons
                       name="check"
                       size={20}
@@ -680,7 +719,7 @@ export function ActivityDraftCard({
               <>
                 <DateTimePicker
                   value={iosPicker.date}
-                  mode={iosPicker.field === "alarm" ? "time" : "datetime"}
+                  mode={iosPicker.field === "objective" ? "time" : "datetime"}
                   onChange={(
                     _event: DateTimePickerEvent,
                     selectedDate?: Date,
@@ -764,32 +803,78 @@ function DetailRow({
   );
 }
 
+function InputRow({
+  icon,
+  label,
+  value,
+  onChangeText,
+  placeholder,
+  keyboardType,
+  multiline,
+}: {
+  icon: MaterialIconName;
+  label: string;
+  value: string;
+  onChangeText: (value: string) => void;
+  placeholder?: string;
+  keyboardType?: "default" | "numeric";
+  multiline?: boolean;
+}) {
+  return (
+    <View style={styles.inputRow}>
+      <DetailRow icon={icon} label={label} />
+      <TextInput
+        value={value}
+        onChangeText={onChangeText}
+        placeholder={placeholder}
+        keyboardType={keyboardType}
+        multiline={multiline}
+        style={[styles.input, multiline ? styles.multilineInput : null]}
+      />
+    </View>
+  );
+}
+
 function SectionTitle({ label }: { label: string }) {
   return <Text style={styles.sectionTitle}>{label}</Text>;
 }
 
-function DangerButton({ label }: { label: string }) {
-  return (
-    <Pressable style={styles.dangerButton}>
-      <MaterialIcons
-        name="delete"
-        size={18}
-        color="#d92d20"
-        style={styles.dangerIcon}
-      />
-      <Text style={styles.dangerLabel}>{label}</Text>
-    </Pressable>
-  );
-}
-
-function typeLabel(value: "alarm" | "timer") {
+function typeLabel(value: WilliamType) {
+  if (value === "irl") {
+    return t("activity.irl");
+  }
   return value === "alarm" ? t("activity.alarm") : t("activity.timer");
 }
 
+function normalizeStatus(value: string): ActivityDraftState["estado"] {
+  const lowered = value.trim().toLowerCase();
+  if (
+    lowered === "active" ||
+    lowered === "paused" ||
+    lowered === "completed" ||
+    lowered === "cancelled"
+  ) {
+    return lowered;
+  }
+  return "draft";
+}
+
+function formatParticipants(participantes: string[]) {
+  if (!participantes.length) {
+    return t("common.none");
+  }
+  return participantes.join(", ");
+}
+
+function formatActiveDays(days: DaySelection[]) {
+  const selected = days.filter((day) => day.isActive).map((day) => day.label);
+  if (!selected.length) {
+    return t("common.none");
+  }
+  return selected.join(", ");
+}
+
 const styles = StyleSheet.create({
-  accordionContainer: {
-    gap: 0,
-  },
   card: {
     backgroundColor: "#ffffff",
     borderRadius: 24,
@@ -799,6 +884,7 @@ const styles = StyleSheet.create({
     shadowRadius: 24,
     elevation: 12,
     overflow: "hidden",
+    marginBottom: 16,
   },
   header: {
     paddingHorizontal: 20,
@@ -806,14 +892,14 @@ const styles = StyleSheet.create({
     borderTopWidth: 0,
     backgroundColor: "#ffffff",
   },
-  titleContainer: {
-    flex: 1,
-  },
   headerContent: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     gap: 16,
+  },
+  titleContainer: {
+    flex: 1,
   },
   title: {
     fontSize: 20,
@@ -825,20 +911,22 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: AppColors.lilac.textSecondary,
   },
-  chevronBadge: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
-    backgroundColor: AppColors.lilac.chip,
-    alignItems: "center",
-    justifyContent: "center",
+  titleInput: {
+    fontSize: 20,
+    fontWeight: "700",
+    color: AppColors.lilac.textPrimary,
   },
   contentContainer: {
     paddingHorizontal: 20,
     paddingBottom: 20,
   },
-  sectionSpacing: {
-    marginTop: 16,
+  sectionTitle: {
+    marginTop: 12,
+    marginBottom: 6,
+    fontSize: 13,
+    textTransform: "uppercase",
+    letterSpacing: 0.5,
+    color: AppColors.lilac.textSecondary,
   },
   detailRow: {
     flexDirection: "row",
@@ -869,43 +957,22 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     color: AppColors.lilac.textPrimary,
   },
-  sectionTitle: {
-    marginTop: 12,
-    marginBottom: 6,
-    fontSize: 13,
-    textTransform: "uppercase",
-    letterSpacing: 0.5,
-    color: AppColors.lilac.textSecondary,
+  inputRow: {
+    marginTop: 6,
+    marginBottom: 8,
   },
-  dangerButton: {
-    marginTop: 16,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "flex-start",
-    paddingVertical: 10,
-  },
-  dangerIcon: {
-    marginRight: 8,
-  },
-  dangerLabel: {
-    fontSize: 14,
+  input: {
+    borderWidth: 1,
+    borderColor: AppColors.lilac.border,
+    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    color: AppColors.lilac.textPrimary,
     fontWeight: "600",
-    color: "#d92d20",
   },
-  draftCardWrapper: {
-    borderRadius: 24,
-    overflow: "hidden",
-    marginBottom: 16,
-  },
-  titleInput: {
-    fontSize: 20,
-    fontWeight: "700",
-    color: AppColors.lilac.textPrimary,
-  },
-  subtitleInput: {
-    marginTop: 4,
-    fontSize: 14,
-    color: AppColors.lilac.textPrimary,
+  multilineInput: {
+    minHeight: 74,
+    textAlignVertical: "top",
   },
   durationRow: {
     flexDirection: "row",
@@ -932,27 +999,26 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: AppColors.lilac.textSecondary,
   },
-  amountRow: {
-    marginTop: 12,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  amountInput: {
-    marginLeft: 12,
-    flex: 1,
-    borderWidth: 1,
-    borderColor: AppColors.lilac.border,
-    borderRadius: 10,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    color: AppColors.lilac.textPrimary,
-    fontWeight: "600",
-  },
   draftActions: {
     marginTop: 20,
     flexDirection: "row",
     gap: 12,
+  },
+  inlineButtonsRow: {
+    marginTop: 8,
+    flexDirection: "row",
+    gap: 8,
+  },
+  secondaryButtonSmall: {
+    flex: 1,
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: AppColors.lilac.border,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 10,
+    flexDirection: "row",
+    gap: 6,
   },
   secondaryButton: {
     flex: 1,
@@ -1045,7 +1111,7 @@ function openAndroidPicker(
   currentValue: Date,
   persist: (field: PickerField, value: Date) => void,
 ) {
-  if (field === "alarm") {
+  if (field === "objective") {
     DateTimePickerAndroid.open({
       value: currentValue,
       mode: "time",

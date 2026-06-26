@@ -2,17 +2,17 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { useCallback, useState } from "react";
 import { FlatList, SafeAreaView, StyleSheet, Text, View } from "react-native";
 
-import ActivityCard, {
-    ActivityDraftCard,
-} from "@/components/activity/activity-card";
 import { FloatingActionButton } from "@/components/ui/floating-action-button";
 import {
-    activitiesMock,
-    createEmptyActivityDraft,
+  activitiesMock,
+  createEmptyActivityDraft,
 } from "@/constants/mock-data";
 import { AppColors } from "@/constants/theme";
 import { t } from "@/i18n";
 import { Activity, ActivityDraftState, MaterialIconName } from "@/types/home";
+import ActivityCard, {
+  ActivityDraftCard,
+} from "../../components/activity/activity-card";
 
 export default function ActivitiesScreen() {
   const [activities, setActivities] = useState<Activity[]>(() => [
@@ -82,16 +82,36 @@ export default function ActivitiesScreen() {
 }
 
 function mapDraftToActivity(draft: ActivityDraftState): Activity {
-  const iconName: MaterialIconName = draft.type === "alarm" ? "alarm" : "timer";
+  const iconName: MaterialIconName =
+    draft.type === "alarm"
+      ? "alarm"
+      : draft.type === "timer"
+        ? "timer"
+        : "psychology";
 
   const base = {
     id: `activity-${Date.now()}`,
+    titulo: draft.titulo.trim() || t("activities.newActivity"),
+    esGrupal: draft.esGrupal,
+    participantes: [...draft.participantes],
+    montoStake: draft.montoStake,
+    fechaInicio: draft.fechaInicio,
+    fechaFin: draft.fechaFin,
+    diasBloqueoDefiExtra: draft.diasBloqueoDefiExtra,
+    porcentajeTipDev: draft.porcentajeTipDev,
+    estado: draft.estado,
+
+    // Campos legacy (fuera del UML): se mantienen por compatibilidad.
     title: draft.title.trim() || t("activities.newActivity"),
     repeatLabel: draft.repeatLabel,
     summaryLabel:
       draft.type === "alarm"
-        ? formatTimeLabel(draft.alarmSettings.alarmTime)
-        : formatDurationLabel(draft.timerSettings.maxDailyMinutes),
+        ? formatTimeLabel(draft.horaObjetivo)
+        : draft.type === "timer"
+          ? formatDurationLabel(draft.minutosMaximosSemana)
+          : t("activity.irlEvidenceCount", {
+              count: draft.cidsEvidencia.length,
+            }),
     amountLabel: draft.amountLabel,
     amountKind: draft.amountKind,
     iconName,
@@ -101,18 +121,48 @@ function mapDraftToActivity(draft: ActivityDraftState): Activity {
     schedule: { ...draft.schedule },
   };
 
+  const legacyAlarmSettings = {
+    alarmTime: draft.horaObjetivo,
+    musicTitle: draft.alarmSettings.musicTitle,
+    vibrationEnabled: draft.alarmSettings.vibrationEnabled,
+  };
+
+  const legacyTimerSettings = {
+    appId: draft.appObjetivoId,
+    appName: draft.timerSettings.appName,
+    maxDailyMinutes: draft.minutosMaximosSemana,
+  };
+
+  if (draft.type === "irl") {
+    return {
+      ...base,
+      type: "irl",
+      promptIA: draft.promptIA,
+      cidsEvidencia: [...draft.cidsEvidencia],
+      alarmSettings: legacyAlarmSettings,
+      timerSettings: legacyTimerSettings,
+    };
+  }
+
   if (draft.type === "alarm") {
     return {
       ...base,
       type: "alarm",
-      alarmSettings: { ...draft.alarmSettings },
+      horaObjetivo: draft.horaObjetivo,
+      diasActivos: draft.diasActivos.map((day) => ({ ...day })),
+      tiempoMaximoReaccionSegundos: draft.tiempoMaximoReaccionSegundos,
+      alarmSettings: legacyAlarmSettings,
+      timerSettings: legacyTimerSettings,
     };
   }
 
   return {
     ...base,
     type: "timer",
-    timerSettings: { ...draft.timerSettings },
+    appObjetivoId: draft.appObjetivoId,
+    minutosMaximosSemana: draft.minutosMaximosSemana,
+    timerSettings: legacyTimerSettings,
+    alarmSettings: legacyAlarmSettings,
   };
 }
 

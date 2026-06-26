@@ -72,6 +72,17 @@ export const installedApps: InstalledApp[] = [
 export const activitiesMock: Activity[] = [
   {
     id: 'missed-alarm',
+    titulo: t('mock.titles.missedAlarm'),
+    esGrupal: false,
+    participantes: ['@baluchop'],
+    montoStake: 2,
+    fechaInicio: '2025-10-23T06:30:00',
+    fechaFin: '2025-11-12T15:45:00',
+    diasBloqueoDefiExtra: 2,
+    porcentajeTipDev: 5,
+    estado: 'active',
+
+    // Campos legacy (fuera del UML): se mantienen por compatibilidad.
     title: t('mock.titles.missedAlarm'),
     repeatLabel: t('activity.noRepeat'),
     summaryLabel: '07:41',
@@ -83,17 +94,40 @@ export const activitiesMock: Activity[] = [
     notificationsEnabled: true,
     schedule: buildSchedule('2025-10-23T06:30:00', '2025-11-12T15:45:00'),
     type: 'alarm',
+    horaObjetivo: '2025-10-23T07:41:00',
+    diasActivos: buildDaySelection(['mon', 'tue', 'wed', 'thu', 'fri']),
+    tiempoMaximoReaccionSegundos: 120,
+
+    // Campo legacy (fuera del UML): se mantiene por compatibilidad.
     alarmSettings: {
       alarmTime: '2025-10-23T07:41:00',
       musicTitle: t('mock.music.morningVibes'),
       vibrationEnabled: true,
     },
+
+    // Campo legacy (fuera del UML): se mantiene por compatibilidad.
+    timerSettings: {
+      appId: installedApps[0].id,
+      appName: installedApps[0].name,
+      maxDailyMinutes: 60,
+    },
   },
   {
-    id: 'instagram-limit',
+    id: 'instagram-limit-week',
+    titulo: 'Instagram',
+    esGrupal: true,
+    participantes: ['@baluchop', '@noemiel'],
+    montoStake: 5,
+    fechaInicio: '2025-10-15T09:20:00',
+    fechaFin: '2025-10-15T12:20:00',
+    diasBloqueoDefiExtra: 0,
+    porcentajeTipDev: 3,
+    estado: 'paused',
+
+    // Campos legacy (fuera del UML): se mantienen por compatibilidad.
     title: 'Instagram',
     repeatLabel: t('activity.noRepeat'),
-    summaryLabel: '3 hrs',
+    summaryLabel: '180 min/sem',
     amountLabel: '-0 USDC',
     amountKind: 'neutral',
     iconName: 'apps',
@@ -102,14 +136,37 @@ export const activitiesMock: Activity[] = [
     notificationsEnabled: false,
     schedule: buildSchedule('2025-10-15T09:20:00', '2025-10-15T12:20:00'),
     type: 'timer',
+
+    appObjetivoId: 'instagram',
+    minutosMaximosSemana: 180,
+
+    // Campo legacy (fuera del UML): se mantiene por compatibilidad.
     timerSettings: {
       appId: 'instagram',
       appName: 'Instagram',
       maxDailyMinutes: 180,
     },
+
+    // Campo legacy (fuera del UML): se mantiene por compatibilidad.
+    alarmSettings: {
+      alarmTime: '2025-10-15T09:20:00',
+      musicTitle: t('mock.music.default'),
+      vibrationEnabled: false,
+    },
   },
   {
-    id: 'finish-test',
+    id: 'finish-test-irl',
+    titulo: t('mock.titles.finishTestFirst'),
+    esGrupal: false,
+    participantes: ['@baluchop'],
+    montoStake: 5,
+    fechaInicio: '2025-09-08T08:00:00',
+    fechaFin: '2025-09-08T15:41:00',
+    diasBloqueoDefiExtra: 1,
+    porcentajeTipDev: 2,
+    estado: 'active',
+
+    // Campos legacy (fuera del UML): se mantienen por compatibilidad.
     title: t('mock.titles.finishTestFirst'),
     repeatLabel: t('activity.noRepeat'),
     summaryLabel: '15:41',
@@ -120,111 +177,28 @@ export const activitiesMock: Activity[] = [
     isActive: true,
     notificationsEnabled: true,
     schedule: buildSchedule('2025-09-08T08:00:00', '2025-09-08T15:41:00'),
-    type: 'alarm',
+    type: 'irl',
+
+    promptIA: 'Terminar la práctica técnica y subir evidencia.',
+    cidsEvidencia: [],
+
+    // Campos legacy (fuera del UML): se mantienen por compatibilidad.
     alarmSettings: {
       alarmTime: '2025-09-08T15:41:00',
       musicTitle: t('mock.music.focusPlaylist'),
       vibrationEnabled: true,
     },
-  },
-  {
-    id: 'wake-uppp',
-    title: t('mock.titles.wakeUppp'),
-    repeatLabel: t('activity.noRepeat'),
-    summaryLabel: '06:30',
-    amountLabel: '5 USDC',
-    amountKind: 'credit',
-    iconName: 'alarm',
-    days: buildDaySelection(['mon', 'tue', 'wed', 'thu', 'fri']),
-    isActive: true,
-    notificationsEnabled: true,
-    schedule: buildSchedule('2025-10-23T06:30:00', '2025-11-12T15:45:00'),
-    type: 'alarm',
-    alarmSettings: {
-      alarmTime: '2025-10-23T06:30:00',
-      musicTitle: t('mock.music.favorites'),
-      vibrationEnabled: true,
-    },
-  },
-  {
-    id: 'reddit-timer',
-    title: t('mock.titles.redditTimer'),
-    repeatLabel: t('activity.noRepeat'),
-    summaryLabel: '2 hrs',
-    amountLabel: '5 USDC',
-    amountKind: 'neutral',
-    iconName: 'timer',
-    days: buildDaySelection(['mon', 'tue', 'wed', 'thu', 'fri']),
-    isActive: true,
-    notificationsEnabled: true,
-    schedule: buildSchedule('2025-10-23T10:30:00', '2025-11-12T15:45:00'),
-    type: 'timer',
+
+    // Campos legacy (fuera del UML): se mantienen por compatibilidad.
     timerSettings: {
-      appId: 'reddit',
-      appName: 'Reddit',
-      maxDailyMinutes: 120,
-    },
-  },
-  {
-    id: 'alarm-0615',
-    title: '06:15',
-    repeatLabel: t('days.workWeekLabel'),
-    summaryLabel: '06:15',
-    amountLabel: '0 USDC',
-    amountKind: 'neutral',
-    iconName: 'alarm',
-    days: buildDaySelection(['mon', 'tue', 'wed', 'thu', 'fri']),
-    isActive: true,
-    notificationsEnabled: true,
-    schedule: buildSchedule('2025-10-24T06:15:00', '2025-10-24T06:15:00'),
-    type: 'alarm',
-    alarmSettings: {
-      alarmTime: '2025-10-24T06:15:00',
-      musicTitle: t('mock.music.default'),
-      vibrationEnabled: false,
-    },
-  },
-  {
-    id: 'alarm-0630',
-    title: '06:30',
-    repeatLabel: t('days.workWeekLabel'),
-    summaryLabel: '06:30',
-    amountLabel: '0 USDC',
-    amountKind: 'neutral',
-    iconName: 'alarm',
-    days: buildDaySelection(['mon', 'tue', 'wed', 'thu', 'fri']),
-    isActive: true,
-    notificationsEnabled: true,
-    schedule: buildSchedule('2025-10-24T06:30:00', '2025-10-24T06:30:00'),
-    type: 'alarm',
-    alarmSettings: {
-      alarmTime: '2025-10-24T06:30:00',
-      musicTitle: t('mock.music.default'),
-      vibrationEnabled: false,
-    },
-  },
-  {
-    id: 'alarm-0645',
-    title: '06:45',
-    repeatLabel: t('days.workWeekLabel'),
-    summaryLabel: '06:45',
-    amountLabel: '0 USDC',
-    amountKind: 'neutral',
-    iconName: 'alarm',
-    days: buildDaySelection(['mon', 'tue', 'wed', 'thu', 'fri']),
-    isActive: false,
-    notificationsEnabled: false,
-    schedule: buildSchedule('2025-10-24T06:45:00', '2025-10-24T06:45:00'),
-    type: 'alarm',
-    alarmSettings: {
-      alarmTime: '2025-10-24T06:45:00',
-      musicTitle: t('mock.music.default'),
-      vibrationEnabled: false,
+      appId: installedApps[2].id,
+      appName: installedApps[2].name,
+      maxDailyMinutes: 30,
     },
   },
 ];
 
-export const dashboardActivityIds = ['missed-alarm', 'instagram-limit', 'finish-test'];
+export const dashboardActivityIds = ['missed-alarm', 'instagram-limit-week', 'finish-test-irl'];
 
 export function createEmptyActivityDraft(): ActivityDraftState {
   const now = new Date();
@@ -232,6 +206,17 @@ export function createEmptyActivityDraft(): ActivityDraftState {
 
   return {
     id: `draft-${now.getTime()}`,
+    titulo: t('activities.newActivity'),
+    esGrupal: false,
+    participantes: ['@baluchop'],
+    montoStake: 0,
+    fechaInicio: now.toISOString(),
+    fechaFin: oneHourLater.toISOString(),
+    diasBloqueoDefiExtra: 0,
+    porcentajeTipDev: 0,
+    estado: 'draft',
+
+    // Campos legacy (fuera del UML): se mantienen por compatibilidad.
     title: t('activities.newActivity'),
     repeatLabel: t('activity.noRepeat'),
     summaryLabel: '--:--',
@@ -242,7 +227,17 @@ export function createEmptyActivityDraft(): ActivityDraftState {
     isActive: true,
     notificationsEnabled: true,
     schedule: buildSchedule(now.toISOString(), oneHourLater.toISOString()),
-    type: 'alarm',
+    type: 'irl',
+
+    promptIA: '',
+    cidsEvidencia: [],
+    horaObjetivo: now.toISOString(),
+    diasActivos: buildDaySelection([]),
+    tiempoMaximoReaccionSegundos: 120,
+    appObjetivoId: installedApps[0].id,
+    minutosMaximosSemana: 120,
+
+    // Campos legacy (fuera del UML): se mantienen por compatibilidad.
     alarmSettings: {
       alarmTime: now.toISOString(),
       musicTitle: t('activity.selectAudio'),
