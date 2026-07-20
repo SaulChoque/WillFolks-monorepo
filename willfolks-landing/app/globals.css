@@ -227,6 +227,25 @@ ol {
   overflow: hidden;
 }
 
+.hero__green-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background: var(--gradient-brand);
+}
+
+.hero__content-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .hero__logo-container {
   width: 120px;
   height: 120px;
@@ -245,12 +264,12 @@ ol {
 
 .hero__brand-name {
   font-size: 2.5rem;
-  color: var(--color-dark);
+  color: var(--color-white);
 }
 
 .hero__tagline {
   font-size: clamp(1.5rem, 4vw, 2.5rem);
-  color: var(--color-dark);
+  color: var(--color-white);
   max-width: 600px;
   margin-bottom: var(--space-md);
   font-family: var(--font-body);
@@ -259,7 +278,7 @@ ol {
 
 .hero__subtitle {
   font-size: clamp(0.95rem, 2vw, 1.15rem);
-  color: var(--color-gray-600);
+  color: rgba(255, 255, 255, 0.85);
   max-width: 520px;
   margin-bottom: var(--space-2xl);
   line-height: 1.7;
@@ -268,7 +287,7 @@ ol {
 .hero__cta-label {
   font-family: var(--font-heading);
   font-size: 1.5rem;
-  color: var(--color-dark);
+  color: var(--color-white);
   margin-bottom: var(--space-lg);
 }
 
@@ -733,4 +752,134 @@ ol {
     width: 100px;
     height: 100px;
   }
+}
+
+/* --- Inverted Icon Rain --- */
+.icon-rain--inverted .icon-rain__icon {
+  color: rgba(255, 255, 255, 0.22) !important;
+}
+
+/* --- Inverted Navbar --- */
+.navbar--inverted {
+  background: transparent !important;
+  border-bottom-color: rgba(255, 255, 255, 0.12) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.navbar--inverted .navbar__logo-text {
+  color: var(--color-white) !important;
+}
+
+.navbar--inverted .navbar__nav-link {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.navbar--inverted .navbar__nav-link:hover {
+  color: var(--color-white) !important;
+}
+
+.navbar--inverted .navbar__lang-toggle {
+  background: rgba(255, 255, 255, 0.15) !important;
+  color: var(--color-white) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.navbar--inverted .navbar__lang-toggle:hover {
+  background: rgba(255, 255, 255, 0.28) !important;
+  border-color: var(--color-white) !important;
+}
+
+/* --- FAQ Section --- */
+.faq {
+  padding: var(--space-4xl) var(--space-xl);
+  background: var(--color-white);
+  display: flex;
+  justify-content: center;
+}
+
+.faq__container {
+  width: 100%;
+  max-width: 800px;
+}
+
+.faq__title {
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-family: var(--font-heading);
+  color: var(--color-purple);
+  text-align: center;
+  margin-bottom: var(--space-3xl);
+}
+
+.faq__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.faq__item {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-gray-200);
+  background: var(--color-off-white);
+  overflow: hidden;
+  transition: all var(--duration-normal) var(--ease-out);
+}
+
+.faq__item:hover {
+  border-color: var(--color-green-ui-dark);
+  box-shadow: 0 4px 12px rgba(101, 163, 0, 0.05);
+}
+
+.faq__item--open {
+  border-color: var(--color-purple-light);
+  background: var(--color-white);
+  box-shadow: 0 10px 30px rgba(107, 47, 160, 0.05);
+}
+
+.faq__question {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-lg) var(--space-xl);
+  background: transparent;
+  border: none;
+  font-family: var(--font-heading);
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: var(--color-dark);
+  text-align: left;
+  cursor: pointer;
+}
+
+.faq__item--open .faq__question {
+  color: var(--color-purple);
+}
+
+.faq__icon {
+  font-size: 1.8rem;
+  color: var(--color-gray-400);
+  transition: transform var(--duration-normal) var(--ease-out);
+}
+
+.faq__item--open .faq__icon {
+  transform: rotate(180deg);
+  color: var(--color-purple);
+}
+
+.faq__answer-wrapper {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height var(--duration-normal) var(--ease-out);
+}
+
+.faq__item--open .faq__answer-wrapper {
+  max-height: 200px;
+}
+
+.faq__answer {
+  padding: 0 var(--space-xl) var(--space-lg) var(--space-xl);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--color-gray-600);
+  line-height: 1.6;
 }

@@ -44,9 +44,10 @@ const ICONS_PER_COLUMN = 8;
 
 interface IconRainProps {
   activeIndex: number;
+  inverted?: boolean;
 }
 
-export function IconRain({ activeIndex }: IconRainProps) {
+export function IconRain({ activeIndex, inverted }: IconRainProps) {
   // Generate deterministic column layout
   const columns = useMemo(() => {
     return Array.from({ length: COLUMN_COUNT }, (_, colIdx) => ({
@@ -61,7 +62,7 @@ export function IconRain({ activeIndex }: IconRainProps) {
   }, []);
 
   return (
-    <div className="icon-rain" aria-hidden="true">
+    <div className={`icon-rain ${inverted ? "icon-rain--inverted" : ""}`} aria-hidden="true">
       {columns.map((col, colIdx) => (
         <div
           key={colIdx}

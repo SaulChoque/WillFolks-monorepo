@@ -175,7 +175,7 @@ export function PhoneShowcase() {
       ref={sectionRef}
       className="phone-showcase"
       id="features"
-      style={{ height: `${(FEATURE_SECTIONS.length + 1) * 100}vh` }}
+      style={{ height: `${(FEATURE_SECTIONS.length + 0.5) * 55}vh` }}
     >
       <div ref={stickyRef} className="phone-showcase__sticky">
         {/* Icon Rain Background */}

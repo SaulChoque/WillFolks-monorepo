@@ -9,20 +9,33 @@ export function Navbar() {
   const locale = useLocale();
   const router = useRouter();
   const [hidden, setHidden] = useState(false);
+  const [isHeroInverted, setIsHeroInverted] = useState(true);
   const lastScrollY = useRef(0);
 
   useEffect(() => {
     const handleScroll = () => {
       const currentY = window.scrollY;
+      
+      // Hide on scroll down, show on scroll up
       if (currentY > lastScrollY.current && currentY > 100) {
         setHidden(true);
       } else {
         setHidden(false);
       }
+      
+      // Invert style near the top
+      if (currentY > 80) {
+        setIsHeroInverted(false);
+      } else {
+        setIsHeroInverted(true);
+      }
+      
       lastScrollY.current = currentY;
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
+    // Trigger on load
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -34,7 +47,7 @@ export function Navbar() {
 
   return (
     <nav
-      className={`navbar ${hidden ? "navbar--hidden" : ""}`}
+      className={`navbar ${hidden ? "navbar--hidden" : ""} ${isHeroInverted ? "navbar--inverted" : ""}`}
       id="navbar"
       role="navigation"
       aria-label="Main navigation"

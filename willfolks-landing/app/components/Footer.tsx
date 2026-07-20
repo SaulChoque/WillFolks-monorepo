@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 
 export function Footer() {
   const t = useTranslations("footer");
+  const tFaq = useTranslations("faq");
 
   return (
     <footer className="footer" id="footer">
@@ -24,16 +25,13 @@ export function Footer() {
         </div>
 
         <div>
-          <h3 className="footer__social-title">{t("socialTitle")}</h3>
+          <h3 className="footer__social-title">{tFaq("title")}</h3>
           <div className="footer__social-links">
-            <a href="#" className="footer__social-link">
-              {t("facebook")}
+            <a href="#faq" className="footer__social-link">
+              {tFaq("title")}
             </a>
-            <a href="#" className="footer__social-link">
-              {t("instagram")}
-            </a>
-            <a href="#" className="footer__social-link">
-              {t("linkedin")}
+            <a href="mailto:support@willfolks.com" className="footer__social-link">
+              {tFaq("contact")}
             </a>
           </div>
         </div>

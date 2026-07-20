@@ -57,5 +57,19 @@
     "privacy": "Privacy policy",
     "terms": "Terms and Conditions",
     "copyright": "2026 SaulChoque"
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "contact": "Contact",
+    "q1": "What is WillFolks?",
+    "a1": "WillFolks is a gamified savings application that helps you achieve your personal goals by locking real money in smart contracts. If you achieve your goal, you get your money back; otherwise, it is penalized or distributed in group challenges.",
+    "q2": "How does the Escrow mechanism work?",
+    "a2": "When you create a goal, you deposit an amount of money (fiat or USDC) which is securely locked in an on-chain smart contract. You can only withdraw it once it's verified that you completed the goal.",
+    "q3": "What happens if I miss a goal or an alarm?",
+    "a3": "If you don't complete the goal (for example, if you sleep through a Smart Alarm or exceed your screen time limit), the funds are temporarily locked as a penalty, or distributed among other participants in group stakes.",
+    "q4": "How are goals verified if they don't use sensors?",
+    "a4": "For goals that cannot be measured by device sensors (like studying or chores), we use AI verification to check images/videos, or peer-to-peer validation with trusted friends or phones on our decentralized network.",
+    "q5": "What deposit and withdrawal methods does the app support?",
+    "a5": "We support both traditional methods (fiat money) and cryptocurrency, with a built-in wallet compatible with USDC so that all your transactions are fast, transparent, and secure on the blockchain."
   }
 }

@@ -57,5 +57,19 @@
     "privacy": "Política de privacidad",
     "terms": "Términos y Condiciones",
     "copyright": "2026 SaulChoque"
+  },
+  "faq": {
+    "title": "Preguntas Frecuentes",
+    "contact": "Contacto",
+    "q1": "¿Qué es WillFolks?",
+    "a1": "WillFolks es una aplicación de ahorro gamificado que te ayuda a cumplir tus metas personales bloqueando dinero real en contratos inteligentes. Si logras tu objetivo, recuperas tu dinero; de lo contrario, se penaliza o se distribuye en retos grupales.",
+    "q2": "¿Cómo funciona el Depósito en Garantía (Escrow)?",
+    "a2": "Cuando creas una meta, depositas una cantidad de dinero (fiat o USDC) que queda bloqueada de forma segura en un contrato inteligente on-chain. Solo puedes retirarlo al verificar que cumpliste la meta.",
+    "q3": "¿Qué pasa si no cumplo con una meta o alarma?",
+    "a3": "Si no cumples con la meta (por ejemplo, si te quedas dormido con una Alarma Inteligente o excedes tu límite de tiempo de pantalla), los fondos se bloquean temporalmente como penalización, o se distribuyen entre los otros participantes en apuestas grupales.",
+    "q4": "¿Cómo se verifican las metas que no tienen sensores?",
+    "a4": "Para metas no medibles por sensores (como estudiar o hacer quehaceres), utilizamos verificación mediante inteligencia artificial que analiza imágenes/videos, o a través de validación P2P con amigos o teléfonos de confianza en nuestra red descentralizada.",
+    "q5": "¿Qué métodos de depósito y retiro soporta la app?",
+    "a5": "Soportamos tanto métodos tradicionales (dinero fiat) como criptomonedas, con una billetera integrada compatible con USDC para que todas tus transacciones sean rápidas, transparentes y seguras en la blockchain."
   }
 }
