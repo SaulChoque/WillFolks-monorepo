@@ -1,0 +1,61 @@
+{
+  "navbar": {
+    "brand": "WillFolks",
+    "language": "EN",
+    "home": "Inicio",
+    "features": "Características",
+    "download": "Descargar"
+  },
+  "hero": {
+    "tagline": "Pon tu dinero donde están tus metas.",
+    "subtitle": "Alcanza tus metas a través del ahorro gamificado. Apuesta, compite y mantente responsable — impulsado por blockchain.",
+    "cta": "Descarga ahora"
+  },
+  "features": {
+    "sectionTitle": "Lo que hace único a WillFolks",
+    "escrow": {
+      "title": "Depósito en Garantía",
+      "description": "Apuesta tu dinero en tus metas. Cumple y retira cuando quieras. Falla, y tus fondos se bloquean como penalización — o se convierten en una apuesta multijugador."
+    },
+    "alarm": {
+      "title": "Alarmas Inteligentes",
+      "description": "Configura alarmas para despertar respaldadas con dinero real. ¿No sonó tu alarma? Tu apuesta se bloquea. La constancia paga — literalmente."
+    },
+    "appTimer": {
+      "title": "Temporizador de Apps",
+      "description": "Limita tu tiempo de pantalla en apps que te distraen. Establece límites semanales y pon dinero en juego. Tu billetera te mantiene enfocado."
+    },
+    "locator": {
+      "title": "Rastreador de Ubicación",
+      "description": "Establece metas basadas en ubicación. Llega a tiempo al gimnasio, oficina o clase. Tu GPS verifica, tu billetera recompensa."
+    },
+    "unmeasurable": {
+      "title": "Metas con IA",
+      "description": "Las metas que no se pueden medir con sensores — como hacer tareas o quehaceres — son verificadas por un agente de IA, o a través de una red P2P de teléfonos de confianza."
+    },
+    "deposits": {
+      "title": "Depósitos Fiat y Cripto",
+      "description": "Financia tus metas con dinero tradicional o criptomonedas. Billetera integrada con soporte USDC. Deposita, retira y rastrea todo on-chain."
+    }
+  },
+  "download": {
+    "title": "Descarga Ahora",
+    "googlePlay": "Google Play",
+    "appStore": "App Store",
+    "github": "GitHub",
+    "getItOn": "DISPONIBLE EN",
+    "downloadOnThe": "Consíguelo en el"
+  },
+  "snackbar": {
+    "comingSoon": "¡WillFolks estará disponible en {store} pronto!"
+  },
+  "footer": {
+    "socialTitle": "Nuestras redes sociales",
+    "facebook": "Facebook",
+    "instagram": "Instagram",
+    "linkedin": "LinkedIn",
+    "privacy": "Política de privacidad",
+    "terms": "Términos y Condiciones",
+    "copyright": "2026 SaulChoque"
+  }
+}

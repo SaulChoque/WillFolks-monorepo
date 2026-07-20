@@ -1,0 +1,61 @@
+{
+  "navbar": {
+    "brand": "WillFolks",
+    "language": "ES",
+    "home": "Home",
+    "features": "Features",
+    "download": "Download"
+  },
+  "hero": {
+    "tagline": "Put your money where your goals are.",
+    "subtitle": "Achieve your goals through gamified savings. Stake, compete, and stay accountable — powered by blockchain.",
+    "cta": "Download now"
+  },
+  "features": {
+    "sectionTitle": "What makes WillFolks unique",
+    "escrow": {
+      "title": "Escrow & Yield",
+      "description": "Stake your money on your goals. Complete them and withdraw anytime. Miss them, and your funds get locked as a penalty — or go as a multiplayer bet."
+    },
+    "alarm": {
+      "title": "Smart Alarms",
+      "description": "Set wake-up alarms backed by real money. Miss your alarm? Your stake gets locked. Consistency pays — literally."
+    },
+    "appTimer": {
+      "title": "App Timer",
+      "description": "Limit your screen time on distracting apps. Set weekly limits and put money on the line. Your wallet keeps you focused."
+    },
+    "locator": {
+      "title": "Location Tracker",
+      "description": "Set location-based goals. Arrive on time to the gym, office, or class. Your GPS verifies, your wallet rewards."
+    },
+    "unmeasurable": {
+      "title": "AI-Powered Goals",
+      "description": "Goals that can't be measured by sensors — like doing homework or chores — are verified by an AI agent, or through a P2P network of trusted phones."
+    },
+    "deposits": {
+      "title": "Fiat & Crypto Deposits",
+      "description": "Fund your goals with traditional money or cryptocurrency. Built-in wallet with USDC support. Deposit, withdraw, and track everything on-chain."
+    }
+  },
+  "download": {
+    "title": "Download Now",
+    "googlePlay": "Google Play",
+    "appStore": "App Store",
+    "github": "GitHub",
+    "getItOn": "GET IT ON",
+    "downloadOnThe": "Download on the"
+  },
+  "snackbar": {
+    "comingSoon": "WillFolks will be available on {store} soon!"
+  },
+  "footer": {
+    "socialTitle": "Our social media",
+    "facebook": "Facebook",
+    "instagram": "Instagram",
+    "linkedin": "LinkedIn",
+    "privacy": "Privacy policy",
+    "terms": "Terms and Conditions",
+    "copyright": "2026 SaulChoque"
+  }
+}
