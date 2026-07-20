@@ -48,8 +48,8 @@
   /* Layout */
   --max-width: 1200px;
   --navbar-height: 64px;
-  --phone-width: 300px;
-  --phone-height: 628px;
+  --phone-width: 350px;
+  --phone-height: 738px;
 
   /* Borders & Shadows */
   --radius-sm: 8px;
@@ -377,7 +377,7 @@ ol {
 
 /* --- Feature Card --- */
 .feature-card {
-  max-width: 400px;
+  max-width: 450px;
   padding: var(--space-2xl);
   background: var(--gradient-glass);
   backdrop-filter: blur(20px);
@@ -629,8 +629,8 @@ ol {
 /* --- Responsive --- */
 @media (max-width: 900px) {
   :root {
-    --phone-width: 220px;
-    --phone-height: 464px;
+    --phone-height: 42vh;
+    --phone-width: calc(var(--phone-height) * (353 / 745));
   }
 
   .phone-showcase__content {
@@ -642,7 +642,8 @@ ol {
   }
 
   .phone-showcase__cards-wrapper {
-    min-height: 380px !important;
+    min-height: 40vh !important;
+    max-width: 450px !important;
   }
 
   .phone-showcase__content--left .phone-wrapper,
@@ -658,11 +659,16 @@ ol {
   .feature-card {
     max-width: 100%;
     text-align: center;
+    padding: var(--space-md);
   }
 
-  .feature-card__icon {
-    margin-left: auto;
-    margin-right: auto;
+  .feature-card__title {
+    font-size: 1.5rem;
+    margin-bottom: var(--space-xs);
+  }
+
+  .feature-card > .feature-card__icon {
+    display: none !important;
   }
 
   .footer__content {
@@ -679,10 +685,16 @@ ol {
   }
 }
 
+@media (min-width: 901px) {
+  .desktop-hidden {
+    display: none !important;
+  }
+}
+
 @media (max-width: 600px) {
   :root {
-    --phone-width: 180px;
-    --phone-height: 380px;
+    --phone-height: 36vh;
+    --phone-width: calc(var(--phone-height) * (353 / 745));
   }
 
   .hero__brand-row {

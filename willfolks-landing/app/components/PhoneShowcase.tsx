@@ -50,6 +50,7 @@ export function PhoneShowcase() {
   const phoneRef = useRef<HTMLDivElement>(null);
   const cardsWrapperRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const mobileIconRefs = useRef<(HTMLDivElement | null)[]>([]);
   const screenshotRefs = useRef<(HTMLImageElement | null)[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -121,11 +122,31 @@ export function PhoneShowcase() {
           }
         });
 
+        // Animate mobile floating icons
+        mobileIconRefs.current.forEach((icon, i) => {
+          if (!icon) return;
+          if (i === idx) {
+            gsap.to(icon, {
+              opacity: 1,
+              scale: 1,
+              duration: 0.6,
+              ease: "back.out(1.5)",
+            });
+          } else {
+            gsap.to(icon, {
+              opacity: 0,
+              scale: 0.5,
+              duration: 0.3,
+              ease: "power2.in",
+            });
+          }
+        });
+
         // Animate phone position (shift left/right)
         const isLeft = FEATURE_SECTIONS[idx].position === "left";
         const isDesktop = window.innerWidth > 900;
-        const xPhone = isDesktop ? (isLeft ? -40 : 450) : 0;
-        const xCards = isDesktop ? (isLeft ? 40 : -350) : 0;
+        const xPhone = isDesktop ? (isLeft ? -50 : 520) : 0;
+        const xCards = isDesktop ? (isLeft ? 50 : -420) : 0;
 
         gsap.to(phone, {
           x: xPhone,
@@ -186,6 +207,28 @@ export function PhoneShowcase() {
               className="phone-frame"
               aria-hidden="true"
             />
+            {/* Mobile floating icons */}
+            <div className="mobile-floating-icons desktop-hidden">
+              {FEATURE_SECTIONS.map((feat, idx) => (
+                <div
+                  key={`mobile-icon-${idx}`}
+                  ref={(el) => {
+                    mobileIconRefs.current[idx] = el;
+                  }}
+                  className="feature-card__icon"
+                  style={{
+                    position: "absolute",
+                    bottom: "10%",
+                    left: "-30px",
+                    opacity: 0,
+                    transform: "scale(0.5)",
+                    zIndex: 10,
+                  }}
+                >
+                  <feat.icon />
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Feature Cards Stack */}
