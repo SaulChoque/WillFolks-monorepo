@@ -46,7 +46,7 @@ export function HeroSection() {
         ease: "power3.out",
         delay: 1.0,
       });
-      gsap.from(".store-badge", {
+      gsap.from(".store-badge-image-btn", {
         opacity: 0,
         y: 20,
         duration: 0.5,

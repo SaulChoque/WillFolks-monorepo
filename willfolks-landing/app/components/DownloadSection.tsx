@@ -40,7 +40,7 @@ export function DownloadSection() {
         delay: 0.2,
       });
 
-      gsap.from(".download-section__badges .store-badge", {
+      gsap.from(".download-section__badges .store-badge-image-btn", {
         scrollTrigger: {
           trigger: section,
           start: "top 80%",

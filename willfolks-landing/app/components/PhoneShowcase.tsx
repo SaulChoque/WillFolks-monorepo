@@ -189,7 +189,7 @@ export function PhoneShowcase() {
           </div>
 
           {/* Feature Cards Stack */}
-          <div ref={cardsWrapperRef} style={{ position: "relative", minHeight: 200, width: "100%", maxWidth: 400 }}>
+          <div ref={cardsWrapperRef} className="phone-showcase__cards-wrapper" style={{ position: "relative", minHeight: 200, width: "100%", maxWidth: 400 }}>
             {FEATURE_SECTIONS.map((feat, idx) => (
               <div
                 key={feat.key}

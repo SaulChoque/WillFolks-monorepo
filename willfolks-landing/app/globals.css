@@ -29,7 +29,7 @@
   --gradient-brand: linear-gradient(135deg, #8CE000 0%, #65A300 50%, #528800 100%);
   --gradient-hero: linear-gradient(180deg, #F8FAF5 0%, #FFFFFF 40%, #FFFFFF 100%);
   --gradient-footer: linear-gradient(135deg, #65A300 0%, #528800 100%);
-  --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.65) 100%);
+  --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.65) 100%);
 
   /* Typography */
   --font-heading: var(--font-righteous), 'Righteous', sans-serif;
@@ -48,18 +48,18 @@
   /* Layout */
   --max-width: 1200px;
   --navbar-height: 64px;
-  --phone-width: 280px;
-  --phone-height: 591px;
+  --phone-width: 300px;
+  --phone-height: 628px;
 
   /* Borders & Shadows */
   --radius-sm: 8px;
   --radius-md: 16px;
   --radius-lg: 24px;
   --radius-xl: 32px;
-  --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
-  --shadow-md: 0 4px 24px rgba(0,0,0,0.08);
-  --shadow-lg: 0 8px 48px rgba(0,0,0,0.12);
-  --shadow-glow: 0 0 40px rgba(140,224,0,0.2);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 24px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 48px rgba(0, 0, 0, 0.12);
+  --shadow-glow: 0 0 40px rgba(140, 224, 0, 0.2);
 
   /* Transitions */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -79,7 +79,8 @@
 }
 
 html {
-  scroll-behavior: auto; /* Lenis handles smooth scroll */
+  scroll-behavior: auto;
+  /* Lenis handles smooth scroll */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -92,10 +93,16 @@ body {
   overflow-x: hidden;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-heading);
   line-height: 1.2;
-  font-weight: 400; /* Righteous only has regular weight */
+  font-weight: 400;
+  /* Righteous only has regular weight */
 }
 
 a {
@@ -117,7 +124,8 @@ button {
   font-size: inherit;
 }
 
-ul, ol {
+ul,
+ol {
   list-style: none;
 }
 
@@ -272,48 +280,25 @@ ul, ol {
 }
 
 /* --- Store Badge --- */
-.store-badge {
-  display: flex;
+.store-badge-image-btn {
+  display: inline-flex;
   align-items: center;
-  gap: var(--space-sm);
-  padding: var(--space-sm) var(--space-lg);
-  background: var(--color-dark);
-  color: var(--color-white);
-  border-radius: var(--radius-sm);
-  transition: all var(--duration-fast) var(--ease-out);
-  min-width: 160px;
   justify-content: center;
+  background: transparent;
+  border: none;
+  padding: 0;
+  transition: transform var(--duration-fast) var(--ease-out);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
 }
 
-.store-badge:hover {
-  background: var(--color-gray-800);
+.store-badge-image-btn:hover {
   transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+  filter: drop-shadow(var(--shadow-md));
 }
 
-.store-badge__icon {
-  font-size: 1.5rem;
-  display: flex;
-  align-items: center;
-}
-
-.store-badge__text {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  line-height: 1.2;
-}
-
-.store-badge__label {
-  font-size: 0.6rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  opacity: 0.8;
-}
-
-.store-badge__name {
-  font-family: var(--font-heading);
-  font-size: 1rem;
+.store-badge-img {
+  display: block;
 }
 
 /* --- Phone Showcase Section --- */
@@ -360,18 +345,18 @@ ul, ol {
   height: 100%;
   z-index: 2;
   pointer-events: none;
-  filter: drop-shadow(0 20px 60px rgba(0,0,0,0.15));
+  filter: drop-shadow(0 20px 60px rgba(0, 0, 0, 0.15));
 }
 
 .screenshots-stack {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
+  left: 2.5%;
+  width: 95%;
   height: 100%;
+  margin-top: 2.6%;
   z-index: 1;
   overflow: hidden;
-  border-radius: 45px;
+  border-radius: 32px;
 }
 
 .screenshot {
@@ -382,7 +367,8 @@ ul, ol {
   height: 100%;
   object-fit: cover;
   opacity: 0;
-  transition: none; /* GSAP controls transitions */
+  transition: none;
+  /* GSAP controls transitions */
 }
 
 .screenshot--active {
@@ -480,12 +466,15 @@ ul, ol {
     transform: translate(0, -20%);
     opacity: 0;
   }
+
   15% {
     opacity: 0.35;
   }
+
   85% {
     opacity: 0.35;
   }
+
   100% {
     transform: translate(-15%, 120%);
     opacity: 0;
@@ -647,6 +636,13 @@ ul, ol {
   .phone-showcase__content {
     flex-direction: column;
     gap: var(--space-xl);
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+
+  .phone-showcase__cards-wrapper {
+    min-height: 380px !important;
   }
 
   .phone-showcase__content--left .phone-wrapper,
@@ -699,9 +695,12 @@ ul, ol {
     height: 80px;
   }
 
-  .store-badge {
-    min-width: 140px;
-    padding: var(--space-xs) var(--space-md);
+  .store-badge-image-btn {
+    transform: scale(0.9);
+  }
+
+  .store-badge-image-btn:hover {
+    transform: scale(0.9) translateY(-2px);
   }
 
   .footer__content {
