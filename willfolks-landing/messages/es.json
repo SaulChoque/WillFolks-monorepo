@@ -1,66 +1,361 @@
 {
+  "meta": {
+    "title": "WillFolks — Pon tu dinero donde están tus metas",
+    "description": "Apuesta dinero por tus metas. Si cumples, es tuyo; si fallas, queda bloqueado. Alarmas, tiempo de pantalla, ubicación y metas verificadas por IA, en depósito on-chain.",
+    "keywords": [
+      "WillFolks",
+      "ahorro gamificado",
+      "seguimiento de metas",
+      "staking",
+      "hábitos",
+      "alarmas",
+      "USDC"
+    ]
+  },
+  "boot": {
+    "lines": [
+      "WILLFOLKS OS ........ V0.1",
+      "> INICIANDO GARANTÍA .. OK",
+      "> SINCRONIZANDO METAS . OK",
+      "> LISTO_"
+    ]
+  },
   "navbar": {
     "brand": "WillFolks",
-    "language": "EN",
-    "home": "Inicio",
-    "features": "Características",
-    "download": "Descargar"
+    "language": "Idioma",
+    "homeLabel": "WillFolks — inicio",
+    "mainLabel": "Principal",
+    "how": "Cómo funciona",
+    "features": "Funciones",
+    "demo": "Demo",
+    "faq": "FAQ",
+    "download": "Descargar",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú",
+    "social": "Redes",
+    "terms": "Términos",
+    "privacy": "Privacidad"
   },
   "hero": {
-    "tagline": "Pon tu dinero donde están tus metas.",
-    "subtitle": "Alcanza tus metas a través del ahorro gamificado. Apuesta, compite y mantente responsable — impulsado por blockchain.",
-    "cta": "Descarga ahora"
+    "system": "WILLFOLKS OS",
+    "steps": {
+      "stake": "Apuesta",
+      "prove": "Demuestra",
+      "keep": "Conserva"
+    },
+    "status": "Cargando metas",
+    "stamp": "2026 WillFolks",
+    "title": {
+      "line1": "Pon tu",
+      "line2": "dinero donde",
+      "line3": "están tus <hl>metas</hl>."
+    },
+    "subtitle": "Apuesta dinero real por tus hábitos. Cumple la meta y vuelve a ser tuyo. Falla y queda bloqueado — o se lo lleva quien te ganó.",
+    "ctaDemo": "Probar la demo",
+    "ctaDownload": "Descargar",
+    "specs": {
+      "stake": {
+        "label": "Apuesta",
+        "value": "USDC"
+      },
+      "verify": {
+        "label": "Verifica",
+        "value": "Sensores · IA · P2P"
+      },
+      "escrow": {
+        "label": "Garantía",
+        "value": "On-chain"
+      }
+    },
+    "ticker": [
+      "Apuesta",
+      "Demuestra",
+      "Conserva",
+      "Despierta",
+      "Desconecta",
+      "Llega"
+    ]
+  },
+  "how": {
+    "tag": "Cómo funciona",
+    "meta": "(03) Pasos",
+    "title": "Tres pasos.\nCero excusas.",
+    "titleHighlight": [
+      "cero"
+    ],
+    "steps": {
+      "stake": {
+        "title": "Apuesta",
+        "body": "Elige una meta y bloquea dinero real en ella. Tu apuesta queda en un depósito on-chain, fuera de tu alcance hasta que la meta se resuelva.",
+        "code": "escrow.lock(2 USDC)"
+      },
+      "prove": {
+        "title": "Demuestra",
+        "body": "Los sensores de tu teléfono, un agente de IA o una red de teléfonos de confianza comprueban si de verdad lo hiciste.",
+        "code": "verify() → true | false"
+      },
+      "keep": {
+        "title": "Conserva",
+        "body": "¿Cumpliste? El dinero es tuyo, retíralo cuando quieras. ¿No? Queda bloqueado, o se lo lleva quien te ganó.",
+        "code": "withdraw() || lock(+2d)"
+      }
+    },
+    "win": {
+      "title": "Si cumples",
+      "body": "Apuesta liberada. Retira cuando quieras, mantén la racha, alimenta a tu mascota."
+    },
+    "miss": {
+      "title": "Si fallas",
+      "body": "Apuesta bloqueada durante la penalización, o repartida entre los amigos que sí cumplieron."
+    }
   },
   "features": {
-    "sectionTitle": "Lo que hace único a WillFolks",
+    "tag": "Funciones",
+    "meta": "(06) Módulos",
+    "sectionTitle": "Seis formas de cumplir tu palabra",
+    "readout": {
+      "shape": "Forma",
+      "mode": "Modo",
+      "modeValue": "Giro · eje Y"
+    },
     "escrow": {
       "title": "Depósito en Garantía",
-      "description": "Apuesta tu dinero en tus metas. Cumple y retira cuando quieras. Falla, y tus fondos se bloquean como penalización — o se convierten en una apuesta multijugador."
+      "description": "Apuesta tu dinero en tus metas. Cumple y retira cuando quieras. Falla, y tus fondos se bloquean como penalización — o se convierten en una apuesta multijugador.",
+      "shape": "Candado"
     },
     "alarm": {
       "title": "Alarmas Inteligentes",
-      "description": "Configura alarmas para despertar respaldadas con dinero real. ¿No sonó tu alarma? Tu apuesta se bloquea. La constancia paga — literalmente."
+      "description": "Configura alarmas para despertar respaldadas con dinero real. ¿Ignoraste tu alarma? Tu apuesta se bloquea. La constancia paga — literalmente.",
+      "shape": "Alarma"
     },
     "appTimer": {
       "title": "Temporizador de Apps",
-      "description": "Limita tu tiempo de pantalla en apps que te distraen. Establece límites semanales y pon dinero en juego. Tu billetera te mantiene enfocado."
+      "description": "Limita tu tiempo de pantalla en apps que te distraen. Establece límites semanales y pon dinero en juego. Tu billetera te mantiene enfocado.",
+      "shape": "Reloj de arena"
     },
     "locator": {
       "title": "Rastreador de Ubicación",
-      "description": "Establece metas basadas en ubicación. Llega a tiempo al gimnasio, oficina o clase. Tu GPS verifica, tu billetera recompensa."
+      "description": "Establece metas basadas en ubicación. Llega a tiempo al gimnasio, oficina o clase. Tu GPS verifica, tu billetera recompensa.",
+      "shape": "Pin"
     },
     "unmeasurable": {
       "title": "Metas con IA",
-      "description": "Las metas que no se pueden medir con sensores — como hacer tareas o quehaceres — son verificadas por un agente de IA, o a través de una red P2P de teléfonos de confianza."
+      "description": "Las metas que no se pueden medir con sensores — como hacer tareas o quehaceres — son verificadas por un agente de IA, o a través de una red P2P de teléfonos de confianza.",
+      "shape": "Destello"
     },
     "deposits": {
       "title": "Depósitos Fiat y Cripto",
-      "description": "Financia tus metas con dinero tradicional o criptomonedas. Billetera integrada con soporte USDC. Deposita, retira y rastrea todo on-chain."
+      "description": "Financia tus metas con dinero tradicional o criptomonedas. Billetera integrada con soporte USDC. Deposita, retira y rastrea todo on-chain.",
+      "shape": "Monedas"
+    }
+  },
+  "demo": {
+    "tag": "Demo en vivo",
+    "meta": "(05) Pantallas",
+    "ghost": "Juega",
+    "title": "Pruébala.\nSin instalar.",
+    "titleHighlight": [
+      "sin"
+    ],
+    "body": "Esta es la app, corriendo en tu navegador. Toca las pestañas, apuesta por una meta o dispara la alarma y mira qué pasa con tu dinero.",
+    "tryLabel": "— Cosas para probar",
+    "scenarios": {
+      "alarm": {
+        "title": "Dispara la alarma de las 07:41",
+        "body": "10 segundos para reaccionar. 2 USDC en juego."
+      },
+      "stake": {
+        "title": "Apuesta por una meta nueva",
+        "body": "Elige el tipo, elige el monto, bloquéalo."
+      },
+      "pet": {
+        "title": "Alimenta a tu WillPet",
+        "body": "Se pone feliz cuando cumples tu palabra."
+      }
+    },
+    "screensLabel": "— Pantallas",
+    "flip": "Pantalla",
+    "note": "Solo datos de demostración. Nada aquí toca una billetera real.",
+    "app": {
+      "tabsLabel": "Secciones de la app",
+      "tabs": {
+        "time": "Hora",
+        "home": "Inicio",
+        "pet": "WillPet",
+        "goals": "Metas",
+        "settings": "Ajustes"
+      },
+      "toast": "Bloqueado",
+      "notes": {
+        "locked": "Bloqueado",
+        "won": "Ganado",
+        "safe": "Apuesta a salvo",
+        "staked": "En garantía",
+        "onTrack": "En curso"
+      },
+      "home": {
+        "welcome": "Hola de nuevo,",
+        "user": "Baluchop",
+        "inEscrow": "En garantía",
+        "yield": "Rend.",
+        "activeGoals": "{count, plural, one {# meta activa} other {# metas activas}}",
+        "recent": "Actividad reciente"
+      },
+      "activity": {
+        "missedAlarm": "Alarma perdida",
+        "instagram": "Instagram",
+        "instagramValue": "180 min/sem",
+        "testFirst": "Termina el examen",
+        "beatAlarm": "Alarma vencida",
+        "staked": {
+          "alarm": "Nueva meta de alarma",
+          "appTimer": "Nuevo límite de app",
+          "locator": "Nueva meta de lugar",
+          "ai": "Nueva meta con IA"
+        }
+      },
+      "time": {
+        "title": "Hora",
+        "local": "Hora local",
+        "friends": "Zonas de tus amigos",
+        "hours": "h"
+      },
+      "pet": {
+        "title": "Tu WillPet",
+        "mood": "Ánimo",
+        "streak": "Racha",
+        "days": "{count, plural, one {# día} other {# días}}",
+        "feed": "Alimentar",
+        "play": "Jugar",
+        "poke": "Toca a tu WillPet",
+        "lines": {
+          "idle": "Cumple tu palabra y yo crezco.",
+          "happy": "¡Eso! Más de eso.",
+          "sad": "Te quedaste dormido. Lo sentí.",
+          "full": "Estoy genial. Tú también."
+        }
+      },
+      "goals": {
+        "title": "Mis metas",
+        "active": "Activa",
+        "paused": "En pausa",
+        "stake": "Monto apostado",
+        "lockDays": "Si fallas",
+        "lockValue": "Bloqueo 2 días",
+        "participants": "Participantes",
+        "days": "Días activos",
+        "daysValue": "L M X J V",
+        "reaction": "Reacción máxima",
+        "tip": "Propina dev",
+        "testAlarm": "Probar esta alarma",
+        "add": "Nueva meta",
+        "kinds": {
+          "alarm": {
+            "name": "Despertar 07:41",
+            "detail": "Alarma",
+            "short": "Alarma"
+          },
+          "appTimer": {
+            "name": "Límite de Instagram",
+            "detail": "Temporizador",
+            "short": "App"
+          },
+          "locator": {
+            "name": "Gimnasio a las 18:00",
+            "detail": "Ubicación",
+            "short": "Lugar"
+          },
+          "ai": {
+            "name": "Termina el examen",
+            "detail": "Revisión IA",
+            "short": "IA"
+          }
+        }
+      },
+      "sheet": {
+        "title": "Nueva meta",
+        "pick": "Tipo de meta",
+        "stake": "Apuesta",
+        "less": "Apostar menos",
+        "more": "Apostar más",
+        "ifMiss": "Si fallas: bloqueado por 2 días",
+        "confirm": "Apostar",
+        "cancel": "Cerrar"
+      },
+      "settings": {
+        "title": "Ajustes",
+        "display": "Pantalla",
+        "theme": {
+          "acid": "Ácido",
+          "void": "Vacío"
+        },
+        "experience": "Experiencia",
+        "alarmFocus": "Alarma y enfoque",
+        "items": {
+          "haptics": {
+            "title": "Respuesta háptica",
+            "body": "Vibra al tocar y al actuar."
+          },
+          "seconds": {
+            "title": "Mostrar segundos",
+            "body": "Segundos en el reloj de Hora."
+          },
+          "reminders": {
+            "title": "Avisos de alarma",
+            "body": "Alerta a pantalla completa al sonar."
+          },
+          "vibration": {
+            "title": "Vibración de alarma",
+            "body": "Sigue vibrando mientras suena."
+          }
+        },
+        "wallet": "Billetera",
+        "hiddenTitle": "Claves ocultas",
+        "hiddenBody": "Autentícate para ver los datos sensibles.",
+        "unlock": "Mantén para desbloquear",
+        "unlocked": "Desbloqueado",
+        "unlockedTitle": "Billetera de demo",
+        "unlockedBody": "Aquí no hay claves reales."
+      },
+      "alarm": {
+        "kicker": "Alarma · Despertar",
+        "wake": "Despierta",
+        "atStake": "{amount} USDC en juego",
+        "left": "{count, plural, one {Queda # segundo} other {Quedan # segundos}}",
+        "awake": "Ya desperté",
+        "wonTitle": "Apuesta a salvo",
+        "wonBody": "Le ganaste a la alarma. Racha: {streak, plural, one {# día} other {# días}}.",
+        "lostTitle": "Apuesta bloqueada",
+        "lostBody": "La dejaste pasar. {amount} USDC bloqueados por 2 días.",
+        "back": "Volver al inicio"
+      }
     }
   },
   "download": {
-    "title": "Descarga Ahora",
-    "googlePlay": "Google Play",
-    "appStore": "App Store",
-    "github": "GitHub",
-    "getItOn": "DISPONIBLE EN",
-    "downloadOnThe": "Consíguelo en el"
+    "tag": "Descarga",
+    "meta": "(03) Tiendas",
+    "title": "Llévala en\ntu teléfono.",
+    "titleHighlight": [
+      "teléfono"
+    ],
+    "body": "WillFolks llegará a Android y iOS. El código es abierto: sigue el desarrollo en GitHub mientras las tiendas se ponen al día.",
+    "status": "Publicación en tiendas en curso",
+    "seal": "PRÓXIMAMENTE · APUESTA · DEMUESTRA · CONSERVA · ",
+    "stores": {
+      "googlePlay": "Google Play",
+      "appStore": "App Store",
+      "github": "GitHub"
+    },
+    "badgeLabel": "Consigue WillFolks en {store}"
   },
   "snackbar": {
-    "comingSoon": "¡WillFolks estará disponible en {store} pronto!"
-  },
-  "footer": {
-    "socialTitle": "Nuestras redes sociales",
-    "facebook": "Facebook",
-    "instagram": "Instagram",
-    "linkedin": "LinkedIn",
-    "privacy": "Política de privacidad",
-    "terms": "Términos y Condiciones",
-    "copyright": "2026 SaulChoque"
+    "comingSoon": "WillFolks llegará pronto a {store}"
   },
   "faq": {
-    "title": "Preguntas Frecuentes",
-    "contact": "Contacto",
+    "tag": "FAQ",
+    "meta": "(05) Respuestas",
+    "title": "Preguntas\njustas.",
+    "contactLead": "¿Aún con dudas? Escribe a",
     "q1": "¿Qué es WillFolks?",
     "a1": "WillFolks es una aplicación de ahorro gamificado que te ayuda a cumplir tus metas personales bloqueando dinero real en contratos inteligentes. Si logras tu objetivo, recuperas tu dinero; de lo contrario, se penaliza o se distribuye en retos grupales.",
     "q2": "¿Cómo funciona el Depósito en Garantía (Escrow)?",
@@ -71,5 +366,56 @@
     "a4": "Para metas no medibles por sensores (como estudiar o hacer quehaceres), utilizamos verificación mediante inteligencia artificial que analiza imágenes/videos, o a través de validación P2P con amigos o teléfonos de confianza en nuestra red descentralizada.",
     "q5": "¿Qué métodos de depósito y retiro soporta la app?",
     "a5": "Soportamos tanto métodos tradicionales (dinero fiat) como criptomonedas, con una billetera integrada compatible con USDC para que todas tus transacciones sean rápidas, transparentes y seguras en la blockchain."
+  },
+  "footer": {
+    "tagline": "Pon tu dinero donde están tus metas.",
+    "explore": "Explorar",
+    "socialTitle": "Redes",
+    "allSocial": "Todos los canales",
+    "legalTitle": "Legal",
+    "terms": "Términos de Servicio",
+    "privacy": "Política de Privacidad",
+    "contactTitle": "Contacto",
+    "end": "Fin de la página",
+    "number": "Número 01",
+    "ticker": [
+      "Responsabilidad",
+      "Empoderamiento",
+      "Juego"
+    ]
+  },
+  "legal": {
+    "tag": "Legal",
+    "updated": "Actualizado",
+    "contents": "Contenido",
+    "terms": "Términos de Servicio",
+    "privacy": "Política de Privacidad",
+    "contactLabel": "— Dudas sobre este documento"
+  },
+  "social": {
+    "metaTitle": "Redes",
+    "tag": "Redes",
+    "meta": "(06) Canales",
+    "title": "Encuentra a los folks.",
+    "body": "Dónde vive WillFolks fuera de la app. GitHub ya está abierto; el resto de canales se enciende a medida que nos acercamos al lanzamiento.",
+    "open": "Abrir",
+    "soon": "Próximamente",
+    "soonToast": "{network} aún no está activo — pronto",
+    "contactLabel": "— O simplemente escribe",
+    "back": "Volver al inicio"
+  },
+  "notFound": {
+    "title": "ERROR 404",
+    "route": "RUTA DESCONOCIDA",
+    "searching": "Buscando",
+    "please": "Por favor",
+    "check": "revisa la dirección",
+    "again": "otra vez",
+    "navLabel": "Salidas",
+    "home": "Inicio",
+    "faq": "FAQ",
+    "social": "Redes",
+    "end": "Fin de la página de prueba",
+    "number": "Número 404"
   }
 }
