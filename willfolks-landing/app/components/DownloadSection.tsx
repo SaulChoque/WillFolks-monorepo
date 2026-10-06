@@ -56,7 +56,7 @@ export function DownloadSection() {
           autoplay: onScroll({ target: root, enter: "bottom top", leave: "top bottom", sync: 0.4 }),
         });
       drift(".download__halftone", 110, -110);
-      drift(".download__bars", -80, 80);
+      drift(".download__bars", -30, 30);
       drift(".download__seal", 70, -70);
     });
 

@@ -328,9 +328,9 @@
 .hero__bars {
   position: absolute;
   right: var(--gutter);
-  bottom: 15.5%;
+  bottom: 18%;
   width: clamp(90px, 13vw, 210px);
-  height: clamp(50px, 6.4vw, 100px);
+  height: clamp(40px, 5vw, 76px);
   --bar: 7px;
 }
 

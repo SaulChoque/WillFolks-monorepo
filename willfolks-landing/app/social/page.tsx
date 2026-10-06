@@ -17,7 +17,6 @@ export default async function SocialPage() {
     <main className="social sec--acid">
       <div className="social__bg" aria-hidden="true">
         <div className="social__halftone" />
-        <div className="social__bars stripes" />
       </div>
 
       <div className="wrap">

@@ -398,7 +398,7 @@
 
 .download {
   overflow: hidden;
-  padding-bottom: clamp(7rem, 15vw, 13rem);
+  padding-bottom: clamp(6rem, 12vw, 11rem);
 }
 
 .download__bg {
@@ -419,19 +419,20 @@
   filter: contrast(50);
   mix-blend-mode: multiply;
   background-image:
-    radial-gradient(circle at 60% 46%, rgb(255 255 255 / 0.3) 0%, #fff 60%),
+    radial-gradient(circle at 60% 50%, rgb(255 255 255 / 0.3) 0%, #fff 44%),
     radial-gradient(circle at center, #000 0, #fff 72%);
   background-size:
     100% 100%,
     12px 12px;
 }
 
+/* Sits under the seal, where there is no copy for it to cross. */
 .download__bars {
   position: absolute;
-  bottom: 9%;
-  left: 0;
+  right: 0;
+  bottom: 5%;
   width: clamp(100px, 18vw, 300px);
-  height: clamp(60px, 8vw, 130px);
+  height: clamp(50px, 6vw, 96px);
   --bar: 9px;
 }
 
@@ -454,7 +455,8 @@
 
 .download__title {
   margin-bottom: 1.5rem;
-  font-size: clamp(2.7rem, 8.8vw, 10rem);
+  /* sized so the longest highlighted word (ES) stays inside its column */
+  font-size: clamp(2.7rem, 7.4vw, 8.5rem);
 }
 
 .download__lede {
@@ -811,6 +813,10 @@
     top: 34%;
     right: -46vw;
     width: 110vw;
+  }
+
+  .download__bars {
+    display: none;
   }
 
   .download__cross {
