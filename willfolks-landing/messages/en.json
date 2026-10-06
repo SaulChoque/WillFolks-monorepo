@@ -1,66 +1,361 @@
 {
+  "meta": {
+    "title": "WillFolks — Put your money where your goals are",
+    "description": "Stake money on your goals. Hit them and it's yours; miss them and it's locked. Alarms, screen time, location and AI-verified goals, held in on-chain escrow.",
+    "keywords": [
+      "WillFolks",
+      "gamified savings",
+      "goal tracking",
+      "staking",
+      "habit tracker",
+      "alarms",
+      "USDC"
+    ]
+  },
+  "boot": {
+    "lines": [
+      "WILLFOLKS OS ........ V0.1",
+      "> INIT ESCROW ......... OK",
+      "> SYNC GOALS .......... OK",
+      "> READY_"
+    ]
+  },
   "navbar": {
     "brand": "WillFolks",
-    "language": "ES",
-    "home": "Home",
+    "language": "Language",
+    "homeLabel": "WillFolks — home",
+    "mainLabel": "Main",
+    "how": "How it works",
     "features": "Features",
-    "download": "Download"
+    "demo": "Demo",
+    "faq": "FAQ",
+    "download": "Download",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "social": "Social",
+    "terms": "Terms",
+    "privacy": "Privacy"
   },
   "hero": {
-    "tagline": "Put your money where your goals are.",
-    "subtitle": "Achieve your goals through gamified savings. Stake, compete, and stay accountable — powered by blockchain.",
-    "cta": "Download now"
+    "system": "WILLFOLKS OS",
+    "steps": {
+      "stake": "Stake",
+      "prove": "Prove",
+      "keep": "Keep"
+    },
+    "status": "Loading goals",
+    "stamp": "2026 WillFolks",
+    "title": {
+      "line1": "Put your",
+      "line2": "money where",
+      "line3": "your <hl>goals</hl> are."
+    },
+    "subtitle": "Stake real money on your habits. Hit the goal and it's yours again. Miss it and it stays locked — or goes to whoever beat you.",
+    "ctaDemo": "Try the demo",
+    "ctaDownload": "Download",
+    "specs": {
+      "stake": {
+        "label": "Stake",
+        "value": "USDC"
+      },
+      "verify": {
+        "label": "Verify",
+        "value": "Sensors · AI · P2P"
+      },
+      "escrow": {
+        "label": "Escrow",
+        "value": "On-chain"
+      }
+    },
+    "ticker": [
+      "Stake it",
+      "Prove it",
+      "Keep it",
+      "Wake up",
+      "Log off",
+      "Show up"
+    ]
+  },
+  "how": {
+    "tag": "How it works",
+    "meta": "(03) Steps",
+    "title": "Three moves.\nZero excuses.",
+    "titleHighlight": [
+      "zero"
+    ],
+    "steps": {
+      "stake": {
+        "title": "Stake",
+        "body": "Pick a goal and lock real money on it. Your stake sits in an on-chain escrow, out of reach until the goal resolves.",
+        "code": "escrow.lock(2 USDC)"
+      },
+      "prove": {
+        "title": "Prove",
+        "body": "Your phone's sensors, an AI agent or a network of trusted phones check whether you actually did it.",
+        "code": "verify() → true | false"
+      },
+      "keep": {
+        "title": "Keep",
+        "body": "Did it? The money is yours, withdraw whenever. Didn't? It stays locked, or goes to whoever beat you.",
+        "code": "withdraw() || lock(+2d)"
+      }
+    },
+    "win": {
+      "title": "You hit it",
+      "body": "Stake released. Withdraw any time, keep the streak, feed the pet."
+    },
+    "miss": {
+      "title": "You miss it",
+      "body": "Stake locked for the penalty period, or paid out to the friends who made it."
+    }
   },
   "features": {
-    "sectionTitle": "What makes WillFolks unique",
+    "tag": "Features",
+    "meta": "(06) Modules",
+    "sectionTitle": "Six ways to keep your word",
+    "readout": {
+      "shape": "Shape",
+      "mode": "Mode",
+      "modeValue": "Spin · Y axis"
+    },
     "escrow": {
       "title": "Escrow & Yield",
-      "description": "Stake your money on your goals. Complete them and withdraw anytime. Miss them, and your funds get locked as a penalty — or go as a multiplayer bet."
+      "description": "Stake your money on your goals. Complete them and withdraw anytime. Miss them, and your funds get locked as a penalty — or go as a multiplayer bet.",
+      "shape": "Lock"
     },
     "alarm": {
       "title": "Smart Alarms",
-      "description": "Set wake-up alarms backed by real money. Miss your alarm? Your stake gets locked. Consistency pays — literally."
+      "description": "Set wake-up alarms backed by real money. Miss your alarm? Your stake gets locked. Consistency pays — literally.",
+      "shape": "Alarm"
     },
     "appTimer": {
       "title": "App Timer",
-      "description": "Limit your screen time on distracting apps. Set weekly limits and put money on the line. Your wallet keeps you focused."
+      "description": "Limit your screen time on distracting apps. Set weekly limits and put money on the line. Your wallet keeps you focused.",
+      "shape": "Hourglass"
     },
     "locator": {
       "title": "Location Tracker",
-      "description": "Set location-based goals. Arrive on time to the gym, office, or class. Your GPS verifies, your wallet rewards."
+      "description": "Set location-based goals. Arrive on time to the gym, office, or class. Your GPS verifies, your wallet rewards.",
+      "shape": "Pin"
     },
     "unmeasurable": {
       "title": "AI-Powered Goals",
-      "description": "Goals that can't be measured by sensors — like doing homework or chores — are verified by an AI agent, or through a P2P network of trusted phones."
+      "description": "Goals that can't be measured by sensors — like doing homework or chores — are verified by an AI agent, or through a P2P network of trusted phones.",
+      "shape": "Spark"
     },
     "deposits": {
       "title": "Fiat & Crypto Deposits",
-      "description": "Fund your goals with traditional money or cryptocurrency. Built-in wallet with USDC support. Deposit, withdraw, and track everything on-chain."
+      "description": "Fund your goals with traditional money or cryptocurrency. Built-in wallet with USDC support. Deposit, withdraw, and track everything on-chain.",
+      "shape": "Coins"
+    }
+  },
+  "demo": {
+    "tag": "Live demo",
+    "meta": "(05) Screens",
+    "ghost": "Play",
+    "title": "Try it.\nNo install.",
+    "titleHighlight": [
+      "no"
+    ],
+    "body": "This is the app, running in your browser. Tap the tabs, stake a goal, or set off the alarm and see what happens to your money.",
+    "tryLabel": "— Things to try",
+    "scenarios": {
+      "alarm": {
+        "title": "Set off the 07:41 alarm",
+        "body": "10 seconds to react. 2 USDC on the line."
+      },
+      "stake": {
+        "title": "Stake a new goal",
+        "body": "Pick a type, pick an amount, lock it."
+      },
+      "pet": {
+        "title": "Feed the WillPet",
+        "body": "It gets happier when you keep your word."
+      }
+    },
+    "screensLabel": "— Screens",
+    "flip": "Display",
+    "note": "Demo data only. Nothing here touches a real wallet.",
+    "app": {
+      "tabsLabel": "App sections",
+      "tabs": {
+        "time": "Time",
+        "home": "Home",
+        "pet": "WillPet",
+        "goals": "Goals",
+        "settings": "Settings"
+      },
+      "toast": "Locked in",
+      "notes": {
+        "locked": "Locked",
+        "won": "Won",
+        "safe": "Stake safe",
+        "staked": "In escrow",
+        "onTrack": "On track"
+      },
+      "home": {
+        "welcome": "Welcome back,",
+        "user": "Baluchop",
+        "inEscrow": "In escrow",
+        "yield": "Yield",
+        "activeGoals": "{count, plural, one {# active goal} other {# active goals}}",
+        "recent": "Recent activity"
+      },
+      "activity": {
+        "missedAlarm": "Missed alarm",
+        "instagram": "Instagram",
+        "instagramValue": "180 min/wk",
+        "testFirst": "Finish the test first",
+        "beatAlarm": "Alarm beaten",
+        "staked": {
+          "alarm": "New alarm goal",
+          "appTimer": "New app limit",
+          "locator": "New location goal",
+          "ai": "New AI goal"
+        }
+      },
+      "time": {
+        "title": "Time",
+        "local": "Local time",
+        "friends": "Friends' timezones",
+        "hours": "hrs"
+      },
+      "pet": {
+        "title": "Your WillPet",
+        "mood": "Mood",
+        "streak": "Streak",
+        "days": "{count, plural, one {# day} other {# days}}",
+        "feed": "Feed",
+        "play": "Play",
+        "poke": "Poke your WillPet",
+        "lines": {
+          "idle": "Keep your word and I grow.",
+          "happy": "Yes! More of that.",
+          "sad": "You slept in. I felt that.",
+          "full": "I'm thriving. So are you."
+        }
+      },
+      "goals": {
+        "title": "My goals",
+        "active": "Active",
+        "paused": "Paused",
+        "stake": "Stake amount",
+        "lockDays": "If missed",
+        "lockValue": "Locked 2 days",
+        "participants": "Participants",
+        "days": "Active days",
+        "daysValue": "M T W T F",
+        "reaction": "Max reaction time",
+        "tip": "Dev tip",
+        "testAlarm": "Test this alarm",
+        "add": "New goal",
+        "kinds": {
+          "alarm": {
+            "name": "Wake up 07:41",
+            "detail": "Alarm",
+            "short": "Alarm"
+          },
+          "appTimer": {
+            "name": "Instagram limit",
+            "detail": "App timer",
+            "short": "App"
+          },
+          "locator": {
+            "name": "Gym by 18:00",
+            "detail": "Location",
+            "short": "Place"
+          },
+          "ai": {
+            "name": "Finish the test",
+            "detail": "AI check",
+            "short": "AI"
+          }
+        }
+      },
+      "sheet": {
+        "title": "New goal",
+        "pick": "Goal type",
+        "stake": "Stake",
+        "less": "Stake less",
+        "more": "Stake more",
+        "ifMiss": "If you miss it: locked for 2 days",
+        "confirm": "Stake it",
+        "cancel": "Close"
+      },
+      "settings": {
+        "title": "Settings",
+        "display": "Display",
+        "theme": {
+          "acid": "Acid",
+          "void": "Void"
+        },
+        "experience": "Experience",
+        "alarmFocus": "Alarm & focus",
+        "items": {
+          "haptics": {
+            "title": "Haptic feedback",
+            "body": "Vibrate on taps and actions."
+          },
+          "seconds": {
+            "title": "Show seconds",
+            "body": "Seconds on the Time tab clock."
+          },
+          "reminders": {
+            "title": "Alarm reminders",
+            "body": "Full-screen alert when an alarm fires."
+          },
+          "vibration": {
+            "title": "Alarm vibration",
+            "body": "Keep buzzing while it rings."
+          }
+        },
+        "wallet": "Wallet",
+        "hiddenTitle": "Keys hidden",
+        "hiddenBody": "Authenticate to view sensitive details.",
+        "unlock": "Hold to unlock",
+        "unlocked": "Unlocked",
+        "unlockedTitle": "Demo wallet",
+        "unlockedBody": "No real keys live in this demo."
+      },
+      "alarm": {
+        "kicker": "Alarm · Wake up",
+        "wake": "Wake up",
+        "atStake": "{amount} USDC at stake",
+        "left": "{count, plural, one {# second left} other {# seconds left}}",
+        "awake": "I'm up",
+        "wonTitle": "Stake safe",
+        "wonBody": "You beat the alarm. Streak: {streak, plural, one {# day} other {# days}}.",
+        "lostTitle": "Stake locked",
+        "lostBody": "You missed it. {amount} USDC locked for 2 days.",
+        "back": "Back to home"
+      }
     }
   },
   "download": {
-    "title": "Download Now",
-    "googlePlay": "Google Play",
-    "appStore": "App Store",
-    "github": "GitHub",
-    "getItOn": "GET IT ON",
-    "downloadOnThe": "Download on the"
+    "tag": "Download",
+    "meta": "(03) Stores",
+    "title": "Get it on\nyour phone.",
+    "titleHighlight": [
+      "phone"
+    ],
+    "body": "WillFolks is coming to Android and iOS. The code is open — follow the build on GitHub while the stores catch up.",
+    "status": "Store release in progress",
+    "seal": "COMING SOON · STAKE IT · PROVE IT · KEEP IT · ",
+    "stores": {
+      "googlePlay": "Google Play",
+      "appStore": "App Store",
+      "github": "GitHub"
+    },
+    "badgeLabel": "Get WillFolks on {store}"
   },
   "snackbar": {
-    "comingSoon": "WillFolks will be available on {store} soon!"
-  },
-  "footer": {
-    "socialTitle": "Our social media",
-    "facebook": "Facebook",
-    "instagram": "Instagram",
-    "linkedin": "LinkedIn",
-    "privacy": "Privacy policy",
-    "terms": "Terms and Conditions",
-    "copyright": "2026 SaulChoque"
+    "comingSoon": "WillFolks will be on {store} soon"
   },
   "faq": {
-    "title": "Frequently Asked Questions",
-    "contact": "Contact",
+    "tag": "FAQ",
+    "meta": "(05) Answers",
+    "title": "Fair\nquestions.",
+    "contactLead": "Still unsure? Write to",
     "q1": "What is WillFolks?",
     "a1": "WillFolks is a gamified savings application that helps you achieve your personal goals by locking real money in smart contracts. If you achieve your goal, you get your money back; otherwise, it is penalized or distributed in group challenges.",
     "q2": "How does the Escrow mechanism work?",
@@ -71,5 +366,56 @@
     "a4": "For goals that cannot be measured by device sensors (like studying or chores), we use AI verification to check images/videos, or peer-to-peer validation with trusted friends or phones on our decentralized network.",
     "q5": "What deposit and withdrawal methods does the app support?",
     "a5": "We support both traditional methods (fiat money) and cryptocurrency, with a built-in wallet compatible with USDC so that all your transactions are fast, transparent, and secure on the blockchain."
+  },
+  "footer": {
+    "tagline": "Put your money where your goals are.",
+    "explore": "Explore",
+    "socialTitle": "Social",
+    "allSocial": "All channels",
+    "legalTitle": "Legal",
+    "terms": "Terms of Service",
+    "privacy": "Privacy Policy",
+    "contactTitle": "Contact",
+    "end": "End of page",
+    "number": "Number 01",
+    "ticker": [
+      "Accountability",
+      "Empowerment",
+      "Playfulness"
+    ]
+  },
+  "legal": {
+    "tag": "Legal",
+    "updated": "Updated",
+    "contents": "Contents",
+    "terms": "Terms of Service",
+    "privacy": "Privacy Policy",
+    "contactLabel": "— Questions about this document"
+  },
+  "social": {
+    "metaTitle": "Social",
+    "tag": "Social",
+    "meta": "(06) Channels",
+    "title": "Find the folks.",
+    "body": "Where WillFolks lives outside the app. GitHub is open today; the rest of the channels switch on as we get closer to launch.",
+    "open": "Open",
+    "soon": "Coming soon",
+    "soonToast": "{network} is not live yet — soon",
+    "contactLabel": "— Or just write",
+    "back": "Back home"
+  },
+  "notFound": {
+    "title": "ERROR 404",
+    "route": "UNKNOWN ROUTE",
+    "searching": "Searching",
+    "please": "Please",
+    "check": "check the address",
+    "again": "again",
+    "navLabel": "Ways out",
+    "home": "Home",
+    "faq": "FAQ",
+    "social": "Social",
+    "end": "End of test page",
+    "number": "Number 404"
   }
 }

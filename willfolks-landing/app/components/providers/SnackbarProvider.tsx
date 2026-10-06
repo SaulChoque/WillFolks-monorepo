@@ -7,7 +7,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { Snackbar } from "./Snackbar";
+import { Snackbar } from "../ui/Snackbar";
 
 interface SnackbarContextType {
   showSnackbar: (message: string) => void;

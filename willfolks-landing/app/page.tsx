@@ -1,21 +1,17 @@
-import { Navbar } from "./components/Navbar";
 import { HeroSection } from "./components/HeroSection";
-import { PhoneShowcase } from "./components/PhoneShowcase";
+import { HowItWorks } from "./components/HowItWorks";
+import { FeatureShowcase } from "./components/FeatureShowcase";
 import { DownloadSection } from "./components/DownloadSection";
 import { FaqSection } from "./components/FaqSection";
-import { Footer } from "./components/Footer";
 
 export default function Home() {
   return (
-    <>
-      <Navbar />
-      <main>
-        <HeroSection />
-        <PhoneShowcase />
-        <DownloadSection />
-        <FaqSection />
-      </main>
-      <Footer />
-    </>
+    <main>
+      <HeroSection />
+      <HowItWorks />
+      <FeatureShowcase />
+      <DownloadSection />
+      <FaqSection />
+    </main>
   );
 }
