@@ -1,0 +1,57 @@
+# Flujo e2e para Maestro (https://maestro.dev): onboarding, depósito y primera meta de alarma.
+#   maestro test e2e/onboarding-and-first-goal.yaml -e EMAIL=nuevo$(date +%s)@willfolks.test
+# Requiere willfolks-database y willfolks-BE corriendo, y la app instalada en el emulador.
+# Los testID son los mismos que se usaron para recorrer la app con adb; este archivo en
+# concreto todavía no se ha ejecutado con Maestro.
+appId: com.anonymous.willfolksexpodapp
+env:
+  EMAIL: e2e@willfolks.test
+---
+- launchApp:
+    clearState: true
+- tapOn:
+    id: welcome-start
+- tapOn:
+    id: signin-email
+- inputText: ${EMAIL}
+- tapOn:
+    id: signin-name
+- inputText: E2E
+- hideKeyboard
+- assertVisible: .*SERVER ONLINE.*
+- tapOn:
+    id: signin-submit
+- tapOn:
+    id: profile-username
+- inputText: e2e_user
+- hideKeyboard
+- tapOn:
+    id: profile-submit
+- tapOn:
+    id: permissions-continue
+- tapOn:
+    id: wallet-finish
+# Ya dentro de la app: depositar desde Inicio.
+- tapOn: Home
+- tapOn:
+    id: home-wallet
+- tapOn:
+    id: wallet-deposit
+- assertVisible:
+    id: tx-deposit
+- tapOn:
+    id: header-back
+# Crear una meta de alarma con los valores por defecto.
+- tapOn: Goals
+- tapOn:
+    id: goals-add
+- tapOn:
+    id: sheet-next
+- scrollUntilVisible:
+    element:
+      id: goal-submit
+- tapOn:
+    id: goal-submit
+- assertVisible:
+    id: goal-test-alarm
+- assertVisible: 07:00

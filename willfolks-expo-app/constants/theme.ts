@@ -72,3 +72,19 @@ export const Fonts = Platform.select({
     mono: "SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
   },
 });
+
+/** Duotone "LCD" palette shared with the landing: fluorescent green + ink. */
+export const Palettes = {
+  acid: { bg: '#c5ff0a', fg: '#050702', bgRgb: '197,255,10', fgRgb: '5,7,2' },
+  void: { bg: '#060a02', fg: '#c5ff0a', bgRgb: '6,10,2', fgRgb: '197,255,10' },
+} as const;
+
+export type ThemeId = keyof typeof Palettes;
+
+/** Keys match the files registered with `useFonts` in the root layout. */
+export const PixelFonts = {
+  pixel: 'VT323',
+  mono: 'MartianMono-SemiBold',
+  monoBold: 'MartianMono-Bold',
+  monoBlack: 'MartianMono-ExtraBold',
+} as const;

@@ -48,3 +48,30 @@ Join our community of developers creating universal apps.
 
 - [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+
+## WillFolks: backend, native features and e2e
+
+The app talks to [`willfolks-BE`](../willfolks-BE) (NestJS) backed by [`willfolks-database`](../willfolks-database) (Postgres in Docker).
+
+```bash
+(cd ../willfolks-database && docker compose up --detach --wait)
+(cd ../willfolks-BE && npm install && npm run start:dev)
+npx expo run:android        # native build: the app is not usable in Expo Go
+```
+
+The API URL defaults to `http://10.0.2.2:3000` on Android (the emulator's route to the host);
+override it with `EXPO_PUBLIC_API_URL` (see `.env.example`).
+
+| Feature | Where | How |
+| --- | --- | --- |
+| Alarms | `modules/willfolks-native` (Kotlin), `lib/native/alarms.ts` | `AlarmManager.setAlarmClock`, a foreground service that rings on the alarm stream, full-screen notification, reschedule on boot. Outcomes are stored on the device until the backend has them. |
+| App usage | `modules/willfolks-native`, `lib/native/usage.ts` | `UsageStatsManager` events (needs "Usage access"), installed-app list for the goal form. |
+| Widget | `modules/willfolks-native`, `lib/native/widget.ts` | `AppWidgetProvider` showing escrow, streak, goals and next alarm. |
+| Location | `lib/native/location.ts` | `expo-location`: check-in with the current position, geofencing task when "all the time" is granted. |
+| Camera | `app/proof/[activityId].tsx`, `lib/native/photos.ts` | `expo-camera` for proofs, `expo-image-picker` for the avatar. |
+| Notifications | `lib/native/notifications.ts` | `expo-notifications`: weekly local reminders per goal, result banners. |
+
+`components/system/app-sync.tsx` keeps backend, store and device in step. After changing
+anything under `modules/` or the plugins in `app.json`, rebuild with `npx expo run:android`.
+
+`e2e/onboarding-and-first-goal.yaml` is a Maestro flow over the `testID`s used across the screens.

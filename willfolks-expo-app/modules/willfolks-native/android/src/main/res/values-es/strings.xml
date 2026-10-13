@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="willfolks_widget_description">Custodia, racha y próxima alarma de un vistazo.</string>
+  <string name="willfolks_alarm_channel">Alarmas de metas</string>
+  <string name="willfolks_alarm_channel_description">Suena cuando se dispara una alarma con apuesta.</string>
+  <string name="willfolks_alarm_awake">Estoy despierto</string>
+  <string name="willfolks_alarm_ringing">%1$s USDC en juego · toca para demostrar que despertaste</string>
+  <string name="willfolks_alarm_missed_title">Alarma perdida</string>
+  <string name="willfolks_alarm_missed_body">%1$s · el control cuenta como fallado</string>
+</resources>

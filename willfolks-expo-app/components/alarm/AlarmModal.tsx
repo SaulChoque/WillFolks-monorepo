@@ -1,14 +1,12 @@
 import { t } from "@/i18n";
 import type { HomeActivity } from "@/types/home";
 import React, { useEffect, useRef } from "react";
-import {
-  Modal,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  Vibration,
-  View,
-} from "react-native";
+import { Modal, Vibration, View } from "react-native";
+
+import { Btn, T } from "@/components/pixel/ui";
+import { usePixelTheme } from "@/hooks/use-app-store";
+import { formatTime } from "@/utils/datetime";
+import { useAlarmFlash } from "./alarm-overlay";
 
 interface Props {
   visible: boolean;
@@ -24,6 +22,10 @@ export default function AlarmModal({
   onStop,
 }: Props) {
   const soundRef = useRef<any | null>(null);
+  const theme = usePixelTheme();
+  const inverted = useAlarmFlash(visible);
+  const paper = inverted ? theme.bg : theme.fg;
+  const ink = inverted ? theme.fg : theme.bg;
 
   useEffect(() => {
     let mounted = true;
@@ -96,93 +98,47 @@ export default function AlarmModal({
       transparent={false}
       statusBarTranslucent={true}
     >
-      <View style={styles.container}>
-        <View style={styles.card}>
-          <Text style={styles.title}>
-            {activity?.title ?? t("alarmModal.defaultTitle")}
-          </Text>
-          <Text style={styles.time}>
-            {activity && activity.type === "alarm"
-              ? new Date(activity.alarmSettings.alarmTime).toLocaleTimeString()
-              : ""}
-          </Text>
-
-          <View style={styles.buttonsRow}>
-            <TouchableOpacity
-              style={[styles.button, styles.snooze]}
-              onPress={onSnooze}
-            >
-              <Text style={styles.buttonText}>
-                {t("alarmModal.snoozeFive")}
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.button, styles.stop]}
-              onPress={onStop}
-            >
-              <Text style={styles.buttonText}>{t("alarmModal.stop")}</Text>
-            </TouchableOpacity>
-          </View>
-
-          <Text style={styles.hint}>{t("alarmModal.hint")}</Text>
+      <View
+        style={{
+          flex: 1,
+          alignItems: "center",
+          justifyContent: "center",
+          gap: theme.em(0.6),
+          paddingHorizontal: theme.em(1),
+          backgroundColor: paper,
+        }}
+      >
+        <T v="label" color={ink}>
+          {t("alarmModal.defaultTitle")}
+        </T>
+        <T v="clock" color={ink} style={{ fontSize: theme.em(5.4), lineHeight: theme.em(5) }}>
+          {activity && activity.type === "alarm"
+            ? formatTime(activity.alarmSettings.alarmTime)
+            : "--:--"}
+        </T>
+        <T v="h1" color={ink} style={{ textAlign: "center" }}>
+          {activity?.title ?? t("alarmModal.defaultTitle")}
+        </T>
+        <View style={{ flexDirection: "row", gap: theme.em(0.45), alignSelf: "stretch", marginTop: theme.em(0.5) }}>
+          <Btn
+            label={t("pixel.alarm.snooze")}
+            variant="line"
+            color={ink}
+            style={{ flex: 1 }}
+            onPress={onSnooze}
+          />
+          <Btn
+            label={t("pixel.alarm.stop")}
+            color={ink}
+            outside={paper}
+            style={{ flex: 1 }}
+            onPress={onStop}
+          />
         </View>
+        <T v="note" color={ink} style={{ textAlign: "center", marginTop: theme.em(0.4) }}>
+          {t("alarmModal.hint")}
+        </T>
       </View>
     </Modal>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#000000",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  card: {
-    width: "90%",
-    backgroundColor: "#111",
-    borderRadius: 12,
-    padding: 24,
-    alignItems: "center",
-  },
-  title: {
-    color: "#fff",
-    fontSize: 22,
-    fontWeight: "700",
-    marginBottom: 8,
-  },
-  time: {
-    color: "#fff",
-    fontSize: 28,
-    marginBottom: 24,
-  },
-  buttonsRow: {
-    flexDirection: "row",
-    width: "100%",
-    justifyContent: "space-between",
-  },
-  button: {
-    flex: 1,
-    paddingVertical: 12,
-    paddingHorizontal: 12,
-    borderRadius: 8,
-    marginHorizontal: 6,
-    alignItems: "center",
-  },
-  snooze: {
-    backgroundColor: "#3b82f6",
-  },
-  stop: {
-    backgroundColor: "#ef4444",
-  },
-  buttonText: {
-    color: "#fff",
-    fontWeight: "600",
-  },
-  hint: {
-    color: "#aaa",
-    marginTop: 18,
-    fontSize: 12,
-    textAlign: "center",
-  },
-});

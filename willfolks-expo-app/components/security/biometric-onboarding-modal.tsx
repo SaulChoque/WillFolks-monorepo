@@ -1,13 +1,7 @@
-import {
-  ActivityIndicator,
-  Modal,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { ActivityIndicator, Modal, View } from "react-native";
 
-import { Card } from "@/components/ui/card";
+import { Btn, Card, T } from "@/components/pixel/ui";
+import { usePixelTheme } from "@/hooks/use-app-store";
 import { t } from "@/i18n";
 
 interface BiometricOnboardingModalProps {
@@ -25,6 +19,9 @@ export function BiometricOnboardingModal({
   errorMessage,
   onAuthenticate,
 }: BiometricOnboardingModalProps) {
+  const theme = usePixelTheme();
+  const disabled = isAuthenticating || !biometricAvailable;
+
   return (
     <Modal
       visible={visible}
@@ -33,80 +30,31 @@ export function BiometricOnboardingModal({
       statusBarTranslucent
       onRequestClose={() => {}}
     >
-      <View style={styles.backdrop}>
-        <Card style={styles.modalCard}>
-          <Text style={styles.title}>{t("biometricModal.title")}</Text>
-          <Text style={styles.description}>
-            {t("biometricModal.description")}
-          </Text>
-
-          {errorMessage ? (
-            <Text style={styles.error}>{errorMessage}</Text>
-          ) : null}
-
-          <Pressable
-            style={[
-              styles.button,
-              (isAuthenticating || !biometricAvailable) &&
-                styles.buttonDisabled,
-            ]}
-            disabled={isAuthenticating || !biometricAvailable}
-            onPress={onAuthenticate}
-          >
-            {isAuthenticating ? (
-              <ActivityIndicator color="#ffffff" />
-            ) : (
-              <Text style={styles.buttonText}>
-                {t("biometricModal.authenticate")}
-              </Text>
-            )}
-          </Pressable>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          paddingHorizontal: theme.em(0.8),
+          backgroundColor: theme.bgA(0.88),
+        }}
+      >
+        <Card outside={theme.bg} contentStyle={{ gap: theme.em(0.6), paddingVertical: theme.em(0.9) }}>
+          <T v="h1sm">{t("biometricModal.title")}</T>
+          <T v="note">{t("biometricModal.description")}</T>
+          {errorMessage ? <T v="h2">{`▼ ${errorMessage}`}</T> : null}
+          {isAuthenticating ? (
+            <ActivityIndicator color={theme.fg} />
+          ) : (
+            <Btn
+              label={t("biometricModal.authenticate")}
+              icon="lock"
+              disabled={disabled}
+              style={disabled ? { opacity: 0.45 } : undefined}
+              onPress={onAuthenticate}
+            />
+          )}
         </Card>
       </View>
     </Modal>
   );
 }
-
-const styles = StyleSheet.create({
-  backdrop: {
-    flex: 1,
-    backgroundColor: "rgba(15,15,16,0.35)",
-    justifyContent: "center",
-    paddingHorizontal: 20,
-  },
-  modalCard: {
-    borderRadius: 20,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "700",
-    color: "#111111",
-  },
-  description: {
-    marginTop: 8,
-    fontSize: 14,
-    color: "rgba(17,17,17,0.7)",
-    lineHeight: 21,
-  },
-  error: {
-    marginTop: 12,
-    fontSize: 13,
-    color: "#111111",
-  },
-  button: {
-    marginTop: 18,
-    height: 48,
-    borderRadius: 14,
-    backgroundColor: "#111111",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  buttonDisabled: {
-    opacity: 0.45,
-  },
-  buttonText: {
-    fontSize: 14,
-    fontWeight: "700",
-    color: "#ffffff",
-  },
-});

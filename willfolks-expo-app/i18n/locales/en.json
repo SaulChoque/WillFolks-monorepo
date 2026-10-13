@@ -6,7 +6,12 @@
     "save": "Save",
     "enabled": "Enabled",
     "disabled": "Disabled",
-    "none": "None"
+    "none": "None",
+    "working": "Working…",
+    "continue": "Continue",
+    "loading": "Loading…",
+    "no": "No",
+    "done": "Done"
   },
   "navigation": {
     "modal": "Modal",
@@ -88,7 +93,17 @@
   },
   "focus": {
     "session": "Session",
-    "focusSession": "Focus session"
+    "focusSession": "Focus session",
+    "ofLimit": "minutes of {{limit}} today",
+    "left": {
+      "one": "{{count}} minute left",
+      "other": "{{count}} minutes left"
+    },
+    "over": {
+      "one": "{{count}} minute over the limit",
+      "other": "{{count}} minutes over the limit"
+    },
+    "unsupported": "Screen time is only measured on Android."
   },
   "home3d": {
     "mood": "Mood",
@@ -130,7 +145,11 @@
     "goalsAchieved": "Goals achieved",
     "favoriteFriend": "Favorite friend",
     "streak": "Streak",
-    "deleteAccount": "Delete account"
+    "deleteAccount": "Delete account",
+    "signOut": "Sign out",
+    "deleteBody": "Your profile, goals and history are erased for good.",
+    "deleteConfirm": "Delete",
+    "saved": "Profile saved."
   },
   "biometricModal": {
     "title": "Enable fingerprint protection",
@@ -179,5 +198,608 @@
     "satShort": "S",
     "sunShort": "S",
     "workWeekLabel": "Mon, Tue, Wed, Thu, Fri"
+  },
+  "pixel": {
+    "tabsLabel": "App sections",
+    "tabs": {
+      "time": "Time",
+      "home": "Home",
+      "pet": "WillPet",
+      "goals": "Goals",
+      "settings": "Settings"
+    },
+    "toast": "Locked in",
+    "notes": {
+      "locked": "Locked",
+      "won": "Won",
+      "safe": "Stake safe",
+      "staked": "In escrow",
+      "onTrack": "On track",
+      "missed": "Missed"
+    },
+    "home": {
+      "welcome": "Welcome back,",
+      "user": "Baluchop",
+      "inEscrow": "In escrow",
+      "yield": "Yield",
+      "activeGoals": {
+        "one": "{{count}} active goal",
+        "other": "{{count}} active goals"
+      },
+      "recent": "Recent activity",
+      "available": "Available",
+      "empty": "Nothing yet. Stake on your first goal."
+    },
+    "activity": {
+      "missedAlarm": "Missed alarm",
+      "instagram": "Instagram",
+      "instagramValue": "180 min/wk",
+      "testFirst": "Finish the test first",
+      "beatAlarm": "Alarm beaten",
+      "staked": {
+        "alarm": "New alarm goal",
+        "appTimer": "New app limit",
+        "locator": "New location goal",
+        "ai": "New AI goal"
+      },
+      "perWeek": "{{count}} min/wk"
+    },
+    "time": {
+      "title": "Time",
+      "local": "Local time",
+      "friends": "Friends' timezones",
+      "hours": "hrs"
+    },
+    "pet": {
+      "title": "Your WillPet",
+      "mood": "Mood",
+      "streak": "Streak",
+      "days": {
+        "one": "{{count}} day",
+        "other": "{{count}} days"
+      },
+      "feed": "Feed",
+      "play": "Play",
+      "poke": "Poke your WillPet",
+      "lines": {
+        "idle": "Keep your word and I grow.",
+        "happy": "Yes! More of that.",
+        "sad": "You slept in. I felt that.",
+        "full": "I'm thriving. So are you."
+      }
+    },
+    "goals": {
+      "title": "My goals",
+      "active": "Active",
+      "paused": "Paused",
+      "stake": "Stake amount",
+      "lockDays": "If missed",
+      "lockValue": "Locked 2 days",
+      "participants": "Participants",
+      "days": "Active days",
+      "daysValue": "M T W T F",
+      "reaction": "Max reaction time",
+      "tip": "Dev tip",
+      "testAlarm": "Test this alarm",
+      "add": "New goal",
+      "kinds": {
+        "alarm": {
+          "name": "Wake up 07:41",
+          "detail": "Alarm",
+          "short": "Alarm"
+        },
+        "appTimer": {
+          "name": "Instagram limit",
+          "detail": "App timer",
+          "short": "App"
+        },
+        "locator": {
+          "name": "Gym by 18:00",
+          "detail": "Location",
+          "short": "Place"
+        },
+        "ai": {
+          "name": "Finish the test",
+          "detail": "AI check",
+          "short": "AI"
+        }
+      },
+      "minutesPerDay": "{{app}} · {{count}} min/day",
+      "empty": "No goals yet. Tap + to stake on one."
+    },
+    "sheet": {
+      "title": "New goal",
+      "pick": "Goal type",
+      "stake": "Stake",
+      "less": "Stake less",
+      "more": "Stake more",
+      "ifMiss": "If you miss it: locked for 2 days",
+      "confirm": "Stake it",
+      "cancel": "Close",
+      "available": "Available: {{amount}} USDC",
+      "next": "Next"
+    },
+    "settings": {
+      "title": "Settings",
+      "display": "Display",
+      "theme": {
+        "acid": "Acid",
+        "void": "Void"
+      },
+      "experience": "Experience",
+      "alarmFocus": "Alarm & focus",
+      "items": {
+        "haptics": {
+          "title": "Haptic feedback",
+          "body": "Vibrate on taps and actions."
+        },
+        "seconds": {
+          "title": "Show seconds",
+          "body": "Seconds on the Time tab clock."
+        },
+        "reminders": {
+          "title": "Alarm reminders",
+          "body": "Full-screen alert when an alarm fires."
+        },
+        "vibration": {
+          "title": "Alarm vibration",
+          "body": "Keep buzzing while it rings."
+        }
+      },
+      "wallet": "Wallet",
+      "hiddenTitle": "Keys hidden",
+      "hiddenBody": "Authenticate to view sensitive details.",
+      "unlock": "Hold to unlock",
+      "unlocked": "Unlocked",
+      "unlockedTitle": "Demo wallet",
+      "unlockedBody": "No real keys live in this demo.",
+      "accountLink": {
+        "title": "Open account profile",
+        "body": "Account details and personal info."
+      },
+      "walletKeys": {
+        "address": "Address",
+        "privateKey": "Private key",
+        "mnemonic": "Mnemonic",
+        "generating": "Generating wallet...",
+        "unlockedTitle": "Keys visible",
+        "unlockedBody": "Hide them when you are done.",
+        "hide": "Hide sensitive data",
+        "unlock": "Hold to unlock"
+      },
+      "links": {
+        "account": {
+          "title": "Account",
+          "body": "Profile, sign out."
+        },
+        "wallet": {
+          "title": "Wallet",
+          "body": "Deposit, withdraw, movements."
+        },
+        "friends": {
+          "title": "Friends",
+          "body": "Find people, requests, proofs to judge."
+        },
+        "permissions": {
+          "title": "Permissions & widget",
+          "body": "What the phone may measure."
+        }
+      }
+    },
+    "alarm": {
+      "kicker": "Alarm · Wake up",
+      "wake": "Wake up",
+      "atStake": "{{amount}} USDC at stake",
+      "left": {
+        "one": "{{count}} second left",
+        "other": "{{count}} seconds left"
+      },
+      "awake": "I'm up",
+      "wonTitle": "Stake safe",
+      "wonBody": {
+        "one": "You beat the alarm. Streak: {{streak}} day.",
+        "other": "You beat the alarm. Streak: {{streak}} days."
+      },
+      "lostTitle": "Stake locked",
+      "lostBody": "You missed it. {{amount}} USDC locked for 2 days.",
+      "back": "Back to home",
+      "snooze": "Snooze 5 min",
+      "stop": "Stop",
+      "testKicker": "Test alarm · nothing is recorded",
+      "testWonBody": "That is how it rings. Real alarms put your stake on the line.",
+      "testLostBody": "Too slow. On a real alarm this would lock your stake.",
+      "missTitle": "Alarm missed",
+      "missBody": {
+        "one": "That was a miss. {{count}} more and the stake gets locked.",
+        "other": "That was a miss. {{count}} more and the stake gets locked."
+      }
+    },
+    "screens": {
+      "account": "Account",
+      "activity": "Goal",
+      "focus": "Focus",
+      "back": "Back",
+      "newGoal": "New goal",
+      "wallet": "Wallet",
+      "friends": "Friends",
+      "notifications": "Inbox",
+      "permissions": "Permissions"
+    }
+  },
+  "errors": {
+    "NETWORK": "Cannot reach the server at {{url}}. Is willfolks-BE running?",
+    "INSUFFICIENT_FUNDS": "Not enough balance: {{available}} USDC available. Deposit first.",
+    "USERNAME_TAKEN": "That username is already taken.",
+    "TOO_FAR": "You are {{distance}} m away. Get within {{radius}} m to check in.",
+    "NOT_FRIENDS": "You can only invite accepted friends.",
+    "GOAL_NOT_ACTIVE": "This goal is not active.",
+    "GOAL_CLOSED": "This goal is already closed.",
+    "ALREADY_RESOLVED": "Today is already settled for this goal.",
+    "unknown": "Something went wrong.",
+    "NEEDS_GAS": "You need gas (MON) to sign. Get test funds from the wallet screen.",
+    "WALLET_REQUIRED": "Link your wallet first.",
+    "STAKE_ABOVE_CAP": "The escrow accepts at most {{max}} USDC per goal.",
+    "GROUP_NOT_SUPPORTED": "Shared goals are not available with the on-chain escrow yet.",
+    "FAUCET_COOLDOWN": "You already got funds today. Try again later.",
+    "CANCEL_ON_CHAIN": "The stake is in the contract: it can only be cancelled before the goal starts.",
+    "TX_REVERTED": "The transaction was rejected by the network."
+  },
+  "ob": {
+    "step": "Step {{step}} of {{total}}",
+    "welcome": {
+      "lead": "Put money on your word. Keep it, or watch it get locked.",
+      "start": "Get started",
+      "points": {
+        "stake": {
+          "title": "Stake on a goal",
+          "body": "Wake up, stay off an app, arrive on time."
+        },
+        "prove": {
+          "title": "Your phone is the judge",
+          "body": "Alarms, app usage, location and camera."
+        },
+        "lose": {
+          "title": "Miss it, lose it",
+          "body": "The stake gets locked. Keep it and it is yours."
+        }
+      }
+    },
+    "signIn": {
+      "title": "Sign in",
+      "lead": "One account, one wallet.",
+      "email": "Email",
+      "name": "Your name",
+      "nameHint": "Only used the first time, to create your profile.",
+      "submit": "Continue",
+      "serverChecking": "● Checking {{url}}…",
+      "serverOnline": "▲ Server online · {{url}}",
+      "serverOffline": "▼ Server offline · {{url}}",
+      "devNote": "Development sign-in: no password. Google sign-in replaces this screen later."
+    },
+    "profile": {
+      "title": "Your profile",
+      "lead": "This is how friends will find you.",
+      "camera": "Take photo",
+      "gallery": "Gallery",
+      "displayName": "Display name",
+      "username": "Username",
+      "usernameHint": "3-24 letters, digits or underscores."
+    },
+    "wallet": {
+      "title": "Your wallet",
+      "lead": "Created on this phone. Stakes and winnings move through it.",
+      "secure": "Secure with fingerprint",
+      "finish": "Enter WillFolks",
+      "skip": "Skip and enter",
+      "securedTitle": "Wallet secured",
+      "biometricTitle": "Protect your keys",
+      "biometricBody": "Your keys only show after a fingerprint check.",
+      "noBiometric": "No fingerprint enrolled on this phone. You can add one later in Android settings."
+    }
+  },
+  "perms": {
+    "title": "Permissions",
+    "lead": "Each goal type measures something on your phone. Allow what you plan to use.",
+    "allow": "Allow",
+    "granted": "Allowed",
+    "openSettings": "Open settings",
+    "items": {
+      "notifications": {
+        "title": "Notifications",
+        "body": "Reminders, results and the ringing alarm."
+      },
+      "camera": {
+        "title": "Camera",
+        "body": "Photo proofs for AI goals and your profile picture."
+      },
+      "location": {
+        "title": "Location",
+        "body": "Checks that you reached the place of a location goal."
+      },
+      "background": {
+        "title": "Location, all the time",
+        "body": "Checks you in on arrival with the app closed."
+      },
+      "usage": {
+        "title": "App usage access",
+        "body": "Reads screen time to judge app-limit goals."
+      },
+      "exactAlarms": {
+        "title": "Exact alarms",
+        "body": "Lets alarms ring on the minute."
+      },
+      "fullScreen": {
+        "title": "Full-screen alarm",
+        "body": "Shows the alarm over the lock screen."
+      }
+    },
+    "widget": {
+      "title": "Home-screen widget",
+      "body": "Escrow, streak and next alarm at a glance.",
+      "add": "Add widget",
+      "unsupported": "Your launcher cannot pin widgets from apps. Add it from the home screen instead."
+    }
+  },
+  "form": {
+    "defaults": {
+      "alarm": "Wake up early",
+      "appTimer": "Less screen time",
+      "locator": "Arrive on time",
+      "ai": "Get it done"
+    },
+    "kindHint": {
+      "alarm": "Tap \"I'm up\" before the countdown ends.",
+      "appTimer": "Stay under a daily limit on one app.",
+      "locator": "Be at a place before a set time.",
+      "ai": "Send a photo proof; a judge decides."
+    },
+    "title": "Goal name",
+    "alarm": {
+      "time": "Alarm time",
+      "reaction": "Time to react",
+      "vibration": "Vibrate while ringing"
+    },
+    "app": {
+      "pick": "App to limit",
+      "search": "Search apps",
+      "none": "The app list is only available on Android.",
+      "limit": "Daily limit",
+      "perDay": "min/day",
+      "needsAccess": "Usage access is off: allow it so WillFolks can measure this app."
+    },
+    "place": {
+      "use": "Use my current location",
+      "again": "Update location",
+      "label": "Place name",
+      "radius": "Radius",
+      "arriveBy": "Arrive by",
+      "fallback": "My place"
+    },
+    "ai": {
+      "prompt": "What counts as done?",
+      "promptHint": "The judge compares your photo against this.",
+      "judge": "Who decides",
+      "judgeAi": "AI judge",
+      "judgeFriend": "A friend"
+    },
+    "noFriends": "Add a friend first to pick a judge.",
+    "schedule": "Schedule",
+    "endDate": "Ends on",
+    "attempts": "Misses allowed before losing",
+    "notificationsHint": "Reminders on the days it applies.",
+    "invite": "Challenge friends",
+    "mode": {
+      "vs": "Versus",
+      "coop": "Co-op",
+      "vsHint": "Whoever fails pays the others.",
+      "coopHint": "Each one risks only their own stake."
+    },
+    "missing": {
+      "title": "Give the goal a name.",
+      "app": "Pick the app to limit.",
+      "place": "Set the place first.",
+      "prompt": "Describe what counts as done.",
+      "judge": "Pick the friend who will judge."
+    }
+  },
+  "detail": {
+    "units": {
+      "seconds": "s",
+      "minutes": "min",
+      "meters": "m"
+    },
+    "results": {
+      "success": "Passed",
+      "fail": "Missed",
+      "pending": "Waiting for verdict"
+    },
+    "status": {
+      "draft": "Draft",
+      "active": "Active",
+      "paused": "Paused",
+      "completed": "Completed",
+      "failed": "Failed",
+      "cancelled": "Cancelled"
+    },
+    "participant": {
+      "invited": "Invited",
+      "accepted": "Playing",
+      "declined": "Declined",
+      "left": "Left"
+    },
+    "proofStatus": {
+      "pending": "Waiting for verdict",
+      "approved": "Approved",
+      "rejected": "Rejected"
+    },
+    "testScheduled": "Test alarm rings in 3 seconds. Nothing is recorded.",
+    "arrived": "Checked in, {{distance}} m from the spot.",
+    "cancelTitle": "Cancel this goal?",
+    "cancelBody": "Your {{amount}} USDC go back to your balance.",
+    "cancelConfirm": "Cancel goal",
+    "until": "Ends",
+    "attemptsLeft": "Misses left",
+    "score": "Passed / missed",
+    "next": "Next check",
+    "usedToday": "Used today",
+    "invited": "You were challenged. Joining locks {{amount}} USDC.",
+    "imHere": "I'm here",
+    "sendProof": "Send proof",
+    "proofs": "Proofs",
+    "history": "History",
+    "noHistory": "No checks yet.",
+    "escrowTx": "Escrow tx",
+    "cancel": "Cancel goal",
+    "open": "Open",
+    "answer": "Answer"
+  },
+  "proofScreen": {
+    "verdict": {
+      "approved": {
+        "title": "Approved",
+        "body": "The judge accepted your proof. Stake safe."
+      },
+      "pending": {
+        "title": "Sent",
+        "body": "Your friend has to review it. You will get a notification."
+      },
+      "rejected": {
+        "title": "Rejected",
+        "body": "The judge did not accept this proof."
+      }
+    },
+    "note": "Note for the judge",
+    "retake": "Retake",
+    "send": "Send proof",
+    "shoot": "Take photo"
+  },
+  "walletScreen": {
+    "available": "Available",
+    "amount": "Amount",
+    "method": "Method",
+    "crypto": "Crypto",
+    "fiat": "Fiat QR",
+    "deposit": "Deposit",
+    "withdraw": "Withdraw",
+    "simulated": "Test build: movements are confirmed at once, no real money moves.",
+    "history": "Movements",
+    "empty": "No movements yet.",
+    "done": {
+      "deposit": "Deposited {{amount}} USDC · {{reference}}",
+      "withdraw": "Withdrew {{amount}} USDC · {{reference}}"
+    },
+    "types": {
+      "deposit": "Deposit",
+      "withdrawal": "Withdrawal",
+      "stake_lock": "Stake locked",
+      "stake_release": "Stake released",
+      "penalty": "Penalty",
+      "reward": "Bet won",
+      "donation": "Dev tip"
+    },
+    "voucher": "Voucher",
+    "status": {
+      "pending": "Pending",
+      "confirmed": "Confirmed",
+      "failed": "Failed"
+    },
+    "reference": "Reference",
+    "date": "Date",
+    "methods": {
+      "crypto": "Crypto",
+      "fiat": "Fiat QR",
+      "internal": "Internal"
+    },
+    "txHash": "Transaction",
+    "note": "Concept"
+  },
+  "friendsScreen": {
+    "search": "Find people",
+    "searchHint": "Search by username or name.",
+    "already": "Friends",
+    "sent": "Sent",
+    "add": "Add",
+    "noResults": "Nobody found.",
+    "reviews": "Proofs to judge",
+    "reviewBy": "Proof by {{name}}",
+    "approve": "Approve",
+    "reject": "Reject",
+    "incoming": "Requests",
+    "accept": "Accept",
+    "decline": "Decline",
+    "friends": {
+      "one": "{{count}} friend",
+      "other": "{{count}} friends",
+      "zero": "Friends"
+    },
+    "remove": "Remove",
+    "empty": "No friends yet.",
+    "outgoing": "Sent requests",
+    "find": "Find friends"
+  },
+  "inbox": {
+    "unread": {
+      "one": "{{count}} unread",
+      "other": "{{count}} unread",
+      "zero": "All read"
+    },
+    "readAll": "Mark all read",
+    "empty": "Nothing here yet."
+  },
+  "native": {
+    "channels": {
+      "reminders": "Goal reminders",
+      "results": "Goal results"
+    },
+    "reminders": {
+      "alarm": "Alarm at {{time}} tomorrow · {{amount}} USDC at stake. Sleep early.",
+      "appTimer": "Keep {{app}} under {{minutes}} min today.",
+      "locator": "Be at {{place}} by {{time}}.",
+      "ai": "Send today's proof · {{amount}} USDC at stake."
+    },
+    "location": {
+      "denied": "Location permission is needed for this.",
+      "arrived": "You arrived on time. Check-in recorded."
+    },
+    "widget": {
+      "streak": {
+        "one": "{{count}} day streak",
+        "other": "{{count}} day streak"
+      },
+      "goals": {
+        "one": "{{count}} goal",
+        "other": "{{count}} goals"
+      },
+      "alarm": "Alarm {{time}}",
+      "noAlarm": "No alarm set"
+    }
+  },
+  "chain": {
+    "title": "Wallet on {{network}}",
+    "address": "Your wallet",
+    "usdc": "USDC in wallet",
+    "gas": "Gas (MON)",
+    "faucet": "Get test funds",
+    "faucetBody": "Free USDC and gas for the Monad testnet, once a day.",
+    "faucetDone": "+{{amount}} USDC received",
+    "faucetCooldown": "You already got funds today. Try again later.",
+    "explorer": "View on explorer",
+    "lockHint": "The stake is locked in the contract from your wallet.",
+    "escrow": "On-chain escrow",
+    "state": {
+      "none": "Not on chain",
+      "pending": "Waiting for your signature",
+      "active": "Stake locked",
+      "succeeded": "Stake returned",
+      "failed_locked": "Locked until the lock ends",
+      "claimed": "Stake returned after the lock",
+      "expired": "Recovered without a verdict",
+      "cancelled": "Cancelled"
+    },
+    "createTx": "Locked",
+    "resolveTx": "Verdict",
+    "claimTx": "Returned",
+    "unlockAt": "Unlocks",
+    "endAt": "Ends"
   }
 }

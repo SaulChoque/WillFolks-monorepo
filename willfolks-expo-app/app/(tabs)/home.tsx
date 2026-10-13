@@ -1,152 +1,177 @@
-import { AppColors } from "@/constants/theme";
+import { Canvas, Circle, Path, Skia } from "@shopify/react-native-skia";
+import { useEffect, useMemo, useState } from "react";
+import { LayoutChangeEvent, Pressable, View } from "react-native";
+import Animated, {
+  Easing,
+  cancelAnimation,
+  useAnimatedStyle,
+  useSharedValue,
+  withRepeat,
+  withSequence,
+  withTiming,
+} from "react-native-reanimated";
+
+import { PetBitmap, PixelIcon } from "@/components/pixel/pixel-icon";
+import { Screen } from "@/components/pixel/screen";
+import { Btn, Card, T } from "@/components/pixel/ui";
+import type { PetMood } from "@/constants/pet-sprite";
+import { useAppStore, usePixelTheme } from "@/hooks/use-app-store";
 import { t } from "@/i18n";
-import { MaterialIcons } from "@expo/vector-icons";
-import React from "react";
-import { Image, SafeAreaView, StyleSheet, Text, View } from "react-native";
-// import { Canvas, useFrame } from "@react-three/fiber/native";
-// import { Asset } from "expo-asset";
-// import {
-//   AmbientLight,
-//   Box3,
-//   DirectionalLight,
-//   IcosahedronGeometry,
-//   Mesh,
-//   MeshStandardMaterial,
-//   Object3D,
-//   Vector3,
-// } from "three";
-// import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-// import glepBin from "../../assets/3d/Glep.bin";
-// import glepGltf from "../../assets/3d/Glep.gltf";
 
-const TENNA_GIF = require("../../assets/gif/deltarune-tenna.gif");
+/** Energy as a ring around the mood icon. */
+function EnergyRing({ value, sad }: { value: number; sad: boolean }) {
+  const theme = usePixelTheme();
+  const size = theme.em(2.3);
+  const stroke = theme.em(0.3);
+  const radius = (size - stroke) / 2;
 
-export default function Home3DTabScreen() {
+  const arc = useMemo(() => {
+    const path = Skia.Path.Make();
+    path.addArc({ x: stroke / 2, y: stroke / 2, width: size - stroke, height: size - stroke }, -90, (360 * value) / 100);
+    return path;
+  }, [size, stroke, value]);
+
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <View style={styles.content}>
-        <View style={styles.topRow}>
-          <View style={styles.progressShell}>
-            <View style={styles.progressRing}>
-              <View style={styles.progressCenter}>
-                <MaterialIcons
-                  name="sentiment-satisfied-alt"
-                  size={30}
-                  color={AppColors.lilac.iconStrong}
-                />
-              </View>
-            </View>
-            <Text style={styles.badgeLabel}>{t("home3d.mood")}</Text>
-          </View>
-
-          <View style={styles.streakBadge}>
-            <MaterialIcons
-              name="whatshot"
-              size={28}
-              color={AppColors.lilac.iconStrong}
-            />
-            <Text style={styles.badgeLabel}>{t("home3d.streak")}</Text>
-          </View>
-        </View>
-
-        <View style={styles.modelCard}>
-          <Text style={styles.modelTitle}>{t("home3d.petTitle")}</Text>
-          <View style={styles.canvasContainer}>
-            {/* Render 3D desactivado por problemas de carga en Android.
-                Se reemplaza por GIF local. */}
-            <Image source={TENNA_GIF} style={styles.gif} resizeMode="contain" />
-          </View>
-        </View>
-      </View>
-    </SafeAreaView>
+    <View style={{ width: size, height: size, alignItems: "center", justifyContent: "center" }}>
+      <Canvas style={{ position: "absolute", width: size, height: size }}>
+        <Circle cx={size / 2} cy={size / 2} r={radius} style="stroke" strokeWidth={stroke} color={theme.fgA(0.22)} />
+        <Path path={arc} style="stroke" strokeWidth={stroke} color={theme.fg} />
+      </Canvas>
+      <PixelIcon name={sad ? "eye" : "smile"} size={theme.em(1.05)} color={theme.fg} />
+    </View>
   );
 }
 
-const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: "#f5f5f5",
-  },
-  content: {
-    flex: 1,
-    paddingHorizontal: 20,
-    paddingTop: 24,
-    paddingBottom: 110,
-  },
-  topRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: 20,
-  },
-  progressShell: {
-    alignItems: "center",
-  },
-  progressRing: {
-    width: 64,
-    height: 64,
-    borderRadius: 32,
-    borderWidth: 5,
-    borderColor: AppColors.lilac.border,
-    borderTopColor: AppColors.lilac.icon,
-    borderRightColor: AppColors.lilac.icon,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#ffffff",
-  },
-  progressCenter: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-    backgroundColor: "#ffffff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  streakBadge: {
-    width: 64,
-    height: 64,
-    borderRadius: 32,
-    backgroundColor: "#ffffff",
-    alignItems: "center",
-    justifyContent: "center",
-    borderWidth: 1,
-    borderColor: AppColors.lilac.border,
-  },
-  badgeLabel: {
-    marginTop: 6,
-    fontSize: 12,
-    fontWeight: "600",
-    color: AppColors.lilac.textSecondary,
-  },
-  modelCard: {
-    flex: 1,
-    borderRadius: 20,
-    backgroundColor: "#ffffff",
-    padding: 16,
-    shadowColor: "#0f172a",
-    shadowOffset: { width: 0, height: 10 },
-    shadowOpacity: 0.1,
-    shadowRadius: 22,
-    elevation: 8,
-  },
-  modelTitle: {
-    fontSize: 20,
-    fontWeight: "700",
-    color: AppColors.lilac.textPrimary,
-    marginBottom: 12,
-  },
-  canvasContainer: {
-    flex: 1,
-    borderRadius: 16,
-    overflow: "hidden",
-    backgroundColor: "#f8f8f8",
-    borderWidth: 1,
-    borderColor: AppColors.lilac.border,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  gif: {
-    width: "100%",
-    height: "100%",
-  },
-});
+/** The WillPet: blinks on its own while idle. */
+function Pet({ mood, width }: { mood: PetMood; width: number }) {
+  const theme = usePixelTheme();
+  const [blinking, setBlinking] = useState(false);
+
+  useEffect(() => {
+    if (mood !== "idle") return;
+    let closeTimer: ReturnType<typeof setTimeout>;
+    const openTimer = setInterval(() => {
+      setBlinking(true);
+      closeTimer = setTimeout(() => setBlinking(false), 160);
+    }, 2900);
+    return () => {
+      clearInterval(openTimer);
+      clearTimeout(closeTimer);
+      setBlinking(false);
+    };
+  }, [mood]);
+
+  return <PetBitmap mood={mood === "idle" && blinking ? "blink" : mood} width={width} color={theme.fg} />;
+}
+
+export default function PetScreen() {
+  const theme = usePixelTheme();
+  const { state, actions } = useAppStore();
+  const { mood, energy, streak, name } = state.pet;
+  const [stageWidth, setStageWidth] = useState(0);
+  const bob = useSharedValue(0);
+  const hop = useSharedValue(0);
+  const squash = useSharedValue(1);
+
+  // Idle bob in two hard steps, like a sprite sheet.
+  useEffect(() => {
+    const lift = -theme.em(0.25);
+    bob.value = withRepeat(
+      withSequence(
+        withTiming(0, { duration: 450, easing: Easing.steps(1) }),
+        withTiming(lift, { duration: 450, easing: Easing.steps(1) }),
+      ),
+      -1,
+    );
+    return () => cancelAnimation(bob);
+  }, [bob, theme]);
+
+  // A happy pet hops, then settles back to its resting face.
+  useEffect(() => {
+    if (mood !== "happy") return;
+    const step = { duration: 190, easing: Easing.out(Easing.quad) };
+    hop.value = withSequence(
+      withTiming(-theme.em(1.4), step),
+      withTiming(0, step),
+      withTiming(-theme.em(0.6), step),
+      withTiming(0, step),
+    );
+    squash.value = withSequence(
+      withTiming(1.08, step),
+      withTiming(0.9, step),
+      withTiming(1.03, step),
+      withTiming(1, step),
+    );
+    const rest = setTimeout(actions.petRest, 1500);
+    return () => clearTimeout(rest);
+  }, [mood, state.celebrate, actions, hop, squash, theme]);
+
+  const bobStyle = useAnimatedStyle(() => ({ transform: [{ translateY: bob.value }] }));
+  const hopStyle = useAnimatedStyle(() => ({
+    transformOrigin: "50% 100%",
+    transform: [{ translateY: hop.value }, { scaleY: squash.value }],
+  }));
+
+  const line = mood === "sad" ? "sad" : mood === "happy" ? "happy" : energy > 85 ? "full" : "idle";
+  const onStageLayout = ({ nativeEvent }: LayoutChangeEvent) => setStageWidth(nativeEvent.layout.width);
+
+  return (
+    <Screen fixed>
+      <View style={{ flexDirection: "row", alignItems: "center", gap: theme.em(0.55) }}>
+        <EnergyRing value={energy} sad={mood === "sad"} />
+        <View>
+          <T v="label">{t("pixel.pet.mood")}</T>
+          <T v="stat" testID="pet-energy">{`${energy}%`}</T>
+        </View>
+        <View style={{ flexDirection: "row", alignItems: "center", gap: theme.em(0.45), marginLeft: "auto" }}>
+          <PixelIcon name="flame" size={theme.em(1.4)} color={theme.fg} />
+          <View>
+            <T v="label">{t("pixel.pet.streak")}</T>
+            <T v="stat">{t("pixel.pet.days", { count: streak })}</T>
+          </View>
+        </View>
+      </View>
+
+      <Card style={{ flex: 1 }} contentStyle={{ flex: 1 }}>
+        <T v="label">{`${t("pixel.pet.title")} · ${name}`}</T>
+        <T v="say" style={{ minHeight: theme.em(2) }}>{`> ${t(`pixel.pet.lines.${line}`)}`}</T>
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={t("pixel.pet.poke")}
+          onPress={() => actions.petAction("poke")}
+          onLayout={onStageLayout}
+          style={{ flex: 1, alignItems: "center", justifyContent: "flex-end" }}
+        >
+          <Animated.View style={bobStyle}>
+            <Animated.View style={hopStyle}>
+              {stageWidth > 0 ? <Pet mood={mood} width={stageWidth * 0.64} /> : null}
+            </Animated.View>
+          </Animated.View>
+          <View style={{ width: "88%", marginTop: theme.em(0.15), gap: theme.em(0.2) }}>
+            {[0, 1, 2].map((row) => (
+              <View key={row} style={{ height: theme.em(0.1), backgroundColor: theme.fg }} />
+            ))}
+          </View>
+        </Pressable>
+      </Card>
+
+      <View style={{ flexDirection: "row", gap: theme.em(0.45) }}>
+        <Btn
+          label={t("pixel.pet.feed")}
+          icon="heart"
+          style={{ flex: 1 }}
+          testID="pet-feed"
+          onPress={() => actions.petAction("feed")}
+        />
+        <Btn
+          label={t("pixel.pet.play")}
+          icon="play"
+          variant="line"
+          style={{ flex: 1 }}
+          testID="pet-play"
+          onPress={() => actions.petAction("play")}
+        />
+      </View>
+    </Screen>
+  );
+}

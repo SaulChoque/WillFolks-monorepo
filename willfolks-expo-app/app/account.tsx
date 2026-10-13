@@ -1,258 +1,135 @@
-import { MaterialIcons } from "@expo/vector-icons";
-import { ComponentProps } from "react";
-import {
-  Pressable,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { useState } from "react";
+import { Alert, View } from "react-native";
 
-import { Card } from "@/components/ui/card";
-import { accountInfo } from "@/constants/mock-data";
-import { t } from "@/i18n";
+import { Avatar } from "@/components/pixel/avatar";
+import { Screen } from "@/components/pixel/screen";
+import { Btn, Card, Chip, Field, Notice, SectionTitle, T } from "@/components/pixel/ui";
+import type { PixelIconName } from "@/constants/pixel-icons";
+import { useAppStore, usePixelTheme } from "@/hooks/use-app-store";
+import { useApi } from "@/hooks/use-api";
+import { useSession } from "@/hooks/use-session";
+import { getDeviceLocaleTag, t } from "@/i18n";
+import { api } from "@/lib/api";
+import { errorMessage } from "@/lib/errors";
+import { pickPhoto } from "@/lib/native/photos";
+
+const USERNAME = /^[a-zA-Z0-9_]{3,24}$/;
 
 export default function AccountScreen() {
+  const theme = usePixelTheme();
+  const { state } = useAppStore();
+  const { user, updateProfile, uploadAvatar, signOut, deleteAccount } = useSession();
+  const friends = useApi(api.friends);
+  const [displayName, setDisplayName] = useState(user?.displayName ?? "");
+  const [username, setUsername] = useState(user?.username ?? "");
+  const [location, setLocation] = useState(user?.locationLabel ?? "");
+  const [busy, setBusy] = useState(false);
+  const [message, setMessage] = useState<{ tone: "error" | "info"; text: string } | null>(null);
+
+  if (!user) return null;
+
+  const dirty = displayName.trim() !== user.displayName || username !== (user.username ?? "") || location.trim() !== (user.locationLabel ?? "");
+  const valid = displayName.trim().length > 0 && USERNAME.test(username);
+  const achieved = state.goals.reduce((total, goal) => total + goal.progress.successCount, 0);
+
+  const run = async (action: () => Promise<unknown>, done?: string) => {
+    if (busy) return;
+    setBusy(true);
+    setMessage(null);
+    try {
+      await action();
+      if (done) setMessage({ tone: "info", text: done });
+    } catch (failure) {
+      setMessage({ tone: "error", text: errorMessage(failure) });
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const changePhoto = (source: "camera" | "gallery") =>
+    run(async () => {
+      const uri = await pickPhoto(source);
+      if (uri) await uploadAvatar(uri);
+    });
+
+  const confirmDelete = () =>
+    Alert.alert(t("account.deleteAccount"), t("account.deleteBody"), [
+      { text: t("common.no"), style: "cancel" },
+      { text: t("account.deleteConfirm"), style: "destructive", onPress: () => run(deleteAccount) },
+    ]);
+
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <ScrollView
-        contentContainerStyle={styles.content}
-        showsVerticalScrollIndicator={false}
-      >
-        <View style={styles.headerRow}>
-          <Text style={styles.headerTitle}>{t("account.title")}</Text>
-          <Pressable style={styles.iconButton} accessibilityRole="button">
-            <MaterialIcons name="share" size={22} color="#111111" />
-          </Pressable>
+    <Screen>
+      <SectionTitle>{t("account.title")}</SectionTitle>
+
+      <Card contentStyle={{ gap: theme.em(0.6) }}>
+        <View style={{ flexDirection: "row", alignItems: "center", gap: theme.em(0.6) }}>
+          <Avatar name={user.displayName} uri={user.avatarUrl} size={3.6} />
+          <View style={{ flex: 1, gap: theme.em(0.35) }}>
+            <Btn testID="account-camera" label={t("ob.profile.camera")} icon="eye" size="sm" variant="line" disabled={busy} onPress={() => changePhoto("camera")} />
+            <Btn testID="account-gallery" label={t("ob.profile.gallery")} icon="grid" size="sm" variant="line" disabled={busy} onPress={() => changePhoto("gallery")} />
+          </View>
         </View>
+        <Field testID="account-name" label={t("ob.profile.displayName")} value={displayName} onChangeText={setDisplayName} maxLength={60} />
+        <Field
+          testID="account-username"
+          label={t("ob.profile.username")}
+          value={username}
+          onChangeText={(value) => setUsername(value.replace(/[^a-zA-Z0-9_]/g, ""))}
+          maxLength={24}
+          autoCapitalize="none"
+          autoCorrect={false}
+        />
+        <Field testID="account-location" label={t("account.location")} value={location} onChangeText={setLocation} maxLength={120} />
+        <T v="note">{user.email}</T>
+        <Btn
+          testID="account-save"
+          label={busy ? t("common.working") : t("common.save")}
+          icon="check"
+          disabled={busy || !dirty || !valid}
+          style={busy || !dirty || !valid ? { opacity: 0.45 } : undefined}
+          onPress={() =>
+            run(() => updateProfile({ displayName: displayName.trim(), username, locationLabel: location.trim() }), t("account.saved"))
+          }
+        />
+      </Card>
 
-        <Card style={styles.primaryCard}>
-          <View style={styles.profileHeader}>
-            <View style={styles.statusBadge}>
-              <MaterialIcons name="check-circle" size={18} color="#111111" />
-            </View>
-            <View style={styles.profileInfo}>
-              <Text style={styles.displayName}>{accountInfo.displayName}</Text>
-              <Text style={styles.username}>{accountInfo.username}</Text>
-            </View>
-            <View style={styles.avatar}>
-              <MaterialIcons name="person" size={26} color="#111111" />
-            </View>
-          </View>
-          <View style={styles.detailGroup}>
-            <DetailRow
-              icon="event"
-              label={t("account.dateOfInvitation")}
-              value={accountInfo.dateOfInvitation}
-            />
-            <DetailRow
-              icon="device-hub"
-              label={t("account.chain")}
-              value={accountInfo.chain}
-            />
-            <DetailRow
-              icon="payments"
-              label={t("account.totalTransacted")}
-              value={accountInfo.totalTransacted}
-            />
-            <DetailRow
-              icon="star"
-              label={t("account.generalScore")}
-              value={accountInfo.generalScore}
-            />
-            <DetailRow
-              icon="location-on"
-              label={t("account.location")}
-              value={accountInfo.location}
-            />
-          </View>
-        </Card>
+      {message ? <Notice tone={message.tone}>{message.text}</Notice> : null}
 
-        <Card style={styles.secondaryCard}>
-          <DetailRow
-            icon="groups"
-            label={t("account.numberOfFriends")}
-            value={String(accountInfo.numberOfFriends)}
-          />
-          <DetailRow
-            icon="flag"
-            label={t("account.goalsAchieved")}
-            value={String(accountInfo.goalsAchieved)}
-          />
-          <DetailRow
-            icon="favorite"
-            label={t("account.favoriteFriend")}
-            value={accountInfo.favoriteFriend}
-          />
-          <DetailRow
-            icon="whatshot"
-            label={t("account.streak")}
-            value={accountInfo.streak}
-          />
-        </Card>
+      <Card contentStyle={{ gap: theme.em(0.7) }}>
+        <DetailRow
+          icon="calendar"
+          label={t("account.dateOfInvitation")}
+          value={new Date(user.createdAt).toLocaleDateString(getDeviceLocaleTag(), { day: "numeric", month: "short", year: "numeric" })}
+        />
+        <DetailRow icon="grid" label={t("account.chain")} value={user.chain} />
+        <DetailRow icon="group" label={t("account.numberOfFriends")} value={String(friends.data?.friends.length ?? 0)} />
+        <DetailRow icon="check" label={t("account.goalsAchieved")} value={String(achieved)} />
+        <DetailRow icon="flame" label={t("account.streak")} value={t("pixel.pet.days", { count: state.pet.streak })} />
+        <DetailRow icon="coin" label={t("pixel.home.inEscrow")} value={`${state.balance.inEscrow.toFixed(2)} USDC`} />
+      </Card>
 
-        <Pressable style={styles.deleteRow} accessibilityRole="button">
-          <MaterialIcons
-            name="delete"
-            size={20}
-            color="#d92d20"
-            style={styles.deleteIcon}
-          />
-          <Text style={styles.deleteLabel}>{t("account.deleteAccount")}</Text>
-        </Pressable>
-      </ScrollView>
-    </SafeAreaView>
+      <Btn testID="account-signout" label={t("account.signOut")} icon="arrow" variant="line" disabled={busy} onPress={() => run(signOut)} />
+      <Btn testID="account-delete" label={t("account.deleteAccount")} icon="close" variant="line" disabled={busy} onPress={confirmDelete} />
+    </Screen>
   );
 }
 
 interface DetailRowProps {
-  icon: MaterialIconsName;
+  icon: PixelIconName;
   label: string;
   value: string;
 }
 
-type MaterialIconsName = ComponentProps<typeof MaterialIcons>["name"];
-
 function DetailRow({ icon, label, value }: DetailRowProps) {
+  const theme = usePixelTheme();
   return (
-    <View style={styles.detailRow}>
-      <View style={styles.detailIcon}>
-        <MaterialIcons name={icon} size={20} color="#111111" />
-      </View>
-      <View style={styles.detailText}>
-        <Text style={styles.detailLabel}>{label}</Text>
-        <Text style={styles.detailValue}>{value}</Text>
-      </View>
+    <View style={{ flexDirection: "row", alignItems: "center", gap: theme.em(0.55) }}>
+      <Chip icon={icon} />
+      <T v="label" style={{ flex: 1 }}>
+        {label}
+      </T>
+      <T v="value">{value}</T>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: "#f5f5f5",
-  },
-  content: {
-    paddingHorizontal: 20,
-    paddingTop: 24,
-    paddingBottom: 120,
-    gap: 20,
-  },
-  headerRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  headerTitle: {
-    fontSize: 22,
-    fontWeight: "700",
-    color: "#111111",
-  },
-  iconButton: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    backgroundColor: "#ffffff",
-    alignItems: "center",
-    justifyContent: "center",
-    shadowColor: "#0f172a",
-    shadowOffset: { width: 0, height: 10 },
-    shadowOpacity: 0.12,
-    shadowRadius: 20,
-    elevation: 8,
-  },
-  primaryCard: {
-    gap: 16,
-  },
-  profileHeader: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  statusBadge: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    backgroundColor: "rgba(17,17,17,0.08)",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  profileInfo: {
-    flex: 1,
-    marginHorizontal: 16,
-  },
-  displayName: {
-    fontSize: 20,
-    fontWeight: "700",
-    color: "#111111",
-  },
-  username: {
-    marginTop: 4,
-    fontSize: 14,
-    color: "rgba(17,17,17,0.6)",
-  },
-  avatar: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-    backgroundColor: "#f0f0f0",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  detailGroup: {
-    gap: 12,
-  },
-  secondaryCard: {
-    gap: 12,
-  },
-  detailRow: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  detailIcon: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    backgroundColor: "rgba(17,17,17,0.08)",
-    alignItems: "center",
-    justifyContent: "center",
-    marginRight: 14,
-  },
-  detailText: {
-    flex: 1,
-  },
-  detailLabel: {
-    fontSize: 12,
-    textTransform: "uppercase",
-    letterSpacing: 0.6,
-    color: "rgba(17,17,17,0.6)",
-  },
-  detailValue: {
-    marginTop: 4,
-    fontSize: 16,
-    fontWeight: "600",
-    color: "#111111",
-  },
-  deleteRow: {
-    borderRadius: 24,
-    backgroundColor: "#ffffff",
-    paddingVertical: 18,
-    paddingHorizontal: 20,
-    flexDirection: "row",
-    alignItems: "center",
-    shadowColor: "#0f172a",
-    shadowOffset: { width: 0, height: 10 },
-    shadowOpacity: 0.12,
-    shadowRadius: 20,
-    elevation: 8,
-  },
-  deleteIcon: {
-    marginRight: 12,
-  },
-  deleteLabel: {
-    fontSize: 16,
-    fontWeight: "700",
-    color: "#d92d20",
-  },
-});

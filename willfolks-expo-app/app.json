@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "willfolks-expo-dapp",
-    "slug": "willfolks-expo-dapp",
+    "name": "WillFolks",
+    "slug": "WillFolks",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -9,7 +9,8 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.willfolksexpodapp"
     },
     "android": {
       "adaptiveIcon": {
@@ -41,7 +42,38 @@
         }
       ],
       "expo-secure-store",
-      "expo-localization"
+      "expo-localization",
+      [
+        "expo-notifications",
+        {
+          "color": "#c5ff0a",
+          "defaultChannel": "reminders"
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "WillFolks checks that you reached the place your goal is tied to.",
+          "locationAlwaysAndWhenInUsePermission": "WillFolks can check you in automatically when you arrive, even with the app closed.",
+          "isAndroidBackgroundLocationEnabled": true,
+          "isAndroidForegroundServiceEnabled": false
+        }
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "WillFolks uses the camera for goal proofs and your profile photo.",
+          "recordAudioAndroid": false
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "WillFolks lets you pick a profile photo from your gallery.",
+          "cameraPermission": "WillFolks uses the camera for goal proofs and your profile photo.",
+          "microphonePermission": false
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true,

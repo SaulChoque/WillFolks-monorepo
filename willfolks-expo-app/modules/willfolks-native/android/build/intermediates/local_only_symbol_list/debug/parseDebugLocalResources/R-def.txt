@@ -1,0 +1,20 @@
+R_DEF: Internal format may change without notice
+local
+id widget_alarm
+id widget_escrow
+id widget_goals
+id widget_root
+id widget_rule
+id widget_streak
+id widget_title
+id widget_unit
+layout willfolks_widget
+string willfolks_alarm_awake
+string willfolks_alarm_channel
+string willfolks_alarm_channel_description
+string willfolks_alarm_missed_body
+string willfolks_alarm_missed_title
+string willfolks_alarm_ringing
+string willfolks_widget_description
+string willfolks_widget_label
+xml willfolks_widget_info

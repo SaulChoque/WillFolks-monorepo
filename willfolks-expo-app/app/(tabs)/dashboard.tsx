@@ -1,113 +1,129 @@
-import { MaterialIcons } from "@expo/vector-icons";
-import { SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
+import { useRouter } from "expo-router";
+import { useEffect, useState } from "react";
+import { Pressable, View } from "react-native";
 
-import { RecentActivityCard } from "@/components/dashboard/recent-activity-card";
-import { FloatingActionButton } from "@/components/ui/floating-action-button";
-import {
-    accountInfo,
-    activitiesMock,
-    dashboardActivityIds,
-} from "@/constants/mock-data";
-import { AppColors } from "@/constants/theme";
+import { Hatch } from "@/components/pixel/effects";
+import { Screen } from "@/components/pixel/screen";
+import { Btn, Card, Chip, Main, Notice, Row, SectionTitle, T } from "@/components/pixel/ui";
+import { FeedItem, useAppStore, usePixelTheme } from "@/hooks/use-app-store";
+import { useSession } from "@/hooks/use-session";
 import { t } from "@/i18n";
 
-export default function DashboardScreen() {
-  const recentActivities = dashboardActivityIds
-    .map((id) => activitiesMock.find((activity) => activity.id === id))
-    .filter((activity): activity is NonNullable<typeof activity> =>
-      Boolean(activity),
-    );
+const METER_CELLS = 12;
+/** USDC each meter cell stands for. */
+const METER_STEP = 2.5;
 
-  return (
-    <SafeAreaView style={styles.safeArea}>
-      <ScrollView
-        contentContainerStyle={styles.content}
-        showsVerticalScrollIndicator={false}
-      >
-        <View style={styles.headerRow}>
-          <View>
-            <Text style={styles.greetingTitle}>
-              {t("dashboard.welcomeBack", { name: accountInfo.displayName })}
-            </Text>
-            <Text style={styles.greetingSubtitle}>
-              {t("dashboard.recentActivity")}
-            </Text>
-          </View>
-          <View style={styles.avatar}>
-            <MaterialIcons
-              name="person"
-              size={24}
-              color={AppColors.lilac.iconStrong}
-            />
-          </View>
-        </View>
-        <View style={styles.listContent}>
-          {recentActivities.map((activity) => (
-            <View key={activity.id} style={styles.cardSpacing}>
-              <RecentActivityCard activity={activity} />
-            </View>
-          ))}
-        </View>
-      </ScrollView>
-      <FloatingActionButton style={styles.fab}>
-        <MaterialIcons
-          name="add"
-          size={28}
-          color={AppColors.lilac.iconStrong}
-        />
-      </FloatingActionButton>
-    </SafeAreaView>
-  );
+function feedNote(item: FeedItem): string {
+  switch (item.tone) {
+    case "lost":
+      return item.amount > 0 ? `▼ −${item.amount} USDC · ${t("pixel.notes.locked")}` : `▼ ${t("pixel.notes.missed")}`;
+    case "won":
+      return item.amount > 0
+        ? `▲ +${item.amount} USDC · ${t("pixel.notes.won")}`
+        : `▲ ${t("pixel.notes.safe")}`;
+    case "staked":
+      return `◆ ${item.amount} USDC · ${t("pixel.notes.staked")}`;
+    default:
+      return `● 0 USDC · ${t("pixel.notes.onTrack")}`;
+  }
 }
 
-const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: "#f7f7f7",
-  },
-  content: {
-    paddingHorizontal: 20,
-    paddingBottom: 120,
-    paddingTop: 24,
-  },
-  headerRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: 24,
-  },
-  greetingTitle: {
-    fontSize: 22,
-    fontWeight: "700",
-    color: AppColors.lilac.textPrimary,
-  },
-  greetingSubtitle: {
-    marginTop: 6,
-    fontSize: 14,
-    color: AppColors.lilac.textSecondary,
-  },
-  avatar: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    backgroundColor: "#ffffff",
-    alignItems: "center",
-    justifyContent: "center",
-    shadowColor: "#0f172a",
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.1,
-    shadowRadius: 18,
-    elevation: 8,
-  },
-  listContent: {
-    gap: 16,
-  },
-  cardSpacing: {
-    borderRadius: 24,
-  },
-  fab: {
-    position: "absolute",
-    alignSelf: "center",
-    bottom: 32,
-  },
-});
+/** Terminal-style cursor after the user's name. */
+function Cursor() {
+  const [on, setOn] = useState(true);
+  useEffect(() => {
+    const timer = setInterval(() => setOn((current) => !current), 550);
+    return () => clearInterval(timer);
+  }, []);
+  return <T v="h1" style={{ opacity: on ? 1 : 0 }}>_</T>;
+}
+
+export default function DashboardScreen() {
+  const router = useRouter();
+  const theme = usePixelTheme();
+  const { state, actions } = useAppStore();
+  const { user } = useSession();
+  const { inEscrow, available } = state.balance;
+  const litCells = Math.min(METER_CELLS, Math.round(inEscrow / METER_STEP));
+
+  return (
+    <Screen onRefresh={actions.refresh}>
+      <View style={{ gap: theme.em(0.15) }}>
+        <T v="label">{t("pixel.home.welcome")}</T>
+        <View style={{ flexDirection: "row" }}>
+          <T v="h1" testID="home-name">
+            {user?.displayName ?? ""}
+          </T>
+          <Cursor />
+        </View>
+      </View>
+
+      {state.sync === "error" ? <Notice>{state.syncError}</Notice> : null}
+
+      <Card solid>
+        <T v="label" color={theme.bg}>
+          {t("pixel.home.inEscrow")}
+        </T>
+        <View style={{ flexDirection: "row", alignItems: "flex-end", gap: theme.em(0.5) }}>
+          <T v="big" color={theme.bg} testID="home-escrow">
+            {inEscrow.toFixed(2)}
+          </T>
+          <T v="unit" color={theme.bg} style={{ marginBottom: theme.em(0.35) }}>
+            USDC
+          </T>
+        </View>
+        <View style={{ flexDirection: "row", gap: theme.em(0.15), height: theme.em(0.55) }}>
+          {Array.from({ length: METER_CELLS }, (_, index) => (
+            <View
+              key={index}
+              style={{
+                flex: 1,
+                borderWidth: theme.em(0.07),
+                borderColor: theme.bg,
+                backgroundColor: index < litCells ? theme.bg : "transparent",
+              }}
+            />
+          ))}
+        </View>
+        <Row>
+          <T v="label" color={theme.bg}>
+            {t("pixel.home.activeGoals", { count: state.activeGoals })}
+          </T>
+          <T v="label" color={theme.bg} testID="home-available">{`▲ ${available.toFixed(2)} ${t("pixel.home.available")}`}</T>
+        </Row>
+      </Card>
+
+      <View style={{ flexDirection: "row", gap: theme.em(0.45) }}>
+        <Btn testID="home-wallet" label={t("pixel.screens.wallet")} icon="wallet" style={{ flex: 1 }} onPress={() => router.push("/wallet")} />
+        <Btn testID="home-friends" label={t("pixel.screens.friends")} icon="group" variant="line" style={{ flex: 1 }} onPress={() => router.push("/friends")} />
+      </View>
+
+      <SectionTitle>{t("pixel.home.recent")}</SectionTitle>
+      {state.feed.length === 0 ? <T v="note">{state.sync === "loading" ? t("common.loading") : t("pixel.home.empty")}</T> : null}
+      <View style={{ gap: theme.em(0.35) }}>
+        {state.feed.slice(0, 6).map((item) => (
+          <Pressable
+            key={item.id}
+            accessibilityRole="button"
+            disabled={!item.goalId}
+            onPress={() => item.goalId && router.push(`/activity/${item.goalId}`)}
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              gap: theme.em(0.55),
+              paddingVertical: theme.em(0.45),
+              paddingHorizontal: theme.em(0.5),
+              borderWidth: theme.line,
+              borderColor: theme.fg,
+            }}
+          >
+            {item.tone === "lost" ? <Hatch /> : null}
+            <Chip icon={item.icon} />
+            <Main title={item.title} note={feedNote(item)} />
+            <T v="value">{item.value}</T>
+          </Pressable>
+        ))}
+      </View>
+    </Screen>
+  );
+}

@@ -1,235 +1,126 @@
-import { MaterialIcons } from "@expo/vector-icons";
-import { useCallback, useState } from "react";
-import { FlatList, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { useRouter } from "expo-router";
+import { Pressable, View } from "react-native";
 
-import { FloatingActionButton } from "@/components/ui/floating-action-button";
-import {
-  activitiesMock,
-  createEmptyActivityDraft,
-} from "@/constants/mock-data";
-import { AppColors } from "@/constants/theme";
+import { weekdayLabels } from "@/components/goals/day-picker";
+import { PixelIcon } from "@/components/pixel/pixel-icon";
+import { Screen } from "@/components/pixel/screen";
+import { Btn, Card, Chamfer, Chip, Main, Notice, SectionTitle, T, Toggle, useHaptic } from "@/components/pixel/ui";
+import type { PixelIconName } from "@/constants/pixel-icons";
+import { GOAL_ICONS, Goal, useAppStore, usePixelTheme } from "@/hooks/use-app-store";
 import { t } from "@/i18n";
-import { Activity, ActivityDraftState, MaterialIconName } from "@/types/home";
-import ActivityCard, {
-  ActivityDraftCard,
-} from "../../components/activity/activity-card";
 
-export default function ActivitiesScreen() {
-  const [activities, setActivities] = useState<Activity[]>(() => [
-    ...activitiesMock,
-  ]);
-  const [draft, setDraft] = useState<ActivityDraftState | null>(null);
-
-  const handleAddDraft = useCallback(() => {
-    setDraft((current) => current ?? createEmptyActivityDraft());
-  }, []);
-
-  const handleDraftChange = useCallback((next: ActivityDraftState) => {
-    setDraft(next);
-  }, []);
-
-  const handleDiscardDraft = useCallback(() => {
-    setDraft(null);
-  }, []);
-
-  const handleSaveDraft = useCallback((nextDraft: ActivityDraftState) => {
-    const nextActivity = mapDraftToActivity(nextDraft);
-    setActivities((prev) => [nextActivity, ...prev]);
-    setDraft(null);
-  }, []);
-
+function Fact({ icon, label, value }: { icon: PixelIconName; label: string; value: string }) {
+  const theme = usePixelTheme();
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <FlatList
-        data={activities}
-        keyExtractor={(item) => item.id}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.content}
-        ItemSeparatorComponent={() => <View style={styles.separator} />}
-        ListFooterComponent={<View style={styles.footerSpacing} />}
-        renderItem={({ item }) => (
-          <View style={styles.cardSpacing}>
-            <ActivityCard activity={item} />
-          </View>
-        )}
-        ListHeaderComponent={
-          <View style={styles.headerContainer}>
-            <View style={styles.headerRow}>
-              <Text style={styles.pageTitle}>{t("activities.title")}</Text>
-            </View>
-            {draft ? (
-              <View style={styles.draftSpacing}>
-                <ActivityDraftCard
-                  draft={draft}
-                  onSave={handleSaveDraft}
-                  onDiscard={handleDiscardDraft}
-                  onChange={handleDraftChange}
-                />
-              </View>
-            ) : null}
-          </View>
-        }
-      />
-      <FloatingActionButton style={styles.fab} onPress={handleAddDraft}>
-        <MaterialIcons
-          name="add"
-          size={28}
-          color={AppColors.lilac.iconStrong}
-        />
-      </FloatingActionButton>
-    </SafeAreaView>
+    <View style={{ width: "50%", flexDirection: "row", alignItems: "center", gap: theme.em(0.45), paddingRight: theme.em(0.5) }}>
+      <Chip icon={icon} size={1.4} />
+      <View style={{ flex: 1 }}>
+        <T v="label" style={{ fontSize: theme.em(0.54), lineHeight: theme.em(0.7) }}>
+          {label}
+        </T>
+        <T v="button" style={{ letterSpacing: 0 }} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.8}>
+          {value}
+        </T>
+      </View>
+    </View>
   );
 }
 
-function mapDraftToActivity(draft: ActivityDraftState): Activity {
-  const iconName: MaterialIconName =
-    draft.type === "alarm"
-      ? "alarm"
-      : draft.type === "timer"
-        ? "timer"
-        : "psychology";
-
-  const base = {
-    id: `activity-${Date.now()}`,
-    titulo: draft.titulo.trim() || t("activities.newActivity"),
-    esGrupal: draft.esGrupal,
-    participantes: [...draft.participantes],
-    montoStake: draft.montoStake,
-    fechaInicio: draft.fechaInicio,
-    fechaFin: draft.fechaFin,
-    diasBloqueoDefiExtra: draft.diasBloqueoDefiExtra,
-    porcentajeTipDev: draft.porcentajeTipDev,
-    estado: draft.estado,
-
-    // Campos legacy (fuera del UML): se mantienen por compatibilidad.
-    title: draft.title.trim() || t("activities.newActivity"),
-    repeatLabel: draft.repeatLabel,
-    summaryLabel:
-      draft.type === "alarm"
-        ? formatTimeLabel(draft.horaObjetivo)
-        : draft.type === "timer"
-          ? formatDurationLabel(draft.minutosMaximosSemana)
-          : t("activity.irlEvidenceCount", {
-              count: draft.cidsEvidencia.length,
-            }),
-    amountLabel: draft.amountLabel,
-    amountKind: draft.amountKind,
-    iconName,
-    days: draft.days.map((day) => ({ ...day })),
-    isActive: draft.isActive,
-    notificationsEnabled: draft.notificationsEnabled,
-    schedule: { ...draft.schedule },
-  };
-
-  const legacyAlarmSettings = {
-    alarmTime: draft.horaObjetivo,
-    musicTitle: draft.alarmSettings.musicTitle,
-    vibrationEnabled: draft.alarmSettings.vibrationEnabled,
-  };
-
-  const legacyTimerSettings = {
-    appId: draft.appObjetivoId,
-    appName: draft.timerSettings.appName,
-    maxDailyMinutes: draft.minutosMaximosSemana,
-  };
-
-  if (draft.type === "irl") {
-    return {
-      ...base,
-      type: "irl",
-      promptIA: draft.promptIA,
-      cidsEvidencia: [...draft.cidsEvidencia],
-      alarmSettings: legacyAlarmSettings,
-      timerSettings: legacyTimerSettings,
-    };
-  }
-
-  if (draft.type === "alarm") {
-    return {
-      ...base,
-      type: "alarm",
-      horaObjetivo: draft.horaObjetivo,
-      diasActivos: draft.diasActivos.map((day) => ({ ...day })),
-      tiempoMaximoReaccionSegundos: draft.tiempoMaximoReaccionSegundos,
-      alarmSettings: legacyAlarmSettings,
-      timerSettings: legacyTimerSettings,
-    };
-  }
-
-  return {
-    ...base,
-    type: "timer",
-    appObjetivoId: draft.appObjetivoId,
-    minutosMaximosSemana: draft.minutosMaximosSemana,
-    timerSettings: legacyTimerSettings,
-    alarmSettings: legacyAlarmSettings,
-  };
+/** The one-line target under the goal's title. */
+function detail(goal: Goal): string {
+  if (goal.alarm) return goal.alarm.targetTime;
+  if (goal.appTimer) return t("pixel.goals.minutesPerDay", { app: goal.appTimer.appName, count: goal.appTimer.maxDailyMinutes });
+  if (goal.location) return `${goal.location.placeLabel} · ${goal.location.arriveBy}`;
+  return t(`pixel.goals.kinds.${goal.kind}.detail`);
 }
 
-function formatTimeLabel(isoValue: string) {
-  const date = new Date(isoValue);
-  if (Number.isNaN(date.getTime())) {
-    return "--:--";
-  }
-  return date.toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false,
-  });
+function GoalCard({ goal }: { goal: Goal }) {
+  const router = useRouter();
+  const theme = usePixelTheme();
+  const { actions } = useAppStore();
+  const active = goal.status === "active";
+  const live = active || goal.status === "paused";
+  const invited = goal.me?.status === "invited";
+  const days = weekdayLabels();
+  const state = invited ? t("detail.participant.invited") : t(`detail.status.${goal.status}`);
+
+  return (
+    <Card>
+      <View style={{ flexDirection: "row", alignItems: "center", gap: theme.em(0.55) }}>
+        <Chip icon={GOAL_ICONS[goal.kind]} solid />
+        <Main title={goal.title} note={`${detail(goal)} · ${state}`} />
+        {live && goal.me?.role === "owner" ? (
+          <Toggle
+            checked={active}
+            label={goal.title}
+            onChange={() => actions.updateGoal(goal.id, { status: active ? "paused" : "active" }).catch(() => {})}
+          />
+        ) : null}
+      </View>
+
+      <View style={[{ flexDirection: "row", flexWrap: "wrap", rowGap: theme.em(0.45) }, { opacity: active ? 1 : 0.45 }]}>
+        <Fact icon="coin" label={t("pixel.goals.stake")} value={`${goal.stakeAmount} USDC`} />
+        <Fact icon="heart" label={t("detail.attemptsLeft")} value={`${goal.progress.attemptsLeft}/${goal.maxAttempts}`} />
+        <Fact icon="calendar" label={t("pixel.goals.days")} value={goal.repeatDays.map((day) => days[day]).join(" ")} />
+        <Fact icon="check" label={t("detail.score")} value={`${goal.progress.successCount} ▲ ${goal.progress.failCount} ▼`} />
+        {goal.isGroup ? (
+          <Fact icon="group" label={t("pixel.goals.participants")} value={goal.participants.map((participant) => participant.user.displayName).join(", ")} />
+        ) : null}
+        {goal.devTipPercent > 0 ? <Fact icon="percent" label={t("pixel.goals.tip")} value={`${goal.devTipPercent}%`} /> : null}
+      </View>
+
+      <Btn
+        testID={`goal-open-${goal.kind}`}
+        label={invited ? t("detail.answer") : t("detail.open")}
+        icon="arrow"
+        size="sm"
+        variant={invited ? "solid" : "line"}
+        style={{ alignSelf: "flex-start" }}
+        onPress={() => router.push(`/activity/${goal.id}`)}
+      />
+    </Card>
+  );
 }
 
-function formatDurationLabel(totalMinutes: number) {
-  const hours = Math.floor(totalMinutes / 60);
-  const minutes = totalMinutes % 60;
-  if (minutes === 0) {
-    return `${hours} ${hours === 1 ? t("activities.hour") : t("activities.hours")}`;
-  }
-  if (hours === 0) {
-    return `${minutes} ${minutes === 1 ? t("activities.minute") : t("activities.minutes")}`;
-  }
-  return `${hours}${t("activities.hour")} ${minutes}${t("activities.minute")}`;
-}
+export default function GoalsScreen() {
+  const theme = usePixelTheme();
+  const haptic = useHaptic();
+  const { state, dispatch, actions } = useAppStore();
+  const fab = theme.em(2.9);
 
-const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: "#f5f5f5",
-  },
-  content: {
-    paddingHorizontal: 20,
-    paddingBottom: 120,
-  },
-  headerContainer: {
-    paddingTop: 24,
-    paddingBottom: 16,
-  },
-  headerRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: 12,
-  },
-  pageTitle: {
-    fontSize: 22,
-    fontWeight: "700",
-    color: AppColors.lilac.textPrimary,
-  },
-  draftSpacing: {
-    marginBottom: 8,
-  },
-  separator: {
-    height: 16,
-  },
-  footerSpacing: {
-    height: 140,
-  },
-  cardSpacing: {
-    borderRadius: 24,
-  },
-  fab: {
-    position: "absolute",
-    right: 16,
-    bottom: 96,
-    zIndex: 20,
-  },
-});
+  return (
+    <View style={{ flex: 1 }}>
+      <Screen style={{ paddingBottom: fab + theme.em(1.6) }} onRefresh={actions.refresh}>
+        <SectionTitle>{t("pixel.goals.title")}</SectionTitle>
+        {state.sync === "error" ? <Notice>{state.syncError}</Notice> : null}
+        {state.goals.length === 0 && state.sync !== "error" ? (
+          <T v="note" testID="goals-empty">
+            {state.sync === "ready" ? t("pixel.goals.empty") : t("common.loading")}
+          </T>
+        ) : null}
+        {state.goals.map((goal) => (
+          <GoalCard key={goal.id} goal={goal} />
+        ))}
+      </Screen>
+
+      <Pressable
+        testID="goals-add"
+        accessibilityRole="button"
+        accessibilityLabel={t("pixel.goals.add")}
+        onPress={() => {
+          haptic();
+          dispatch({ type: "openSheet" });
+        }}
+        style={{ position: "absolute", right: theme.em(0.8), bottom: theme.em(0.9) }}
+      >
+        <Chamfer
+          solid
+          cut={theme.em(0.6)}
+          contentStyle={{ width: fab, height: fab, alignItems: "center", justifyContent: "center" }}
+        >
+          <PixelIcon name="plus" size={theme.em(1.4)} color={theme.bg} />
+        </Chamfer>
+      </Pressable>
+    </View>
+  );
+}
