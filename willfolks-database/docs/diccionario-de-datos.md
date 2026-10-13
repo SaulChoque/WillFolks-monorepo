@@ -39,7 +39,7 @@ Cuenta de una persona. Se crea en el primer inicio de sesión.
 | `auth_provider` | `auth_provider` | no | `'dev'::auth_provider` |  | Proveedor con el que se autenticó. `dev` es el login sin contraseña de desarrollo. |
 | `provider_subject` | `varchar(255)` | sí |  |  | Identificador del usuario en ese proveedor. |
 | `wallet_address` | `varchar(42)` | sí |  |  | Dirección EVM de la billetera generada en el teléfono. |
-| `chain` | `varchar(32)` | no | `'avalanche-fuji'::character varying` |  | Red donde vive la custodia de sus apuestas. |
+| `chain` | `varchar(32)` | no | `'monad-testnet'::character varying` |  | Red donde vive la custodia de sus apuestas. |
 | `location_label` | `varchar(120)` | sí |  |  | Ciudad o lugar que muestra en su perfil. |
 | `timezone` | `varchar(64)` | no | `'UTC'::character varying` |  | Zona horaria IANA; alimenta la pestaña de horas de amigos. |
 | `locale` | `varchar(10)` | no | `'en'::character varying` |  | Idioma de la app (`en`/`es`); las notificaciones se redactan en él. |
@@ -53,6 +53,7 @@ Reglas:
 - `users_email_key`: único sobre `(email)`
 - `users_provider_subject_unique`: único sobre `(auth_provider, provider_subject)`
 - `users_username_key`: único sobre `(username)`
+- `users_wallet_unique`: único sobre `(lower((wallet_address)::text)) WHERE (wallet_address IS NOT NULL)`
 - `users_username_format`: `CHECK (((username IS NULL) OR (username ~ '^[a-zA-Z0-9_]{3,24}$'::citext)))`
 - `users_wallet_format`: `CHECK (((wallet_address IS NULL) OR ((wallet_address)::text ~ '^0x[0-9a-fA-F]{40}$'::text)))`
 
@@ -140,9 +141,23 @@ Meta con apuesta ("William"). Los datos propios de cada tipo viven en `goal_*_se
 | `resolved_at` | `timestamptz` | sí |  |  | Momento en que la meta se cerró. |
 | `created_at` | `timestamptz` | no | `now()` |  | Creación de la meta. |
 | `updated_at` | `timestamptz` | no | `now()` |  | Última modificación. |
+| `escrow_state` | `escrow_state` | no | `'none'::escrow_state` |  | Estado del stake en el contrato: `none`, `pending`, `active`, `succeeded`, `failed_locked`, `claimed`, `expired` o `cancelled`. |
+| `escrow_contract` | `varchar(42)` | sí |  |  | Dirección del contrato `WillFolksEscrow` que custodia el stake de esta meta. |
+| `escrow_chain_id` | `integer` | sí |  |  | Chain id de la red del contrato (10143 = Monad testnet). |
+| `escrow_goal_id` | `bigint` | sí |  |  | Id de la meta dentro del contrato (evento `GoalCreated`); único por contrato. |
+| `escrow_start_at` | `timestamptz` | sí |  |  | Inicio de la meta según el contrato; antes de esto el usuario puede cancelar. |
+| `escrow_end_at` | `timestamptz` | sí |  |  | Fin de la meta según el contrato; el éxito solo puede atestarse desde aquí. |
+| `escrow_unlock_at` | `timestamptz` | sí |  |  | Cuándo el stake de una meta fallida vuelve al usuario (fin de la meta o veredicto, más `extra_lock_days`). |
+| `escrow_metadata_hash` | `varchar(66)` | sí |  |  | Hash de la configuración de la meta que el usuario ancló al crearla en el contrato. |
+| `escrow_resolve_tx_hash` | `varchar(66)` | sí |  |  | Transacción que aplicó el veredicto firmado por el atestador (`resolve`). |
+| `escrow_claim_tx_hash` | `varchar(66)` | sí |  |  | Transacción que devolvió el stake tras el bloqueo (`claim`), por falta de veredicto (`reclaim`) o por cancelación. |
+| `escrow_evidence` | `jsonb` | sí |  |  | Registro de evidencia: resultados de los controles y veredicto. Su hash es el `evidenceHash` del contrato. |
+| `escrow_error` | `text` | sí |  |  | Último error al enviar una transacción de cadena; el barrendero reintenta. |
+| `escrow_attempts` | `smallint` | no | `0` |  | Intentos de envío de la transacción de cadena pendiente. |
 
 Reglas:
 
+- `goals_escrow_goal_unique`: único sobre `(escrow_chain_id, escrow_contract, escrow_goal_id) WHERE (escrow_goal_id IS NOT NULL)`
 - `goals_attempts_range`: `CHECK (((max_attempts >= 1) AND (max_attempts <= 10)))`
 - `goals_dates_ordered`: `CHECK ((end_date >= start_date))`
 - `goals_group_mode_consistent`: `CHECK (((is_group AND (group_mode IS NOT NULL)) OR ((NOT is_group) AND (group_mode IS NULL))))`
@@ -361,6 +376,7 @@ Reglas:
 | `checkin_result` | `pending`, `success`, `fail` | Veredicto de un control. |
 | `checkin_source` | `alarm`, `usage`, `location`, `proof`, `manual` | Origen de la medición de un control. |
 | `device_platform` | `android`, `ios`, `web` | Sistema operativo del dispositivo. |
+| `escrow_state` | `none`, `pending`, `active`, `succeeded`, `failed_locked`, `claimed`, `expired`, `cancelled` | Dónde está el stake de una meta en el contrato de escrow. |
 | `friendship_status` | `pending`, `accepted`, `declined`, `blocked` | Estado de una solicitud de amistad. |
 | `goal_kind` | `alarm`, `app_timer`, `locator`, `ai` | Tipo de meta: alarma, límite de app, ubicación o juzgada por evidencia. |
 | `goal_status` | `draft`, `active`, `paused`, `completed`, `failed`, `cancelled` | Ciclo de vida de una meta. |

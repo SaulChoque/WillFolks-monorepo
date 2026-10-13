@@ -128,3 +128,26 @@ flowchart LR
     P -.->|reward: modo vs, a los rivales| A2((disponible del rival))
     A -->|withdrawal| W[fuera]
 ```
+
+
+## Escrow on-chain (fase 1, `sql/04_chain.sql`)
+
+Cada meta puede tener su stake en el contrato `WillFolksEscrow` (Monad testnet). La base no
+decide dónde está el dinero: lo lee de la cadena y guarda el vínculo y el rastro.
+
+```mermaid
+stateDiagram-v2
+    [*] --> none: meta simulada
+    [*] --> pending: POST /goals (borrador)
+    pending --> active: el usuario firma createGoal y el backend verifica el recibo
+    active --> succeeded: atestador firma éxito (desde escrow_end_at)
+    active --> failed_locked: atestador firma fallo (desde escrow_start_at)
+    failed_locked --> claimed: pasa escrow_unlock_at
+    active --> expired: nadie resolvió dentro del plazo de gracia (reclaim)
+    active --> cancelled: el usuario cancela antes de escrow_start_at
+```
+
+- `wallet_transactions.tx_hash` guarda el hash real de cada movimiento (bloqueo, liberación,
+  faucet de prueba); las metas simuladas conservan hashes sintéticos.
+- `users.wallet_address` solo se escribe tras verificar una firma del usuario (único por wallet).
+- `goals.escrow_evidence` guarda el registro firmado de controles; su hash va en el veredicto.

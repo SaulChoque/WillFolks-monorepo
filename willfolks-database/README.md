@@ -29,6 +29,7 @@ correr `./scripts/reset.sh` (se pierden los datos locales).
 | `sql/01_schema.sql` | **Fuente de verdad**: extensiones, tipos enumerados, 16 tablas, restricciones e índices. |
 | `sql/02_views.sql` | Vistas de lectura: `v_user_balances` (saldos) y `v_goal_progress` (controles por meta). |
 | `sql/03_seed.sql` | Cuatro usuarios de demostración con metas de cada tipo, movimientos e historial. |
+| `sql/04_chain.sql` | Fase 1 on-chain: `escrow_state` y las columnas `escrow_*` de `goals`, y wallet única por usuario. Idempotente: se puede aplicar a una base con datos. |
 | `docs/diccionario-de-datos.md` | Cada tabla y columna: tipo, nulabilidad, valor por defecto, claves, reglas y significado. |
 | `docs/willfolks.dbml` | El modelo en DBML (pegar en dbdiagram.io). |
 | `docs/modelo-er.md` | Diagrama ER en Mermaid, decisiones de diseño y diagramas de estados. |
