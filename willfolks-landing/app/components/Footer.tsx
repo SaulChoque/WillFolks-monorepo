@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
 import { animate, createScope, onScroll, stagger } from "animejs";
-import { SITE, SOCIAL_LINKS } from "@/lib/site";
+import { PROJECT_PAGES, SITE, SOCIAL_LINKS } from "@/lib/site";
 import { prefersReducedMotion, revealOnScroll } from "@/lib/motion";
 import { LogoMark } from "./ui/LogoMark";
 import { Marquee } from "./ui/Marquee";
@@ -14,6 +14,7 @@ const SECTIONS = ["how", "features", "demo", "download", "faq"] as const;
 export function Footer() {
   const t = useTranslations("footer");
   const tNav = useTranslations("navbar");
+  const tProject = useTranslations("project.nav");
   const rootRef = useRef<HTMLElement>(null);
   const github = SOCIAL_LINKS.find((link) => link.id === "github");
 
@@ -56,6 +57,17 @@ export function Footer() {
               {SECTIONS.map((id) => (
                 <li key={id}>
                   <TransitionLink href={`/#${id}`}>{tNav(id)}</TransitionLink>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <nav className="footer__col" aria-label={t("projectTitle")}>
+            <h2 className="mono">{t("projectTitle")}</h2>
+            <ul>
+              {PROJECT_PAGES.map((id) => (
+                <li key={id}>
+                  <TransitionLink href={`/${id}`}>{tProject(id)}</TransitionLink>
                 </li>
               ))}
             </ul>

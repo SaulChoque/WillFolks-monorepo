@@ -112,6 +112,10 @@ export function Navbar() {
         </nav>
 
         <div className="nav__tools">
+          <TransitionLink href="/live" className="nav__live mono">
+            <i aria-hidden="true" />
+            {t("live")}
+          </TransitionLink>
           {langSwitch}
           <TransitionLink href="/#download" className="nav__cta">
             {t("download")}
@@ -148,6 +152,12 @@ export function Navbar() {
           ))}
         </nav>
         <div className="nav__menu-foot mono">
+          <TransitionLink href="/live" onClick={() => setOpen(false)}>
+            {t("live")}
+          </TransitionLink>
+          <TransitionLink href="/gtm" onClick={() => setOpen(false)}>
+            GTM
+          </TransitionLink>
           <TransitionLink href="/social" onClick={() => setOpen(false)}>
             {t("social")}
           </TransitionLink>

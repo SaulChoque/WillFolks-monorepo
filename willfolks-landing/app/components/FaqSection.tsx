@@ -8,7 +8,7 @@ import { prefersReducedMotion, revealOnScroll } from "@/lib/motion";
 import { SectionHead } from "./ui/SectionHead";
 import { SplitWords } from "./ui/SplitWords";
 
-const QUESTION_COUNT = 5;
+const QUESTION_COUNT = 6;
 
 export function FaqSection() {
   const t = useTranslations("faq");
