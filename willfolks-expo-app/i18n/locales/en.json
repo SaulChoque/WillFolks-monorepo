@@ -716,7 +716,8 @@
     "note": "Concept",
     "notes": {
       "qrDeposit": "QR deposit",
-      "testBalance": "Test balance"
+      "testBalance": "Test balance",
+      "qrPurchase": "QR purchase #{{id}}"
     }
   },
   "friendsScreen": {
@@ -807,9 +808,6 @@
     "claimTx": "Return",
     "unlockAt": "Unlocks",
     "endAt": "Ends",
-    "depositFiat": "Add {{amount}} USD (QR payment, simulated)",
-    "depositFiatBody": "The QR payment is simulated; the money you receive is real.",
-    "depositDone": "+{{amount}} USD added",
     "sca": "Secure account",
     "scaBody": "A protected account tied to this phone. WillFolks sets it up for you.",
     "scaCreate": "Create secure account",
@@ -824,5 +822,33 @@
       "claimTx": "View the return on Monad Vision"
     },
     "linkA11y": "Open receipt on Monad Vision"
+  },
+  "buyQr": {
+    "title": "Buy USDC with QR",
+    "intro": "Choose how much to buy and pay the QR from your bank app. The USDC reaches your account as soon as the bank confirms the payment.",
+    "amount": "I want to receive",
+    "youPay": "You pay",
+    "youGet": "You get",
+    "rate": "Exchange rate",
+    "qrId": "QR no.",
+    "expires": "Expires in",
+    "expired": "Expired",
+    "generate": "Confirm and create QR",
+    "banks": "QR Simple: any Bolivian bank app can read it.",
+    "unavailable": "Buying with QR is not available right now.",
+    "scanTitle": "Scan and pay",
+    "waiting": "Waiting for the payment. This screen updates by itself.",
+    "checking": "Checking the payment with the bank…",
+    "paid": "I paid, check it",
+    "notYet": "The bank has not confirmed the payment yet. If you already paid, wait a few seconds.",
+    "hint": "Open your bank app, choose to pay with QR and scan this code. The amount is already included.",
+    "expiredBody": "The QR expired unpaid. Create a new one to buy.",
+    "again": "Create another QR",
+    "doneTitle": "Purchase confirmed",
+    "received": "You received",
+    "doneBody": "You paid {{bob}} · {{reference}}",
+    "back": "Back to the wallet",
+    "open": "Buy USDC with QR",
+    "openBody": "Pay in bolivianos from your bank and get USDC at {{rate}} Bs per dollar."
   }
 }

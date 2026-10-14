@@ -716,7 +716,8 @@
     "note": "Concepto",
     "notes": {
       "qrDeposit": "Depósito por QR",
-      "testBalance": "Saldo de prueba"
+      "testBalance": "Saldo de prueba",
+      "qrPurchase": "Compra con QR #{{id}}"
     }
   },
   "friendsScreen": {
@@ -807,9 +808,6 @@
     "claimTx": "Devolución",
     "unlockAt": "Se libera",
     "endAt": "Termina",
-    "depositFiat": "Agregar {{amount}} USD (pago con QR, simulado)",
-    "depositFiatBody": "El pago con QR es simulado; el dinero que recibes es real.",
-    "depositDone": "+{{amount}} USD agregados",
     "sca": "Cuenta segura",
     "scaBody": "Una cuenta protegida, ligada a este teléfono. WillFolks la prepara por ti.",
     "scaCreate": "Crear cuenta segura",
@@ -824,5 +822,33 @@
       "claimTx": "Ver la devolución en Monad Vision"
     },
     "linkA11y": "Abrir comprobante en Monad Vision"
+  },
+  "buyQr": {
+    "title": "Comprar USDC con QR",
+    "intro": "Elige cuánto quieres comprar y paga el QR desde la app de tu banco. Los USDC llegan a tu cuenta en cuanto el banco confirma el pago.",
+    "amount": "Quiero recibir",
+    "youPay": "Pagas",
+    "youGet": "Recibes",
+    "rate": "Tipo de cambio",
+    "qrId": "Nº de QR",
+    "expires": "Vence en",
+    "expired": "Vencido",
+    "generate": "Confirmar y generar QR",
+    "banks": "QR Simple: lo lee la app de cualquier banco de Bolivia.",
+    "unavailable": "La compra con QR no está disponible en este momento.",
+    "scanTitle": "Escanea y paga",
+    "waiting": "Esperando el pago. Esta pantalla se actualiza sola.",
+    "checking": "Verificando el pago con el banco…",
+    "paid": "Ya pagué, verificar",
+    "notYet": "El banco todavía no confirma el pago. Si ya pagaste, espera unos segundos.",
+    "hint": "Abre la app de tu banco, elige pagar con QR y escanea este código. El monto ya está incluido.",
+    "expiredBody": "El QR venció sin pago. Genera uno nuevo para comprar.",
+    "again": "Generar otro QR",
+    "doneTitle": "Compra confirmada",
+    "received": "Recibiste",
+    "doneBody": "Pagaste {{bob}} · {{reference}}",
+    "back": "Volver a la billetera",
+    "open": "Comprar USDC con QR",
+    "openBody": "Paga en bolivianos desde tu banco, recibe USDC al tipo de cambio de {{rate}} Bs por dólar."
   }
 }

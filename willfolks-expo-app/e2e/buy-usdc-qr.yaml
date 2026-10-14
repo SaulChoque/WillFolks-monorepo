@@ -1,0 +1,106 @@
+# Compra de USDC con QR boliviano (QR Simple emitido por TilcAI), para Maestro (https://maestro.dev).
+#   N=$(date +%s)
+#   maestro test e2e/buy-usdc-qr.yaml -e EMAIL=qr$N@willfolks.test -e USERNAME=qr$N \
+#     -e QR_PAY_URL=http://127.0.0.1:8787/mock/vendis/simulate/deposit
+#
+# Requiere willfolks-BE con TILCAI_ENABLED=true y TILCAI_QR_EMAIL/TILCAI_QR_PASSWORD, y QR_PAY_URL:
+# el endpoint de TilcAI que registra el pago del banco (abierto desde el equipo donde corre TilcAI).
+#
+# Qué recorre:
+#   1. alta y wallet vinculada al backend por firma
+#   2. cotización a 11.89 Bs por dólar, QR generado y dibujado con el estilo de la app
+#   3. el banco paga el QR; la app lo confirma y los USDC llegan a la cuenta
+appId: com.anonymous.willfolksexpodapp
+---
+- launchApp:
+    clearState: true
+    permissions:
+      all: allow
+- extendedWaitUntil:
+    visible:
+      id: welcome-start
+    timeout: 120000
+- tapOn:
+    id: welcome-start
+- tapOn:
+    id: signin-email
+- inputText: ${EMAIL}
+- tapOn:
+    id: signin-name
+- inputText: Comprador
+- hideKeyboard
+- tapOn:
+    id: signin-submit
+- tapOn:
+    id: profile-username
+- inputText: ${USERNAME}
+- hideKeyboard
+- tapOn:
+    id: profile-submit
+- extendedWaitUntil:
+    visible:
+      id: permissions-continue
+    timeout: 30000
+- tapOn:
+    id: permissions-continue
+- extendedWaitUntil:
+    visible:
+      id: wallet-address
+    timeout: 60000
+- tapOn:
+    id: wallet-finish
+
+# ── 2. cotización y QR ──
+- tapOn: Home
+- tapOn:
+    id: home-wallet
+- extendedWaitUntil:
+    visible:
+      id: wallet-buy-qr
+    timeout: 60000
+- tapOn:
+    id: wallet-buy-qr
+- extendedWaitUntil:
+    visible:
+      id: buy-quote
+      text: "Bs 11.89"
+    timeout: 30000
+- takeScreenshot: qr-1-quote
+- tapOn:
+    id: buy-generate
+- extendedWaitUntil:
+    visible:
+      id: bank-qr
+    timeout: 60000
+- assertVisible:
+    id: buy-bob
+    text: "Bs 11.89"
+- takeScreenshot: qr-2-code
+
+# ── 3. el banco paga y la app confirma ──
+- copyTextFrom:
+    id: buy-qr-id
+- runScript:
+    file: pay-qr.js
+    env:
+      QR_ID: ${maestro.copiedText}
+- scrollUntilVisible:
+    element:
+      id: buy-check
+- tapOn:
+    id: buy-check
+- extendedWaitUntil:
+    visible:
+      id: buy-received
+      text: "\\+1.00"
+    timeout: 180000
+- takeScreenshot: qr-3-paid
+- assertVisible:
+    id: buy-receipt
+- tapOn:
+    id: buy-back
+- extendedWaitUntil:
+    visible:
+      id: wallet-available
+      text: "1.00"
+    timeout: 30000

@@ -19,6 +19,8 @@ export const TX_ICONS: Record<Transaction["type"], PixelIconName> = {
 /** A movement's note, with provider and test-network names swapped for plain words. */
 export const displayNote = (note?: string | null) => {
   if (!note) return null;
+  const qr = /^QR (\d+)$/.exec(note);
+  if (qr) return t("walletScreen.notes.qrPurchase", { id: qr[1] });
   if (/tilcai/i.test(note)) return t("walletScreen.notes.qrDeposit");
   if (/faucet/i.test(note)) return t("walletScreen.notes.testBalance");
   return note;

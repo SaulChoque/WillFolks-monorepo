@@ -7,7 +7,7 @@ import { Btn, Card, Chip, Main, Notice, Row, SectionTitle, Segmented, Stepper, T
 import { useAppStore, usePixelTheme } from "@/hooks/use-app-store";
 import { useApi } from "@/hooks/use-api";
 import { t } from "@/i18n";
-import { type ChainConfig, type ChainWallet, type SmartAccountInfo, api } from "@/lib/api";
+import { type ChainConfig, type ChainWallet, type QrTerms, type SmartAccountInfo, api } from "@/lib/api";
 import { chainConfig, explorerAddress, explorerTx } from "@/lib/chain";
 import { errorMessage } from "@/lib/errors";
 import { createSmartAccount } from "@/lib/smart-account";
@@ -26,8 +26,10 @@ export default function WalletScreen() {
   const [chain, setChain] = useState<ChainConfig>({ enabled: false });
   const [chainWallet, setChainWallet] = useState<ChainWallet | null>(null);
   const [smart, setSmart] = useState<SmartAccountInfo | null>(null);
+  const [qrTerms, setQrTerms] = useState<QrTerms | null>(null);
 
   const loadChain = async () => {
+    void api.qrTerms().then(setQrTerms, () => setQrTerms(null));
     const config = await chainConfig().catch(() => ({ enabled: false }) as ChainConfig);
     setChain(config);
     if (config.enabled) {
@@ -46,23 +48,6 @@ export default function WalletScreen() {
     try {
       const funded = await api.faucet();
       setMessage({ tone: "info", text: t("chain.faucetDone", { amount: funded.usdc }), txHash: funded.usdcTx });
-      await Promise.all([loadChain(), actions.refresh(), history.reload()]);
-    } catch (failure) {
-      setMessage({ tone: "error", text: errorMessage(failure) });
-    } finally {
-      setBusy(false);
-    }
-  };
-
-  /** Fiat deposit with the chain on: the backend pays the balance to the account. The amount comes from the backend. */
-  const depositAmount = chain.enabled ? (chain.fiatDepositUsdc ?? 1) : 1;
-  const depositFiat = async () => {
-    if (busy) return;
-    setBusy(true);
-    setMessage(null);
-    try {
-      const deposited = await actions.deposit(depositAmount, "fiat");
-      setMessage({ tone: "info", text: t("chain.depositDone", { amount: depositAmount }), txHash: deposited.txHash });
       await Promise.all([loadChain(), actions.refresh(), history.reload()]);
     } catch (failure) {
       setMessage({ tone: "error", text: errorMessage(failure) });
@@ -121,14 +106,26 @@ export default function WalletScreen() {
         </Row>
       </Card>
 
+      {qrTerms?.enabled ? (
+        <Card>
+          <T v="label">{t("buyQr.open")}</T>
+          <T v="note">{t("buyQr.openBody", { rate: qrTerms.bobPerUsd.toFixed(2) })}</T>
+          <Btn
+            testID="wallet-buy-qr"
+            label={t("buyQr.open")}
+            icon="coin"
+            disabled={busy || (chain.enabled && !chainWallet?.address)}
+            onPress={() => router.push("/wallet/buy")}
+          />
+        </Card>
+      ) : null}
+
       {chain.enabled ? (
         <Card>
           <T v="label">{t("chain.title")}</T>
           <T v="strong" testID="chain-usdc">{`${(chainWallet?.usdc ?? 0).toFixed(2)} ${t("common.currency")}`}</T>
           <Btn testID="chain-faucet" label={busy ? t("common.working") : t("chain.faucet")} icon="coin" disabled={busy || !chainWallet?.address} onPress={faucet} />
           <T v="note">{t("chain.faucetBody")}</T>
-          <Btn testID="chain-deposit-fiat" label={busy ? t("common.working") : t("chain.depositFiat", { amount: depositAmount })} icon="coin" variant="line" disabled={busy || !chainWallet?.address} onPress={depositFiat} />
-          <T v="note">{t("chain.depositFiatBody")}</T>
           {chainWallet?.address ? (
             <Btn
               label={t("chain.explorer")}

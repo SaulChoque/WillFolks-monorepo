@@ -79,12 +79,15 @@ anything under `modules/` or the plugins in `app.json`, rebuild with `npx expo r
 
 ## On-chain with TilcAI (e2e)
 
-With the backend's `TILCAI_ENABLED=true` the wallet screen shows, besides the faucet, a **fiat deposit** button
-(the QR payment is simulated; the USDC that arrives is real, paid on-chain by TilcAI's vault) and a **smart account**
-card: the app creates a P-256 key (`lib/smart-account.ts`, kept in the secure store, never sent) and the backend asks
+With the backend's `TILCAI_ENABLED=true` the wallet screen shows, besides the faucet, **Buy USDC with QR** and a
+**smart account** card. Buying with QR (`app/wallet/buy.tsx`): the user picks an amount, the backend quotes it at
+11.89 Bs per dollar and has TilcAI issue a Bolivian bank QR (QR Simple); the app redraws that QR in its own style
+(`components/wallet/bank-qr.tsx`: ink on the acid plate, coin badge in the centre, same content) and polls until the
+bank pays it, then the USDC arrives in the user's wallet on Monad. `e2e/buy-usdc-qr.yaml` walks it end to end. For the
+smart account, the app creates a P-256 key (`lib/smart-account.ts`, kept in the secure store, never sent) and the backend asks
 TilcAI to issue a contract account for it on Monad. AI goals get their verdict through a paid x402 call.
 
-`e2e/onchain-tilcai.yaml` walks all of it with Maestro on the emulator (sign-up → faucet → fiat deposit → smart account →
+`e2e/onchain-tilcai.yaml` walks all of it with Maestro on the emulator (sign-up → faucet → smart account →
 AI goal whose stake the phone signs → camera proof judged over x402). Chain-bound calls use a 120 s timeout
 (`CHAIN_TIMEOUT_MS` in `lib/api.ts`): a confirmed transaction takes longer than a database read.
 
