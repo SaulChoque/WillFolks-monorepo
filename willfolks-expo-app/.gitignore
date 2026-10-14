@@ -43,3 +43,7 @@ app-example
 /ios
 /android
 /.github
+
+# Local Expo modules: Gradle output
+modules/*/android/build/
+modules/*/android/.cxx/
