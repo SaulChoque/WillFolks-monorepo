@@ -1,0 +1,26 @@
+name: willfolks
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: willfolks-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${WF_DB_USER:-willfolks}
+      POSTGRES_PASSWORD: ${WF_DB_PASSWORD:-willfolks}
+      POSTGRES_DB: ${WF_DB_NAME:-willfolks}
+    ports:
+      # Solo escucha en localhost: es una base de desarrollo con credenciales por defecto.
+      - "127.0.0.1:${WF_DB_PORT:-5432}:5432"
+    volumes:
+      - willfolks-pgdata:/var/lib/postgresql/data
+      # Los .sql se ejecutan en orden alfabético solo la primera vez (volumen vacío).
+      - ./sql:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  willfolks-pgdata:
