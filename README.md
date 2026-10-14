@@ -12,7 +12,7 @@ no real money is involved.
 | --- | --- |
 | Website | https://willfolks.bamp.lat |
 | Live product (how to try it) | https://willfolks.bamp.lat/live |
-| Android app | [Releases](https://github.com/SaulChoque/WillFolks-monorepo/releases/latest) |
+| Android app (1.1.0) | [Releases](https://github.com/SaulChoque/WillFolks-monorepo/releases/latest) |
 | API | https://api.willfolks.bamp.lat/health |
 | Technical demo · Pitch · Promo | [/demo](https://willfolks.bamp.lat/demo) · [/pitch](https://willfolks.bamp.lat/pitch) · [/promo](https://willfolks.bamp.lat/promo) |
 | Go-to-market | https://willfolks.bamp.lat/gtm |
@@ -28,6 +28,9 @@ no real money is involved.
 4. Demo goals last about 5 minutes; when they end the stake returns and the Wallet history shows the
    transaction.
 5. Any other goal type works too, but some take longer to resolve.
+6. Wallet → **Buy USDC with QR**: pick an amount, the app quotes it at 11.89 Bs per dollar and shows the Bolivian
+   bank QR (QR Simple) that TilcAI issues, redrawn in the app's style. Once the bank reports it paid, the USDC
+   arrives in your wallet on Monad.
 
 ## Repository layout
 
@@ -71,4 +74,5 @@ Each folder's README covers its variables, tests and caveats.
 - One attestor (the backend) signs verdicts today; a quorum of verifiers is a later phase.
 - Alarm and app-usage results are reported by the phone and trusted by the server.
 - The AI judge is a stub that approves any photo; the friend judge is real.
-- Fiat deposits and bank withdrawals do not exist yet, and sign-in is a development login.
+- Buying USDC with a bank QR runs against TilcAI's QR Simple service on testnet; bank withdrawals do not exist yet,
+  and sign-in is a development login.
