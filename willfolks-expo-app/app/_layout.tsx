@@ -90,6 +90,7 @@ function RootLayoutContent() {
               <Stack.Screen name="notifications" />
               <Stack.Screen name="permissions" />
               <Stack.Screen name="wallet/index" />
+              <Stack.Screen name="wallet/buy" />
               <Stack.Screen name="wallet/[transactionId]" />
               <Stack.Screen name="activity/new" />
               <Stack.Screen name="activity/[activityId]" />

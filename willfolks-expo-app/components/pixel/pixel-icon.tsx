@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useMemo } from "react";
 import { PixelRatio, StyleProp, View, ViewStyle } from "react-native";
 
 import { FACE_ROW, PET_H, PET_W, PetMood, petFrame } from "@/constants/pet-sprite";
@@ -26,7 +26,7 @@ function toRuns(rows: readonly string[], tone: string): Run[] {
 }
 
 /** Snaps a bitmap cell to whole device pixels so runs never show seams. */
-function cellFor(size: number, columns: number) {
+export function cellFor(size: number, columns: number) {
   return Math.max(PixelRatio.roundToNearestPixel(size / columns), 1 / PixelRatio.get());
 }
 
@@ -75,6 +75,25 @@ export const PixelIcon = memo(function PixelIcon({ name, size = 24, color, style
   return (
     <View style={[{ width: cell * 12, height: cell * 12 }, style]}>
       <Runs runs={iconRuns(name)} cell={cell} color={color} />
+    </View>
+  );
+});
+
+interface PixelBitmapProps {
+  rows: readonly string[];
+  /** Character that marks an inked pixel. */
+  tone?: string;
+  /** Side of one pixel; snap it with `cellFor`. */
+  cell: number;
+  color: string;
+}
+
+/** Any bitmap drawn like the icons, one block per horizontal run. */
+export const PixelBitmap = memo(function PixelBitmap({ rows, tone = "#", cell, color }: PixelBitmapProps) {
+  const runs = useMemo(() => toRuns(rows, tone), [rows, tone]);
+  return (
+    <View style={{ width: cell * (rows[0]?.length ?? 0), height: cell * rows.length }}>
+      <Runs runs={runs} cell={cell} color={color} />
     </View>
   );
 });

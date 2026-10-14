@@ -8,7 +8,7 @@
 #
 # Qué recorre, siempre con la wallet del propio teléfono:
 #   1. alta y wallet vinculada al backend por firma
-#   2. faucet (USDC del vault de TilcAI + gas) y depósito fiat (USDC real del vault)
+#   2. faucet (USDC del vault de TilcAI + gas); la compra con QR tiene su flujo: e2e/buy-usdc-qr.yaml
 #   3. cuenta inteligente con una passkey P-256 que nace y se queda en el teléfono
 #   4. meta con juez de IA: el teléfono firma approve + createGoal; la prueba se juzga por x402
 appId: com.anonymous.willfolksexpodapp
@@ -53,7 +53,7 @@ appId: com.anonymous.willfolksexpodapp
 - tapOn:
     id: wallet-finish
 
-# ── 2. dinero: faucet y depósito fiat, ambos pagados por el vault de TilcAI ──
+# ── 2. dinero: faucet pagado por el vault de TilcAI ──
 - tapOn: Home
 - tapOn:
     id: home-wallet
@@ -69,14 +69,9 @@ appId: com.anonymous.willfolksexpodapp
 # Cada transacción trae su enlace amigable a Monad Vision.
 - assertVisible:
     id: tx-explorer
-- tapOn:
-    id: chain-deposit-fiat
-- extendedWaitUntil:
-    visible: ".*\\+[0-9.]+ USD added.*"
-    timeout: 180000
 - assertVisible:
     id: wallet-available
-    text: "4.00"
+    text: "3.00"
 # El comprobante de un movimiento ofrece el enlace a Monad Vision.
 - scrollUntilVisible:
     element:
@@ -119,7 +114,7 @@ appId: com.anonymous.willfolksexpodapp
     id: goal-prompt
 - inputText: Photo of a made bed
 - hideKeyboard
-# El stake por defecto (5) supera lo recibido (faucet 3 + depósito 1): se baja a 1 USD.
+# El stake por defecto (5) supera lo recibido del faucet (3): se baja a 1 USD.
 - repeat:
     times: 4
     commands:

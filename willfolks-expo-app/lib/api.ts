@@ -310,6 +310,35 @@ export interface ProofReview extends Proof {
   user: PublicUser;
 }
 
+/** Terms of buying USDC with a Bolivian bank QR. */
+export interface QrTerms {
+  enabled: boolean;
+  currency: "BOB";
+  bobPerUsd: number;
+  minUsdc: number;
+  maxUsdc: number;
+  expiresMinutes: number;
+}
+
+/** A bank QR issued for one purchase. */
+export interface QrPurchase {
+  id: string;
+  /** Sent back to confirm the purchase. */
+  ticket: string;
+  usdc: number;
+  bob: number;
+  bobPerUsd: number;
+  expiresAt: string;
+  /** One string per row, "1" = dark module; null when only the image is available. */
+  modules: string[] | null;
+  /** PNG, base64. */
+  image: string;
+}
+
+export type QrPurchaseStatus =
+  | { status: "pending" | "expired"; id: string }
+  | { status: "paid"; id: string; transaction: Transaction };
+
 export interface Transaction {
   id: string;
   goalId: string | null;
@@ -461,6 +490,10 @@ export const api = {
   deposit: (amount: number, method: "crypto" | "fiat") =>
     request<Transaction>("POST", "/wallet/deposits", { amount, method }, method === "fiat" ? CHAIN_TIMEOUT_MS : TIMEOUT_MS),
   withdraw: (amount: number) => request<Transaction>("POST", "/wallet/withdrawals", { amount }),
+  qrTerms: () => request<QrTerms>("GET", "/wallet/qr-purchases/config"),
+  buyWithQr: (usdc: number) => request<QrPurchase>("POST", "/wallet/qr-purchases", { usdc }, CHAIN_TIMEOUT_MS),
+  /** Pending until the bank pays; the call that sees it paid also waits for the USDC to arrive. */
+  confirmQr: (ticket: string) => request<QrPurchaseStatus>("POST", "/wallet/qr-purchases/confirm", { ticket }, CHAIN_TIMEOUT_MS),
 
   notifications: () => request<{ unread: number; items: AppNotification[] }>("GET", "/notifications"),
   readNotification: (id: string) => request<AppNotification>("PATCH", `/notifications/${id}/read`),
