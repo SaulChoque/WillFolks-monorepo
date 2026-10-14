@@ -162,6 +162,7 @@ export default function NewGoalScreen() {
       kind,
       title: title.trim(),
       stakeAmount: stake,
+      startDate: localDate(),
       endDate,
       repeatDays,
       notificationsEnabled: notifications,
@@ -199,7 +200,7 @@ export default function NewGoalScreen() {
 
       <Card>
         <Field testID="goal-title" label={t("form.title")} value={title} onChangeText={setTitle} maxLength={80} />
-        <Stepper testID="goal-stake" label={t("pixel.sheet.stake")} value={stake} unit="USDC" min={MIN_STAKE} max={maxStake} onChange={setStake} />
+        <Stepper testID="goal-stake" label={t("pixel.sheet.stake")} value={stake} unit={t("common.currency")} min={MIN_STAKE} max={maxStake} onChange={setStake} />
         <T v="note">{t("pixel.sheet.available", { amount: state.balance.available.toFixed(2) })}</T>
       </Card>
 

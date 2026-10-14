@@ -111,7 +111,13 @@ export async function cancelOnChain(contract: string, escrowGoalId: string): Pro
   return cancelled.hash as string;
 }
 
-export const explorerTx = (config: ChainConfig, hash: string) =>
-  config.enabled ? `${config.explorerUrl}/tx/${hash}` : null;
-export const explorerAddress = (config: ChainConfig, address: string) =>
-  config.enabled ? `${config.explorerUrl}/address/${address}` : null;
+/** MonadVision: the public explorer where every transaction of the app can be checked. */
+export const MONAD_VISION_URL = "https://testnet.monadvision.com";
+const MONAD_TESTNET_ID = 10143;
+
+/** MonadVision for Monad testnet (or while the config is unknown); the backend's explorer on any other network. */
+const explorerBase = (config?: ChainConfig) =>
+  config?.enabled && config.chainId !== MONAD_TESTNET_ID ? config.explorerUrl : MONAD_VISION_URL;
+
+export const explorerTx = (config: ChainConfig | undefined, hash: string) => `${explorerBase(config)}/tx/${hash}`;
+export const explorerAddress = (config: ChainConfig | undefined, address: string) => `${explorerBase(config)}/address/${address}`;

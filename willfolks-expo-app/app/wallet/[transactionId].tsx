@@ -1,13 +1,14 @@
 import { useLocalSearchParams } from "expo-router";
-import { View } from "react-native";
+import { Linking, View } from "react-native";
 
 import { Screen } from "@/components/pixel/screen";
-import { Card, Chip, Main, Notice, SectionTitle, T } from "@/components/pixel/ui";
+import { Btn, Card, Chip, Main, Notice, SectionTitle, T } from "@/components/pixel/ui";
 import { usePixelTheme } from "@/hooks/use-app-store";
 import { useApi } from "@/hooks/use-api";
 import { t } from "@/i18n";
 import { api } from "@/lib/api";
-import { TX_ICONS, formatMoment } from "@/lib/wallet";
+import { explorerTx } from "@/lib/chain";
+import { TX_ICONS, displayNote, formatMoment } from "@/lib/wallet";
 
 function Line({ label, value }: { label: string; value: string }) {
   const theme = usePixelTheme();
@@ -43,15 +44,25 @@ export default function VoucherScreen() {
               {transaction.amount.toFixed(2)}
             </T>
             <T v="unit" style={{ marginBottom: theme.em(0.35) }}>
-              {transaction.currency}
+              {t("common.currency")}
             </T>
           </View>
           <Line label={t("walletScreen.reference")} value={transaction.referenceCode} />
           <Line label={t("walletScreen.date")} value={formatMoment(transaction.createdAt)} />
           <Line label={t("walletScreen.method")} value={t(`walletScreen.methods.${transaction.method}`)} />
-          {transaction.chain ? <Line label={t("account.chain")} value={transaction.chain} /> : null}
-          {transaction.txHash ? <Line label={t("walletScreen.txHash")} value={transaction.txHash} /> : null}
-          {transaction.note ? <Line label={t("walletScreen.note")} value={transaction.note} /> : null}
+          {transaction.txHash ? (
+            <View style={{ gap: theme.em(0.4), paddingTop: theme.em(0.4), borderTopWidth: theme.line, borderColor: theme.fg }}>
+              <Btn
+                testID="voucher-explorer"
+                label={t("chain.viewReceipt")}
+                icon="arrow"
+                variant="line"
+                onPress={() => Linking.openURL(explorerTx(undefined, transaction.txHash!))}
+              />
+              <T v="note">{t("chain.receiptHint")}</T>
+            </View>
+          ) : null}
+          {displayNote(transaction.note) ? <Line label={t("walletScreen.note")} value={displayNote(transaction.note)!} /> : null}
         </Card>
       ) : null}
     </Screen>

@@ -60,7 +60,7 @@
         android:layout_marginBottom="6dp"
         android:fontFamily="monospace"
         android:textStyle="bold"
-        android:text="USDC"
+        android:text="USD"
         android:textColor="#050702"
         android:textSize="16sp" />
   </LinearLayout>

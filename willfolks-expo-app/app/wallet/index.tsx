@@ -1,5 +1,4 @@
 import { useRouter } from "expo-router";
-import { formatEther } from "ethers";
 import { useEffect, useState } from "react";
 import { Linking, Pressable, View } from "react-native";
 
@@ -8,10 +7,11 @@ import { Btn, Card, Chip, Main, Notice, Row, SectionTitle, Segmented, Stepper, T
 import { useAppStore, usePixelTheme } from "@/hooks/use-app-store";
 import { useApi } from "@/hooks/use-api";
 import { t } from "@/i18n";
-import { type ChainConfig, type ChainWallet, api } from "@/lib/api";
+import { type ChainConfig, type ChainWallet, type SmartAccountInfo, api } from "@/lib/api";
 import { chainConfig, explorerAddress, explorerTx } from "@/lib/chain";
 import { errorMessage } from "@/lib/errors";
-import { INCOMING, TX_ICONS, formatMoment } from "@/lib/wallet";
+import { createSmartAccount } from "@/lib/smart-account";
+import { INCOMING, TX_ICONS, displayNote, formatMoment } from "@/lib/wallet";
 
 export default function WalletScreen() {
   const router = useRouter();
@@ -21,15 +21,19 @@ export default function WalletScreen() {
   const [amount, setAmount] = useState(20);
   const [method, setMethod] = useState<"crypto" | "fiat">("crypto");
   const [busy, setBusy] = useState(false);
-  const [message, setMessage] = useState<{ tone: "error" | "info"; text: string } | null>(null);
+  const [message, setMessage] = useState<{ tone: "error" | "info"; text: string; txHash?: string | null } | null>(null);
   const { available, inEscrow, penalized } = state.balance;
   const [chain, setChain] = useState<ChainConfig>({ enabled: false });
   const [chainWallet, setChainWallet] = useState<ChainWallet | null>(null);
+  const [smart, setSmart] = useState<SmartAccountInfo | null>(null);
 
   const loadChain = async () => {
     const config = await chainConfig().catch(() => ({ enabled: false }) as ChainConfig);
     setChain(config);
-    if (config.enabled) setChainWallet(await api.chainWallet().catch(() => null));
+    if (config.enabled) {
+      setChainWallet(await api.chainWallet().catch(() => null));
+      setSmart(await api.smartAccount().catch(() => null));
+    }
   };
   useEffect(() => {
     void loadChain();
@@ -41,8 +45,40 @@ export default function WalletScreen() {
     setMessage(null);
     try {
       const funded = await api.faucet();
-      setMessage({ tone: "info", text: t("chain.faucetDone", { amount: funded.usdc }) });
+      setMessage({ tone: "info", text: t("chain.faucetDone", { amount: funded.usdc }), txHash: funded.usdcTx });
       await Promise.all([loadChain(), actions.refresh(), history.reload()]);
+    } catch (failure) {
+      setMessage({ tone: "error", text: errorMessage(failure) });
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  /** Fiat deposit with the chain on: the backend pays the balance to the account. The amount comes from the backend. */
+  const depositAmount = chain.enabled ? (chain.fiatDepositUsdc ?? 1) : 1;
+  const depositFiat = async () => {
+    if (busy) return;
+    setBusy(true);
+    setMessage(null);
+    try {
+      const deposited = await actions.deposit(depositAmount, "fiat");
+      setMessage({ tone: "info", text: t("chain.depositDone", { amount: depositAmount }), txHash: deposited.txHash });
+      await Promise.all([loadChain(), actions.refresh(), history.reload()]);
+    } catch (failure) {
+      setMessage({ tone: "error", text: errorMessage(failure) });
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const openSmartAccount = async () => {
+    if (busy) return;
+    setBusy(true);
+    setMessage(null);
+    try {
+      await createSmartAccount();
+      setMessage({ tone: "info", text: t("chain.scaReady") });
+      await loadChain();
     } catch (failure) {
       setMessage({ tone: "error", text: errorMessage(failure) });
     } finally {
@@ -56,7 +92,7 @@ export default function WalletScreen() {
     setMessage(null);
     try {
       const transaction = kind === "deposit" ? await actions.deposit(amount, method) : await actions.withdraw(amount);
-      setMessage({ tone: "info", text: t(`walletScreen.done.${kind}`, { amount, reference: transaction.referenceCode }) });
+      setMessage({ tone: "info", text: t(`walletScreen.done.${kind}`, { amount, reference: transaction.referenceCode }), txHash: transaction.txHash });
       await history.reload();
     } catch (failure) {
       setMessage({ tone: "error", text: errorMessage(failure) });
@@ -76,7 +112,7 @@ export default function WalletScreen() {
             {available.toFixed(2)}
           </T>
           <T v="unit" color={theme.bg} style={{ marginBottom: theme.em(0.35) }}>
-            USDC
+            {t("common.currency")}
           </T>
         </View>
         <Row>
@@ -87,28 +123,24 @@ export default function WalletScreen() {
 
       {chain.enabled ? (
         <Card>
-          <T v="label">{t("chain.title", { network: chain.name })}</T>
-          <T v="mono" selectable testID="chain-address">
-            {chainWallet?.address ?? "—"}
-          </T>
-          <Row>
-            <T v="label">{`${t("chain.usdc")}: ${(chainWallet?.usdc ?? 0).toFixed(2)}`}</T>
-            <T v="label" testID="chain-gas">{`${t("chain.gas")}: ${Number(formatEther(BigInt(chainWallet?.native ?? "0"))).toFixed(3)}`}</T>
-          </Row>
+          <T v="label">{t("chain.title")}</T>
+          <T v="strong" testID="chain-usdc">{`${(chainWallet?.usdc ?? 0).toFixed(2)} ${t("common.currency")}`}</T>
           <Btn testID="chain-faucet" label={busy ? t("common.working") : t("chain.faucet")} icon="coin" disabled={busy || !chainWallet?.address} onPress={faucet} />
           <T v="note">{t("chain.faucetBody")}</T>
+          <Btn testID="chain-deposit-fiat" label={busy ? t("common.working") : t("chain.depositFiat", { amount: depositAmount })} icon="coin" variant="line" disabled={busy || !chainWallet?.address} onPress={depositFiat} />
+          <T v="note">{t("chain.depositFiatBody")}</T>
           {chainWallet?.address ? (
             <Btn
               label={t("chain.explorer")}
               icon="arrow"
               variant="line"
-              onPress={() => Linking.openURL(explorerAddress(chain, chainWallet.address!)!)}
+              onPress={() => Linking.openURL(explorerAddress(chain, chainWallet.address!))}
             />
           ) : null}
         </Card>
       ) : (
       <Card>
-        <Stepper testID="wallet-amount" label={t("walletScreen.amount")} value={amount} unit="USDC" step={5} min={5} max={500} onChange={setAmount} />
+        <Stepper testID="wallet-amount" label={t("walletScreen.amount")} value={amount} unit={t("common.currency")} step={5} min={5} max={500} onChange={setAmount} />
         <T v="label">{t("walletScreen.method")}</T>
         <Segmented
           testID="wallet-method"
@@ -135,7 +167,37 @@ export default function WalletScreen() {
       </Card>
       )}
 
+      {chain.enabled && smart?.enabled ? (
+        <Card>
+          <T v="label">{t("chain.sca")}</T>
+          <T v="strong" testID="sca-address">
+            {smart.account ? t("chain.scaReady") : t("chain.scaNone")}
+          </T>
+          <T v="note">{t("chain.scaBody")}</T>
+          {smart.account ? (
+            <Btn
+              testID="sca-explorer"
+              label={t("chain.scaView")}
+              icon="arrow"
+              variant="line"
+              onPress={() => Linking.openURL(explorerAddress(chain, smart.account!.address))}
+            />
+          ) : (
+            <Btn testID="sca-create" label={busy ? t("common.working") : t("chain.scaCreate")} icon="spark" variant="line" disabled={busy || !chainWallet?.address} onPress={openSmartAccount} />
+          )}
+        </Card>
+      ) : null}
+
       {message ? <Notice tone={message.tone}>{message.text}</Notice> : null}
+      {message?.txHash ? (
+        <Btn
+          testID="tx-explorer"
+          label={t("chain.viewReceipt")}
+          icon="arrow"
+          variant="line"
+          onPress={() => Linking.openURL(explorerTx(chain, message.txHash!))}
+        />
+      ) : null}
 
       <SectionTitle>{t("walletScreen.history")}</SectionTitle>
       {history.error ? <Notice>{history.error}</Notice> : null}
@@ -160,8 +222,19 @@ export default function WalletScreen() {
                 }}
               >
                 <Chip icon={TX_ICONS[transaction.type]} solid={incoming} />
-                <Main title={t(`walletScreen.types.${transaction.type}`)} note={`${formatMoment(transaction.createdAt)}${transaction.note ? ` · ${transaction.note}` : ""}`} />
+                <Main title={t(`walletScreen.types.${transaction.type}`)} note={`${formatMoment(transaction.createdAt)}${displayNote(transaction.note) ? ` · ${displayNote(transaction.note)}` : ""}`} />
                 <T v="value">{`${incoming ? "+" : "−"}${transaction.amount}`}</T>
+                {transaction.txHash ? (
+                  <Pressable
+                    testID={`tx-link-${transaction.id}`}
+                    accessibilityRole="link"
+                    accessibilityLabel={t("chain.linkA11y")}
+                    hitSlop={8}
+                    onPress={() => Linking.openURL(explorerTx(chain, transaction.txHash!))}
+                  >
+                    <Chip icon="arrow" size={1.4} />
+                  </Pressable>
+                ) : null}
               </Pressable>
             );
           })}

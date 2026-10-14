@@ -48,12 +48,11 @@ function EscrowCard({ goal }: { goal: Goal }) {
         <Btn
           key={link.key}
           testID={`escrow-${link.key}`}
-          label={`${t(`chain.${link.key}`)} · ${link.hash.slice(0, 10)}…`}
+          label={t(`chain.viewTx.${link.key}`)}
           icon="arrow"
           variant="line"
           onPress={() => {
-            const url = explorerTx(config, link.hash);
-            if (url) void Linking.openURL(url);
+            void Linking.openURL(explorerTx(config, link.hash));
           }}
         />
       ))}
@@ -216,7 +215,7 @@ export default function GoalDetailScreen() {
           {target(goal)}
         </T>
         {goal.ai ? <T v="say">{`> ${goal.ai.prompt}`}</T> : null}
-        <Fact icon="coin" label={t("pixel.goals.stake")} value={`${goal.stakeAmount} USDC`} />
+        <Fact icon="coin" label={t("pixel.goals.stake")} value={`${goal.stakeAmount} ${t("common.currency")}`} />
         <Fact icon="calendar" label={t("pixel.goals.days")} value={goal.repeatDays.map((day) => initials[day]).join(" ")} />
         <Fact icon="hourglass" label={t("detail.until")} value={formatDay(goal.endDate)} />
         <Fact icon="heart" label={t("detail.attemptsLeft")} value={`${goal.progress.attemptsLeft}/${goal.maxAttempts}`} />
@@ -288,7 +287,7 @@ export default function GoalDetailScreen() {
             {goal.participants.map((participant) => (
               <Row key={participant.userId}>
                 <Main title={participant.user.displayName} note={t(`detail.participant.${participant.status}`)} />
-                <T v="value">{`${participant.stakeAmount} USDC`}</T>
+                <T v="value">{`${participant.stakeAmount} ${t("common.currency")}`}</T>
               </Row>
             ))}
           </Card>
@@ -325,7 +324,15 @@ export default function GoalDetailScreen() {
         <T v="note">{checkins.loading ? t("common.loading") : t("detail.noHistory")}</T>
       )}
 
-      {goal.escrowTxHash ? <T v="note" selectable>{`${t("detail.escrowTx")} ${goal.escrowTxHash.slice(0, 10)}…${goal.escrowTxHash.slice(-8)}`}</T> : null}
+      {goal.escrowTxHash && (!goal.escrow || goal.escrow.state === "none") ? (
+        <Btn
+          testID="escrow-receipt"
+          label={t("chain.viewTx.createTx")}
+          icon="arrow"
+          variant="line"
+          onPress={() => void Linking.openURL(explorerTx(undefined, goal.escrowTxHash!))}
+        />
+      ) : null}
       {mine && live ? <Btn testID="goal-cancel" label={t("detail.cancel")} icon="close" variant="line" disabled={busy} onPress={confirmCancel} /> : null}
     </Screen>
   );

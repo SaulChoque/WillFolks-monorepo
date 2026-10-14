@@ -16,15 +16,15 @@ const METER_STEP = 2.5;
 function feedNote(item: FeedItem): string {
   switch (item.tone) {
     case "lost":
-      return item.amount > 0 ? `▼ −${item.amount} USDC · ${t("pixel.notes.locked")}` : `▼ ${t("pixel.notes.missed")}`;
+      return item.amount > 0 ? `▼ −${item.amount} ${t("common.currency")} · ${t("pixel.notes.locked")}` : `▼ ${t("pixel.notes.missed")}`;
     case "won":
       return item.amount > 0
-        ? `▲ +${item.amount} USDC · ${t("pixel.notes.won")}`
+        ? `▲ +${item.amount} ${t("common.currency")} · ${t("pixel.notes.won")}`
         : `▲ ${t("pixel.notes.safe")}`;
     case "staked":
-      return `◆ ${item.amount} USDC · ${t("pixel.notes.staked")}`;
+      return `◆ ${item.amount} ${t("common.currency")} · ${t("pixel.notes.staked")}`;
     default:
-      return `● 0 USDC · ${t("pixel.notes.onTrack")}`;
+      return `● 0 ${t("common.currency")} · ${t("pixel.notes.onTrack")}`;
   }
 }
 
@@ -69,7 +69,7 @@ export default function DashboardScreen() {
             {inEscrow.toFixed(2)}
           </T>
           <T v="unit" color={theme.bg} style={{ marginBottom: theme.em(0.35) }}>
-            USDC
+            {t("common.currency")}
           </T>
         </View>
         <View style={{ flexDirection: "row", gap: theme.em(0.15), height: theme.em(0.55) }}>

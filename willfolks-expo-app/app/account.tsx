@@ -102,11 +102,10 @@ export default function AccountScreen() {
           label={t("account.dateOfInvitation")}
           value={new Date(user.createdAt).toLocaleDateString(getDeviceLocaleTag(), { day: "numeric", month: "short", year: "numeric" })}
         />
-        <DetailRow icon="grid" label={t("account.chain")} value={user.chain} />
         <DetailRow icon="group" label={t("account.numberOfFriends")} value={String(friends.data?.friends.length ?? 0)} />
         <DetailRow icon="check" label={t("account.goalsAchieved")} value={String(achieved)} />
         <DetailRow icon="flame" label={t("account.streak")} value={t("pixel.pet.days", { count: state.pet.streak })} />
-        <DetailRow icon="coin" label={t("pixel.home.inEscrow")} value={`${state.balance.inEscrow.toFixed(2)} USDC`} />
+        <DetailRow icon="coin" label={t("pixel.home.inEscrow")} value={`${state.balance.inEscrow.toFixed(2)} ${t("common.currency")}`} />
       </Card>
 
       <Btn testID="account-signout" label={t("account.signOut")} icon="arrow" variant="line" disabled={busy} onPress={() => run(signOut)} />

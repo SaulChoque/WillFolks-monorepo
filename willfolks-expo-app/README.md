@@ -59,8 +59,9 @@ The app talks to [`willfolks-BE`](../willfolks-BE) (NestJS) backed by [`willfolk
 npx expo run:android        # native build: the app is not usable in Expo Go
 ```
 
-The API URL defaults to `http://10.0.2.2:3000` on Android (the emulator's route to the host);
-override it with `EXPO_PUBLIC_API_URL` (see `.env.example`).
+The API URL defaults to the deployed backend (`https://api.willfolks.bamp.lat`). To use the local one
+from the steps above, set `EXPO_PUBLIC_API_URL=http://10.0.2.2:3000` (Android emulator) in `.env`
+(see `.env.example`).
 
 | Feature | Where | How |
 | --- | --- | --- |
@@ -75,3 +76,19 @@ override it with `EXPO_PUBLIC_API_URL` (see `.env.example`).
 anything under `modules/` or the plugins in `app.json`, rebuild with `npx expo run:android`.
 
 `e2e/onboarding-and-first-goal.yaml` is a Maestro flow over the `testID`s used across the screens.
+
+## On-chain with TilcAI (e2e)
+
+With the backend's `TILCAI_ENABLED=true` the wallet screen shows, besides the faucet, a **fiat deposit** button
+(the QR payment is simulated; the USDC that arrives is real, paid on-chain by TilcAI's vault) and a **smart account**
+card: the app creates a P-256 key (`lib/smart-account.ts`, kept in the secure store, never sent) and the backend asks
+TilcAI to issue a contract account for it on Monad. AI goals get their verdict through a paid x402 call.
+
+`e2e/onchain-tilcai.yaml` walks all of it with Maestro on the emulator (sign-up → faucet → fiat deposit → smart account →
+AI goal whose stake the phone signs → camera proof judged over x402). Chain-bound calls use a 120 s timeout
+(`CHAIN_TIMEOUT_MS` in `lib/api.ts`): a confirmed transaction takes longer than a database read.
+
+```bash
+N=$(date +%s)
+maestro test e2e/onchain-tilcai.yaml -e EMAIL=onchain$N@willfolks.test -e USERNAME=oc$N
+```

@@ -59,7 +59,7 @@ function GoalCard({ goal }: { goal: Goal }) {
       </View>
 
       <View style={[{ flexDirection: "row", flexWrap: "wrap", rowGap: theme.em(0.45) }, { opacity: active ? 1 : 0.45 }]}>
-        <Fact icon="coin" label={t("pixel.goals.stake")} value={`${goal.stakeAmount} USDC`} />
+        <Fact icon="coin" label={t("pixel.goals.stake")} value={`${goal.stakeAmount} ${t("common.currency")}`} />
         <Fact icon="heart" label={t("detail.attemptsLeft")} value={`${goal.progress.attemptsLeft}/${goal.maxAttempts}`} />
         <Fact icon="calendar" label={t("pixel.goals.days")} value={goal.repeatDays.map((day) => days[day]).join(" ")} />
         <Fact icon="check" label={t("detail.score")} value={`${goal.progress.successCount} ▲ ${goal.progress.failCount} ▼`} />

@@ -154,7 +154,7 @@ export function NewGoalSheet() {
           >
             <T v="big">{sheet.stake}</T>
             <T v="unit" style={{ marginBottom: theme.em(0.35) }}>
-              USDC
+              {t("common.currency")}
             </T>
           </View>
           {stepper(t("pixel.sheet.more"), "+", 1, "right")}

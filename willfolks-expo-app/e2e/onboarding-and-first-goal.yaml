@@ -1,14 +1,24 @@
-# Flujo e2e para Maestro (https://maestro.dev): onboarding, depósito y primera meta de alarma.
-#   maestro test e2e/onboarding-and-first-goal.yaml -e EMAIL=nuevo$(date +%s)@willfolks.test
-# Requiere willfolks-database y willfolks-BE corriendo, y la app instalada en el emulador.
+# Flujo e2e para Maestro (https://maestro.dev): onboarding, faucet de prueba y primera meta de alarma.
+#   N=$(date +%s); maestro test e2e/onboarding-and-first-goal.yaml -e EMAIL=nuevo$N@willfolks.test -e USERNAME=e2e$N
+# EMAIL y USERNAME se pasan siempre con -e: un valor definido en `env:` de este archivo ganaría sobre -e.
+# Requiere la app instalada en el emulador. Lo más fiable es un APK de release (JS embebido):
+#   (cd android && env -u EXPO_PUBLIC_API_URL ./gradlew assembleRelease -PreactNativeArchitectures=x86_64)
+#   adb install -r android/app/build/outputs/apk/release/app-release.apk
+# La app usa el backend de Vercel salvo que EXPO_PUBLIC_API_URL esté definida al compilar o al
+# arrancar Metro (ojo con esa variable en la shell). El APK de debug carga siempre Metro en
+# 10.0.2.2:8081 e ignora el deep link expo-development-client.
 # Los testID son los mismos que se usaron para recorrer la app con adb; este archivo en
 # concreto todavía no se ha ejecutado con Maestro.
 appId: com.anonymous.willfolksexpodapp
-env:
-  EMAIL: e2e@willfolks.test
 ---
 - launchApp:
     clearState: true
+    permissions:
+      all: allow
+- extendedWaitUntil:
+    visible:
+      id: welcome-start
+    timeout: 120000
 - tapOn:
     id: welcome-start
 - tapOn:
@@ -18,12 +28,14 @@ env:
     id: signin-name
 - inputText: E2E
 - hideKeyboard
-- assertVisible: .*SERVER ONLINE.*
+- assertVisible:
+    id: signin-server
+    text: "(?i).*connected.*"
 - tapOn:
     id: signin-submit
 - tapOn:
     id: profile-username
-- inputText: e2e_user
+- inputText: ${USERNAME}
 - hideKeyboard
 - tapOn:
     id: profile-submit
@@ -31,12 +43,19 @@ env:
     id: permissions-continue
 - tapOn:
     id: wallet-finish
-# Ya dentro de la app: depositar desde Inicio.
+# Ya dentro de la app: con la cadena activa el saldo llega por el faucet de prueba (3 USD).
 - tapOn: Home
 - tapOn:
     id: home-wallet
+- extendedWaitUntil:
+    visible:
+      id: chain-faucet
+    timeout: 60000
 - tapOn:
-    id: wallet-deposit
+    id: chain-faucet
+- extendedWaitUntil:
+    visible: ".*\\+3 USD received.*"
+    timeout: 180000
 - assertVisible:
     id: tx-deposit
 - tapOn:
@@ -47,6 +66,12 @@ env:
     id: goals-add
 - tapOn:
     id: sheet-next
+# La apuesta por defecto (5) supera lo recibido del faucet (3): se baja a 3.
+- repeat:
+    times: 2
+    commands:
+      - tapOn:
+          id: goal-stake-less
 - scrollUntilVisible:
     element:
       id: goal-submit
@@ -55,3 +80,5 @@ env:
 - assertVisible:
     id: goal-test-alarm
 - assertVisible: 07:00
+# Ningún texto técnico de cadena debe llegar a la pantalla.
+- assertNotVisible: ".*USDC.*"

@@ -71,7 +71,7 @@ export default function ActivityCard({ activity }: ActivityCardProps) {
           <DetailRow
             icon="payments"
             label={t("activity.stakeAmount")}
-            value={`${activity.montoStake} USDC`}
+            value={`${activity.montoStake} ${t("common.currency")}`}
           />
           <DetailRow
             icon="group"

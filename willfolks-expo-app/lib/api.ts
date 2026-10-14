@@ -1,18 +1,19 @@
-import { Platform } from "react-native";
-
 import type { PetMood } from "@/constants/pet-sprite";
 import type { ThemeId } from "@/constants/theme";
 
+/** Production backend (Vercel). */
+const DEFAULT_API_URL = "https://api.willfolks.bamp.lat";
+
 /**
- * Base URL of willfolks-BE. The Android emulator reaches the host machine at 10.0.2.2;
- * set EXPO_PUBLIC_API_URL for a real device (or use `adb reverse tcp:3000 tcp:3000`
- * with http://localhost:3000).
+ * Base URL of willfolks-BE. Defaults to the deployed backend; set EXPO_PUBLIC_API_URL to use a
+ * local one (http://10.0.2.2:3000 from the Android emulator, or `adb reverse tcp:3000 tcp:3000`
+ * with http://localhost:3000 on a device).
  */
-export const API_URL = (
-  process.env.EXPO_PUBLIC_API_URL ?? (Platform.OS === "android" ? "http://10.0.2.2:3000" : "http://localhost:3000")
-).replace(/\/$/, "");
+export const API_URL = (process.env.EXPO_PUBLIC_API_URL || DEFAULT_API_URL).replace(/\/$/, "");
 
 const TIMEOUT_MS = 12_000;
+/** Calls that wait for the chain (a confirmed transaction, a paid verdict) take far longer than a database read. */
+const CHAIN_TIMEOUT_MS = 120_000;
 
 export class ApiError extends Error {
   constructor(
@@ -45,9 +46,9 @@ export function mediaUrl(path: string | null | undefined): string | null {
   return path.startsWith("/") ? `${API_URL}${path}` : path;
 }
 
-async function request<T>(method: string, path: string, body?: object | FormData): Promise<T> {
+async function request<T>(method: string, path: string, body?: object | FormData, timeoutMs = TIMEOUT_MS): Promise<T> {
   const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
   const isForm = body instanceof FormData;
 
   let response: Response;
@@ -189,8 +190,16 @@ export type ChainConfig =
       maxStake: number;
       resolutionGraceSeconds: number;
       faucet: { usdc: number; gasMon: string };
+      /** USDC of the simulated fiat deposit the wallet screen offers. */
+      fiatDepositUsdc?: number;
       demoGoalSeconds: number;
     };
+
+/** The user's smart account on the chain (issued by TilcAI); `enabled: false` when the backend does not offer it. */
+export interface SmartAccountInfo {
+  enabled: boolean;
+  account: { address: string; state: string; deployTx: string | null; usdc: number | null } | null;
+}
 
 export interface ChainWallet {
   enabled: boolean;
@@ -245,6 +254,8 @@ export interface NewGoal {
   kind: GoalKind;
   title: string;
   stakeAmount: number;
+  /** Local calendar day the goal starts; the server falls back to its own (UTC) day, which lags a day behind for phones west of UTC. */
+  startDate?: string;
   endDate: string;
   repeatDays: number[];
   notificationsEnabled: boolean;
@@ -438,7 +449,7 @@ export const api = {
 
   proofs: (goalId: string) => request<Proof[]>("GET", `/goals/${goalId}/proofs`),
   submitProof: async (goalId: string, uri: string, fields: { note?: string; scheduledFor: string }) => {
-    const raw = await request<{ proof: Proof; goal: ApiGoal }>("POST", `/goals/${goalId}/proofs`, photoForm(uri, fields));
+    const raw = await request<{ proof: Proof; goal: ApiGoal }>("POST", `/goals/${goalId}/proofs`, photoForm(uri, fields), CHAIN_TIMEOUT_MS);
     return { proof: raw.proof, goal: goal(raw.goal) };
   },
   proofReviews: () => request<ProofReview[]>("GET", "/proofs/reviews"),
@@ -447,7 +458,8 @@ export const api = {
   wallet: () => request<Balance>("GET", "/wallet"),
   transactions: () => request<Transaction[]>("GET", "/wallet/transactions"),
   transaction: (id: string) => request<Transaction>("GET", `/wallet/transactions/${id}`),
-  deposit: (amount: number, method: "crypto" | "fiat") => request<Transaction>("POST", "/wallet/deposits", { amount, method }),
+  deposit: (amount: number, method: "crypto" | "fiat") =>
+    request<Transaction>("POST", "/wallet/deposits", { amount, method }, method === "fiat" ? CHAIN_TIMEOUT_MS : TIMEOUT_MS),
   withdraw: (amount: number) => request<Transaction>("POST", "/wallet/withdrawals", { amount }),
 
   notifications: () => request<{ unread: number; items: AppNotification[] }>("GET", "/notifications"),
@@ -465,10 +477,14 @@ export const api = {
   chainConfig: () => request<ChainConfig>("GET", "/chain/config"),
   chainWallet: () => request<ChainWallet>("GET", "/chain/wallet"),
   linkChainWallet: (address: string, signature: string) => request<{ address: string }>("POST", "/chain/wallet", { address, signature }),
-  faucet: () => request<{ usdc: number; usdcTx: string; gasTx: string; balance: number; explorer: string }>("POST", "/chain/faucet"),
-  confirmEscrow: async (goalId: string, txHash: string) => goal(await request<ApiGoal>("POST", `/goals/${goalId}/escrow`, { txHash })),
+  faucet: () => request<{ usdc: number; usdcTx: string; gasTx: string; balance: number; explorer: string }>("POST", "/chain/faucet", undefined, CHAIN_TIMEOUT_MS),
+  smartAccount: () => request<SmartAccountInfo>("GET", "/chain/account"),
+  createSmartAccount: (body: { publicKey: string; credentialId: string; rpId: string }) =>
+    request<{ address: string; state: string; deployTx: string | null; replayed: boolean; explorer: string }>("POST", "/chain/account", body, CHAIN_TIMEOUT_MS),
+  confirmEscrow: async (goalId: string, txHash: string) =>
+    goal(await request<ApiGoal>("POST", `/goals/${goalId}/escrow`, { txHash }, CHAIN_TIMEOUT_MS)),
   confirmEscrowCancel: async (goalId: string, txHash: string) =>
-    goal(await request<ApiGoal>("POST", `/goals/${goalId}/escrow/cancel`, { txHash })),
+    goal(await request<ApiGoal>("POST", `/goals/${goalId}/escrow/cancel`, { txHash }, CHAIN_TIMEOUT_MS)),
 
   reportUsage: (samples: UsageSample[]) => request<{ saved: number }>("PUT", "/usage", { samples }),
 };

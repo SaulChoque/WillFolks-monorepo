@@ -11,7 +11,8 @@
     "continue": "Continuar",
     "loading": "Cargando…",
     "no": "No",
-    "done": "Listo"
+    "done": "Listo",
+    "currency": "USD"
   },
   "navigation": {
     "modal": "Modal",
@@ -69,25 +70,25 @@
     "repeatPlaceholder": "Repetición",
     "saveActivity": "Guardar actividad",
     "selectAudio": "Seleccionar audio",
-    "irl": "IRL",
-    "baseSection": "Base William",
-    "stakeAmount": "Monto stake",
+    "irl": "En persona",
+    "baseSection": "Datos básicos",
+    "stakeAmount": "Monto apostado",
     "participants": "Participantes",
     "isGroup": "Es grupal",
-    "defiLockDays": "Días bloqueo DeFi extra",
-    "devTipPercentage": "Porcentaje tip dev",
+    "defiLockDays": "Días extra de bloqueo",
+    "devTipPercentage": "Propina al equipo (%)",
     "status": "Estado",
-    "irlSection": "William IRL",
-    "aiPrompt": "Prompt IA",
-    "evidenceCids": "CIDs evidencia",
+    "irlSection": "En persona",
+    "aiPrompt": "Instrucción para la IA",
+    "evidenceCids": "Evidencias",
     "irlEvidenceCount": "{{count}} evidencias",
     "captureEvidence": "Tomar foto",
     "attachEvidence": "Adjuntar archivo",
-    "alarmSection": "William Alarma",
+    "alarmSection": "Alarma",
     "objectiveTime": "Hora objetivo",
     "activeDays": "Días activos",
     "maxReactionSeconds": "Tiempo máximo reacción",
-    "appTimerSection": "William AppTimer",
+    "appTimerSection": "Límite de app",
     "targetApp": "App objetivo",
     "weeklyMaxMinutes": "Minutos máximos semana"
   },
@@ -124,21 +125,21 @@
     "alarmVibrationDesc": "Permite vibración repetida mientras la alarma esté activa.",
     "openAccount": "Abrir perfil de cuenta",
     "openAccountDesc": "Ir a detalles de cuenta e información personal.",
-    "wallet": "Wallet",
-    "address": "Dirección",
-    "privateKey": "Clave privada",
-    "mnemonic": "Mnemónico",
-    "generatingWallet": "Generando wallet...",
-    "hiddenSensitiveTitle": "Clave privada y mnemónico ocultos",
-    "hiddenSensitiveDesc": "Autentica tu huella para ver estos datos sensibles.",
+    "wallet": "Mi dinero",
+    "address": "Código de cuenta",
+    "privateKey": "Clave secreta",
+    "mnemonic": "Frase de recuperación",
+    "generatingWallet": "Preparando tu cuenta…",
+    "hiddenSensitiveTitle": "Datos secretos ocultos",
+    "hiddenSensitiveDesc": "Confirma tu huella para ver estos datos.",
     "unlockWithBiometric": "Desbloquear con huella",
-    "hideSensitiveData": "Ocultar datos sensibles"
+    "hideSensitiveData": "Ocultar datos secretos"
   },
   "account": {
     "title": "Cuenta",
     "dateOfInvitation": "Fecha de invitación",
-    "chain": "Red",
-    "totalTransacted": "Total transaccionado",
+    "chain": "Cuenta",
+    "totalTransacted": "Total movido",
     "generalScore": "Puntaje general",
     "location": "Ubicación",
     "numberOfFriends": "Número de amigos",
@@ -153,7 +154,7 @@
   },
   "biometricModal": {
     "title": "Activa la protección por huella",
-    "description": "Para proteger tu wallet, confirma tu huella antes de continuar.",
+    "description": "Para proteger tu cuenta, confirma tu huella antes de continuar.",
     "authenticate": "Autenticar con huella"
   },
   "alarmModal": {
@@ -163,14 +164,14 @@
     "hint": "Puedes bloquear la pantalla; la alarma seguirá sonando mientras la app esté en primer plano."
   },
   "walletSecurity": {
-    "seedGenerationFailed": "No fue posible generar la frase semilla.",
+    "seedGenerationFailed": "No fue posible crear tu frase de recuperación.",
     "noBiometricSetup": "No hay huella configurada en este dispositivo. Configúrala para continuar.",
-    "initializationError": "Error al inicializar la seguridad de la wallet.",
+    "initializationError": "No pudimos proteger tu cuenta. Inténtalo de nuevo.",
     "biometricUnavailable": "La autenticación por huella no está disponible en este dispositivo.",
     "authenticatePrompt": "Autentica con tu huella",
     "authenticateCancel": "Cancelar",
     "validationFailed": "No fue posible validar la huella. Inténtalo de nuevo.",
-    "contextError": "useWalletSecurity debe usarse dentro de WalletSecurityProvider"
+    "contextError": "La protección de la cuenta no está disponible en esta pantalla."
   },
   "mock": {
     "differencePlus": "+{{count}} h",
@@ -213,15 +214,15 @@
       "locked": "Bloqueado",
       "won": "Ganado",
       "safe": "Apuesta a salvo",
-      "staked": "En garantía",
+      "staked": "En juego",
       "onTrack": "En curso",
       "missed": "Fallado"
     },
     "home": {
       "welcome": "Hola de nuevo,",
       "user": "Baluchop",
-      "inEscrow": "En garantía",
-      "yield": "Rend.",
+      "inEscrow": "En juego",
+      "yield": "Ganancia",
       "activeGoals": {
         "one": "{{count}} meta activa",
         "other": "{{count}} metas activas"
@@ -279,7 +280,7 @@
       "days": "Días activos",
       "daysValue": "L M X J V",
       "reaction": "Reacción máxima",
-      "tip": "Propina dev",
+      "tip": "Propina al equipo",
       "testAlarm": "Probar esta alarma",
       "add": "Nueva meta",
       "kinds": {
@@ -316,7 +317,7 @@
       "ifMiss": "Si fallas: bloqueado por 2 días",
       "confirm": "Apostar",
       "cancel": "Cerrar",
-      "available": "Disponible: {{amount}} USDC",
+      "available": "Disponible: {{amount}} USD",
       "next": "Siguiente"
     },
     "settings": {
@@ -346,25 +347,25 @@
           "body": "Sigue vibrando mientras suena."
         }
       },
-      "wallet": "Billetera",
-      "hiddenTitle": "Claves ocultas",
-      "hiddenBody": "Autentícate para ver los datos sensibles.",
+      "wallet": "Mi dinero",
+      "hiddenTitle": "Datos secretos ocultos",
+      "hiddenBody": "Confirma tu huella para verlos.",
       "unlock": "Mantén para desbloquear",
       "unlocked": "Desbloqueado",
-      "unlockedTitle": "Billetera de demo",
-      "unlockedBody": "Aquí no hay claves reales.",
+      "unlockedTitle": "Cuenta de demostración",
+      "unlockedBody": "Aquí no hay datos reales.",
       "accountLink": {
         "title": "Abrir perfil de cuenta",
         "body": "Detalles de cuenta e información personal."
       },
       "walletKeys": {
-        "address": "Dirección",
-        "privateKey": "Clave privada",
-        "mnemonic": "Mnemónico",
-        "generating": "Generando wallet...",
-        "unlockedTitle": "Claves visibles",
-        "unlockedBody": "Ocúltalas cuando termines.",
-        "hide": "Ocultar datos sensibles",
+        "address": "Código de cuenta",
+        "privateKey": "Clave secreta",
+        "mnemonic": "Frase de recuperación",
+        "generating": "Preparando tu cuenta…",
+        "unlockedTitle": "Datos visibles",
+        "unlockedBody": "Ocúltalos cuando termines.",
+        "hide": "Ocultar datos secretos",
         "unlock": "Mantén para desbloquear"
       },
       "links": {
@@ -373,8 +374,8 @@
           "body": "Perfil, cerrar sesión."
         },
         "wallet": {
-          "title": "Billetera",
-          "body": "Depositar, retirar, movimientos."
+          "title": "Mi dinero",
+          "body": "Agregar, retirar y ver movimientos."
         },
         "friends": {
           "title": "Amigos",
@@ -389,7 +390,7 @@
     "alarm": {
       "kicker": "Alarma · Despertar",
       "wake": "Despierta",
-      "atStake": "{{amount}} USDC en juego",
+      "atStake": "{{amount}} USD en juego",
       "left": {
         "one": "Queda {{count}} segundo",
         "other": "Quedan {{count}} segundos"
@@ -401,7 +402,7 @@
         "other": "Le ganaste a la alarma. Racha: {{streak}} días."
       },
       "lostTitle": "Apuesta bloqueada",
-      "lostBody": "La dejaste pasar. {{amount}} USDC bloqueados por 2 días.",
+      "lostBody": "La dejaste pasar. {{amount}} USD bloqueados por 2 días.",
       "back": "Volver al inicio",
       "snooze": "Posponer 5 min",
       "stop": "Parar",
@@ -420,15 +421,15 @@
       "focus": "Enfoque",
       "back": "Volver",
       "newGoal": "Nueva meta",
-      "wallet": "Billetera",
+      "wallet": "Mi dinero",
       "friends": "Amigos",
       "notifications": "Buzón",
       "permissions": "Permisos"
     }
   },
   "errors": {
-    "NETWORK": "No se puede conectar con el servidor en {{url}}. ¿Está corriendo willfolks-BE?",
-    "INSUFFICIENT_FUNDS": "Saldo insuficiente: {{available}} USDC disponibles. Deposita primero.",
+    "NETWORK": "No hay conexión con el servidor. Revisa tu internet e inténtalo de nuevo.",
+    "INSUFFICIENT_FUNDS": "Saldo insuficiente: tienes {{available}} USD. Agrega dinero primero.",
     "USERNAME_TAKEN": "Ese nombre de usuario ya está en uso.",
     "TOO_FAR": "Estás a {{distance}} m. Acércate a menos de {{radius}} m para registrarte.",
     "NOT_FRIENDS": "Solo puedes invitar a amigos aceptados.",
@@ -436,13 +437,14 @@
     "GOAL_CLOSED": "Esta meta ya está cerrada.",
     "ALREADY_RESOLVED": "El día de hoy ya está resuelto para esta meta.",
     "unknown": "Algo salió mal.",
-    "NEEDS_GAS": "Necesitas gas (MON) para firmar. Obtén fondos de prueba en la pantalla de wallet.",
-    "WALLET_REQUIRED": "Vincula tu wallet primero.",
-    "STAKE_ABOVE_CAP": "El escrow acepta como máximo {{max}} USDC por meta.",
-    "GROUP_NOT_SUPPORTED": "Las metas compartidas aún no están disponibles con el escrow on-chain.",
+    "NEEDS_GAS": "Te falta saldo para completar esto. Recibe saldo de prueba en la pantalla Mi dinero.",
+    "WALLET_REQUIRED": "Configura tu cuenta primero.",
+    "STAKE_ABOVE_CAP": "Puedes apostar como máximo {{max}} USD por meta.",
+    "GROUP_NOT_SUPPORTED": "Las metas compartidas aún no están disponibles con esta opción.",
     "FAUCET_COOLDOWN": "Ya recibiste fondos hoy. Intenta más tarde.",
-    "CANCEL_ON_CHAIN": "El stake está en el contrato: solo se puede cancelar antes de que empiece la meta.",
-    "TX_REVERTED": "La red rechazó la transacción."
+    "CANCEL_ON_CHAIN": "La apuesta ya está guardada: solo se puede cancelar antes de que empiece la meta.",
+    "TX_REVERTED": "No se pudo completar la operación. Inténtalo de nuevo.",
+    "SERVICE_UNAVAILABLE": "El servicio no está disponible en este momento. Inténtalo más tarde."
   },
   "ob": {
     "step": "Paso {{step}} de {{total}}",
@@ -466,15 +468,15 @@
     },
     "signIn": {
       "title": "Iniciar sesión",
-      "lead": "Una cuenta, una billetera.",
+      "lead": "Una cuenta para todo.",
       "email": "Correo",
       "name": "Tu nombre",
       "nameHint": "Solo se usa la primera vez, para crear tu perfil.",
       "submit": "Continuar",
-      "serverChecking": "● Comprobando {{url}}…",
-      "serverOnline": "▲ Servidor en línea · {{url}}",
-      "serverOffline": "▼ Servidor sin conexión · {{url}}",
-      "devNote": "Inicio de sesión de desarrollo: sin contraseña. El acceso con Google reemplazará esta pantalla."
+      "serverChecking": "● Comprobando conexión…",
+      "serverOnline": "▲ Conectado",
+      "serverOffline": "▼ Sin conexión",
+      "devNote": "Por ahora entras solo con tu correo, sin contraseña."
     },
     "profile": {
       "title": "Tu perfil",
@@ -486,14 +488,14 @@
       "usernameHint": "3 a 24 letras, números o guiones bajos."
     },
     "wallet": {
-      "title": "Tu billetera",
-      "lead": "Creada en este teléfono. Por ella pasan apuestas y ganancias.",
+      "title": "Tu dinero",
+      "lead": "Se guarda en este teléfono. Aquí entran tus ganancias y salen tus apuestas.",
       "secure": "Proteger con huella",
       "finish": "Entrar a WillFolks",
       "skip": "Omitir y entrar",
-      "securedTitle": "Billetera protegida",
-      "biometricTitle": "Protege tus claves",
-      "biometricBody": "Tus claves solo se muestran tras verificar tu huella.",
+      "securedTitle": "Cuenta protegida",
+      "biometricTitle": "Protege tu cuenta",
+      "biometricBody": "Tus datos secretos solo se muestran tras verificar tu huella.",
       "noBiometric": "No hay huella registrada en este teléfono. Puedes agregarla luego en los ajustes de Android."
     }
   },
@@ -535,9 +537,9 @@
     },
     "widget": {
       "title": "Widget de inicio",
-      "body": "Custodia, racha y próxima alarma de un vistazo.",
+      "body": "Tu apuesta, racha y próxima alarma de un vistazo.",
       "add": "Agregar widget",
-      "unsupported": "Tu launcher no permite fijar widgets desde apps. Agrégalo desde la pantalla de inicio."
+      "unsupported": "Tu pantalla de inicio no permite fijar widgets desde apps. Agrégalo desde ella."
     }
   },
   "form": {
@@ -635,20 +637,20 @@
     "testScheduled": "La alarma de prueba suena en 3 segundos. No se registra nada.",
     "arrived": "Registrado, a {{distance}} m del punto.",
     "cancelTitle": "¿Cancelar esta meta?",
-    "cancelBody": "Tus {{amount}} USDC vuelven a tu saldo.",
+    "cancelBody": "Tus {{amount}} USD vuelven a tu saldo.",
     "cancelConfirm": "Cancelar meta",
     "until": "Termina",
     "attemptsLeft": "Fallos restantes",
     "score": "Superados / fallados",
     "next": "Próximo control",
     "usedToday": "Usado hoy",
-    "invited": "Te retaron. Unirte bloquea {{amount}} USDC.",
+    "invited": "Te retaron. Unirte bloquea {{amount}} USD.",
     "imHere": "Ya llegué",
     "sendProof": "Enviar evidencia",
     "proofs": "Evidencias",
     "history": "Historial",
     "noHistory": "Aún no hay controles.",
-    "escrowTx": "Tx de custodia",
+    "escrowTx": "Comprobante de la apuesta",
     "cancel": "Cancelar meta",
     "open": "Abrir",
     "answer": "Responder"
@@ -677,25 +679,25 @@
     "available": "Disponible",
     "amount": "Monto",
     "method": "Método",
-    "crypto": "Cripto",
-    "fiat": "QR fiat",
+    "crypto": "Transferencia digital",
+    "fiat": "Pago con QR",
     "deposit": "Depositar",
     "withdraw": "Retirar",
     "simulated": "Versión de prueba: los movimientos se confirman al instante, no se mueve dinero real.",
     "history": "Movimientos",
     "empty": "Aún no hay movimientos.",
     "done": {
-      "deposit": "Depositaste {{amount}} USDC · {{reference}}",
-      "withdraw": "Retiraste {{amount}} USDC · {{reference}}"
+      "deposit": "Depositaste {{amount}} USD · {{reference}}",
+      "withdraw": "Retiraste {{amount}} USD · {{reference}}"
     },
     "types": {
       "deposit": "Depósito",
       "withdrawal": "Retiro",
-      "stake_lock": "Apuesta bloqueada",
-      "stake_release": "Apuesta liberada",
+      "stake_lock": "Apuesta en juego",
+      "stake_release": "Apuesta devuelta",
       "penalty": "Penalización",
       "reward": "Apuesta ganada",
-      "donation": "Propina dev"
+      "donation": "Propina al equipo"
     },
     "voucher": "Comprobante",
     "status": {
@@ -706,12 +708,16 @@
     "reference": "Referencia",
     "date": "Fecha",
     "methods": {
-      "crypto": "Cripto",
-      "fiat": "QR fiat",
+      "crypto": "Transferencia digital",
+      "fiat": "Pago con QR",
       "internal": "Interno"
     },
-    "txHash": "Transacción",
-    "note": "Concepto"
+    "txHash": "Código del movimiento",
+    "note": "Concepto",
+    "notes": {
+      "qrDeposit": "Depósito por QR",
+      "testBalance": "Saldo de prueba"
+    }
   },
   "friendsScreen": {
     "search": "Buscar personas",
@@ -752,10 +758,10 @@
       "results": "Resultados de metas"
     },
     "reminders": {
-      "alarm": "Alarma mañana a las {{time}} · {{amount}} USDC en juego. Duerme temprano.",
+      "alarm": "Alarma mañana a las {{time}} · {{amount}} USD en juego. Duerme temprano.",
       "appTimer": "Mantén {{app}} bajo {{minutes}} min hoy.",
       "locator": "Está en {{place}} antes de las {{time}}.",
-      "ai": "Envía la evidencia de hoy · {{amount}} USDC en juego."
+      "ai": "Envía la evidencia de hoy · {{amount}} USD en juego."
     },
     "location": {
       "denied": "Se necesita el permiso de ubicación para esto.",
@@ -775,31 +781,48 @@
     }
   },
   "chain": {
-    "title": "Wallet en {{network}}",
-    "address": "Tu wallet",
-    "usdc": "USDC en la wallet",
-    "gas": "Gas (MON)",
-    "faucet": "Obtener fondos de prueba",
-    "faucetBody": "USDC y gas gratis para la testnet de Monad, una vez al día.",
-    "faucetDone": "+{{amount}} USDC recibidos",
+    "title": "Saldo de prueba",
+    "address": "Tu cuenta",
+    "usdc": "Saldo en tu cuenta",
+    "gas": "Saldo para operaciones",
+    "faucet": "Recibir saldo de prueba",
+    "faucetBody": "Saldo de prueba gratis, una vez al día.",
+    "faucetDone": "+{{amount}} USD recibidos",
     "faucetCooldown": "Ya recibiste fondos hoy. Intenta más tarde.",
-    "explorer": "Ver en el explorador",
-    "lockHint": "El stake se bloquea en el contrato desde tu wallet.",
-    "escrow": "Escrow on-chain",
+    "explorer": "Ver mi saldo en Monad Vision",
+    "lockHint": "La apuesta se aparta de tu saldo hasta que termine la meta.",
+    "escrow": "Estado de la apuesta",
     "state": {
-      "none": "Fuera de la cadena",
-      "pending": "Esperando tu firma",
-      "active": "Stake bloqueado",
-      "succeeded": "Stake devuelto",
-      "failed_locked": "Bloqueado hasta que termine el bloqueo",
-      "claimed": "Stake devuelto tras el bloqueo",
-      "expired": "Recuperado sin veredicto",
+      "none": "Sin apuesta",
+      "pending": "Esperando tu confirmación",
+      "active": "Apuesta en juego",
+      "succeeded": "Apuesta devuelta",
+      "failed_locked": "Bloqueada hasta que termine el bloqueo",
+      "claimed": "Apuesta devuelta tras el bloqueo",
+      "expired": "Recuperada sin veredicto",
       "cancelled": "Cancelada"
     },
-    "createTx": "Bloqueo",
-    "resolveTx": "Veredicto",
+    "createTx": "Apuesta",
+    "resolveTx": "Resultado",
     "claimTx": "Devolución",
     "unlockAt": "Se libera",
-    "endAt": "Termina"
+    "endAt": "Termina",
+    "depositFiat": "Agregar {{amount}} USD (pago con QR, simulado)",
+    "depositFiatBody": "El pago con QR es simulado; el dinero que recibes es real.",
+    "depositDone": "+{{amount}} USD agregados",
+    "sca": "Cuenta segura",
+    "scaBody": "Una cuenta protegida, ligada a este teléfono. WillFolks la prepara por ti.",
+    "scaCreate": "Crear cuenta segura",
+    "scaReady": "Cuenta segura lista",
+    "scaNone": "Aún no tienes cuenta segura",
+    "viewReceipt": "Ver comprobante en Monad Vision",
+    "receiptHint": "Es un comprobante público: cualquiera puede verificar este movimiento.",
+    "scaView": "Ver mi cuenta segura en Monad Vision",
+    "viewTx": {
+      "createTx": "Ver la apuesta en Monad Vision",
+      "resolveTx": "Ver el resultado en Monad Vision",
+      "claimTx": "Ver la devolución en Monad Vision"
+    },
+    "linkA11y": "Abrir comprobante en Monad Vision"
   }
 }
