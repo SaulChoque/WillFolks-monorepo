@@ -1,0 +1,655 @@
+{
+  "meta": {
+    "title": "WillFolks — Put your money where your goals are",
+    "description": "Stake USDC on your goals. Hit them and it's yours; miss them and it stays locked for a while, never lost. Alarms, screen time, location and friend-judged goals, held in an escrow contract on Monad.",
+    "keywords": [
+      "WillFolks",
+      "gamified savings",
+      "goal tracking",
+      "staking",
+      "habit tracker",
+      "alarms",
+      "USDC"
+    ]
+  },
+  "boot": {
+    "lines": [
+      "WILLFOLKS OS ........ V0.1",
+      "> INIT ESCROW ......... OK",
+      "> SYNC GOALS .......... OK",
+      "> READY_"
+    ]
+  },
+  "navbar": {
+    "brand": "WillFolks",
+    "language": "Language",
+    "homeLabel": "WillFolks — home",
+    "mainLabel": "Main",
+    "how": "How it works",
+    "features": "Features",
+    "demo": "Demo",
+    "faq": "FAQ",
+    "download": "Download",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "social": "Social",
+    "terms": "Terms",
+    "privacy": "Privacy",
+    "live": "Live"
+  },
+  "hero": {
+    "system": "WILLFOLKS OS",
+    "steps": {
+      "stake": "Stake",
+      "prove": "Prove",
+      "keep": "Keep"
+    },
+    "status": "Loading goals",
+    "stamp": "2026 WillFolks",
+    "title": {
+      "line1": "Put your",
+      "line2": "money where",
+      "line3": "your <hl>goals</hl> are."
+    },
+    "subtitle": "Stake USDC on your habits. Hit the goal and it's yours again. Miss it and it stays locked for a while. Never lost, only locked.",
+    "ctaDemo": "Try the demo",
+    "ctaDownload": "Download",
+    "specs": {
+      "stake": {
+        "label": "Stake",
+        "value": "USDC"
+      },
+      "verify": {
+        "label": "Verify",
+        "value": "Sensors · Friends · AI"
+      },
+      "escrow": {
+        "label": "Escrow",
+        "value": "On Monad"
+      }
+    },
+    "ticker": [
+      "Stake it",
+      "Prove it",
+      "Keep it",
+      "Wake up",
+      "Log off",
+      "Show up"
+    ]
+  },
+  "how": {
+    "tag": "How it works",
+    "meta": "(03) Steps",
+    "title": "Three moves.\nZero excuses.",
+    "titleHighlight": [
+      "zero"
+    ],
+    "steps": {
+      "stake": {
+        "title": "Stake",
+        "body": "Pick a goal and lock real money on it. Your stake sits in an on-chain escrow, out of reach until the goal resolves.",
+        "code": "escrow.lock(2 USDC)"
+      },
+      "prove": {
+        "title": "Prove",
+        "body": "Your phone's sensors, a friend acting as judge or an AI agent check whether you actually did it. A signed verdict settles it on-chain.",
+        "code": "verify() → true | false"
+      },
+      "keep": {
+        "title": "Keep",
+        "body": "Did it? The money is yours, withdraw whenever. Didn't? It stays locked for a set period, then it's yours again.",
+        "code": "withdraw() || lock(+2d)"
+      }
+    },
+    "win": {
+      "title": "You hit it",
+      "body": "Stake released. Withdraw any time, keep the streak, feed the pet."
+    },
+    "miss": {
+      "title": "You miss it",
+      "body": "Stake locked for the penalty period. We never keep it: when the lock ends, it comes back."
+    }
+  },
+  "features": {
+    "tag": "Features",
+    "meta": "(06) Modules",
+    "sectionTitle": "Six ways to keep your word",
+    "readout": {
+      "shape": "Shape",
+      "mode": "Mode",
+      "modeValue": "Spin · Y axis"
+    },
+    "escrow": {
+      "title": "Escrow on Monad",
+      "description": "Stake USDC on your goals in an escrow contract on Monad. Complete them and withdraw anytime. Miss them and your funds stay locked for a set period. Never lost, only locked.",
+      "shape": "Lock"
+    },
+    "alarm": {
+      "title": "Smart Alarms",
+      "description": "Set wake-up alarms backed by real money. Miss your alarm? Your stake gets locked. Consistency pays — literally.",
+      "shape": "Alarm"
+    },
+    "appTimer": {
+      "title": "App Timer",
+      "description": "Limit your screen time on distracting apps. Set weekly limits and put money on the line. Your wallet keeps you focused.",
+      "shape": "Hourglass"
+    },
+    "locator": {
+      "title": "Location Tracker",
+      "description": "Set location-based goals. Arrive on time to the gym, office, or class. Your GPS verifies, your wallet rewards.",
+      "shape": "Pin"
+    },
+    "unmeasurable": {
+      "title": "Friend & AI Judges",
+      "description": "Goals sensors can't measure, like homework or chores, are judged by a friend you trust or by an AI agent that checks your photo proof.",
+      "shape": "Spark"
+    },
+    "deposits": {
+      "title": "Built-in USDC Wallet",
+      "description": "A wallet created on your phone holds your USDC. Every stake and payout is a transaction you can check on the explorer. Local-currency deposits are next.",
+      "shape": "Coins"
+    }
+  },
+  "demo": {
+    "tag": "Live demo",
+    "meta": "(05) Screens",
+    "ghost": "Play",
+    "title": "Try it.\nNo install.",
+    "titleHighlight": [
+      "no"
+    ],
+    "body": "This is the app, running in your browser. Tap the tabs, stake a goal, or set off the alarm and see what happens to your money.",
+    "tryLabel": "— Things to try",
+    "scenarios": {
+      "alarm": {
+        "title": "Set off the 07:41 alarm",
+        "body": "10 seconds to react. 2 USDC on the line."
+      },
+      "stake": {
+        "title": "Stake a new goal",
+        "body": "Pick a type, pick an amount, lock it."
+      },
+      "pet": {
+        "title": "Feed the WillPet",
+        "body": "It gets happier when you keep your word."
+      }
+    },
+    "screensLabel": "— Screens",
+    "flip": "Display",
+    "note": "Demo data only. Nothing here touches a real wallet.",
+    "app": {
+      "tabsLabel": "App sections",
+      "tabs": {
+        "time": "Time",
+        "home": "Home",
+        "pet": "WillPet",
+        "goals": "Goals",
+        "settings": "Settings"
+      },
+      "toast": "Locked in",
+      "notes": {
+        "locked": "Locked",
+        "won": "Won",
+        "safe": "Stake safe",
+        "staked": "In escrow",
+        "onTrack": "On track"
+      },
+      "home": {
+        "welcome": "Welcome back,",
+        "user": "Baluchop",
+        "inEscrow": "In escrow",
+        "yield": "Yield",
+        "activeGoals": "{count, plural, one {# active goal} other {# active goals}}",
+        "recent": "Recent activity"
+      },
+      "activity": {
+        "missedAlarm": "Missed alarm",
+        "instagram": "Instagram",
+        "instagramValue": "180 min/wk",
+        "testFirst": "Finish the test first",
+        "beatAlarm": "Alarm beaten",
+        "staked": {
+          "alarm": "New alarm goal",
+          "appTimer": "New app limit",
+          "locator": "New location goal",
+          "ai": "New AI goal"
+        }
+      },
+      "time": {
+        "title": "Time",
+        "local": "Local time",
+        "friends": "Friends' timezones",
+        "hours": "hrs"
+      },
+      "pet": {
+        "title": "Your WillPet",
+        "mood": "Mood",
+        "streak": "Streak",
+        "days": "{count, plural, one {# day} other {# days}}",
+        "feed": "Feed",
+        "play": "Play",
+        "poke": "Poke your WillPet",
+        "lines": {
+          "idle": "Keep your word and I grow.",
+          "happy": "Yes! More of that.",
+          "sad": "You slept in. I felt that.",
+          "full": "I'm thriving. So are you."
+        }
+      },
+      "goals": {
+        "title": "My goals",
+        "active": "Active",
+        "paused": "Paused",
+        "stake": "Stake amount",
+        "lockDays": "If missed",
+        "lockValue": "Locked 2 days",
+        "participants": "Participants",
+        "days": "Active days",
+        "daysValue": "M T W T F",
+        "reaction": "Max reaction time",
+        "tip": "Dev tip",
+        "testAlarm": "Test this alarm",
+        "add": "New goal",
+        "kinds": {
+          "alarm": {
+            "name": "Wake up 07:41",
+            "detail": "Alarm",
+            "short": "Alarm"
+          },
+          "appTimer": {
+            "name": "Instagram limit",
+            "detail": "App timer",
+            "short": "App"
+          },
+          "locator": {
+            "name": "Gym by 18:00",
+            "detail": "Location",
+            "short": "Place"
+          },
+          "ai": {
+            "name": "Finish the test",
+            "detail": "AI check",
+            "short": "AI"
+          }
+        }
+      },
+      "sheet": {
+        "title": "New goal",
+        "pick": "Goal type",
+        "stake": "Stake",
+        "less": "Stake less",
+        "more": "Stake more",
+        "ifMiss": "If you miss it: locked for 2 days",
+        "confirm": "Stake it",
+        "cancel": "Close"
+      },
+      "settings": {
+        "title": "Settings",
+        "display": "Display",
+        "theme": {
+          "acid": "Acid",
+          "void": "Void"
+        },
+        "experience": "Experience",
+        "alarmFocus": "Alarm & focus",
+        "items": {
+          "haptics": {
+            "title": "Haptic feedback",
+            "body": "Vibrate on taps and actions."
+          },
+          "seconds": {
+            "title": "Show seconds",
+            "body": "Seconds on the Time tab clock."
+          },
+          "reminders": {
+            "title": "Alarm reminders",
+            "body": "Full-screen alert when an alarm fires."
+          },
+          "vibration": {
+            "title": "Alarm vibration",
+            "body": "Keep buzzing while it rings."
+          }
+        },
+        "wallet": "Wallet",
+        "hiddenTitle": "Keys hidden",
+        "hiddenBody": "Authenticate to view sensitive details.",
+        "unlock": "Hold to unlock",
+        "unlocked": "Unlocked",
+        "unlockedTitle": "Demo wallet",
+        "unlockedBody": "No real keys live in this demo."
+      },
+      "alarm": {
+        "kicker": "Alarm · Wake up",
+        "wake": "Wake up",
+        "atStake": "{amount} USDC at stake",
+        "left": "{count, plural, one {# second left} other {# seconds left}}",
+        "awake": "I'm up",
+        "wonTitle": "Stake safe",
+        "wonBody": "You beat the alarm. Streak: {streak, plural, one {# day} other {# days}}.",
+        "lostTitle": "Stake locked",
+        "lostBody": "You missed it. {amount} USDC locked for 2 days.",
+        "back": "Back to home"
+      }
+    }
+  },
+  "download": {
+    "tag": "Download",
+    "meta": "(03) Stores",
+    "title": "Get it on\nyour phone.",
+    "titleHighlight": [
+      "phone"
+    ],
+    "body": "The Android build is out now on GitHub releases, running on Monad testnet. Google Play and the App Store come next.",
+    "status": "Android APK on GitHub · stores in progress",
+    "seal": "COMING SOON · STAKE IT · PROVE IT · KEEP IT · ",
+    "stores": {
+      "googlePlay": "Google Play",
+      "appStore": "App Store",
+      "github": "GitHub"
+    },
+    "badgeLabel": "Get WillFolks on {store}"
+  },
+  "snackbar": {
+    "comingSoon": "WillFolks will be on {store} soon"
+  },
+  "faq": {
+    "tag": "FAQ",
+    "meta": "(06) Answers",
+    "title": "Fair\nquestions.",
+    "contactLead": "Still unsure? Write to",
+    "q1": "What is WillFolks?",
+    "a1": "WillFolks is a commitment app: you create a goal (wake up early, limit app usage, arrive somewhere on time, finish a chore) and lock a stake in USDC. Meet the goal and the money is yours to withdraw at any time. Miss it and the stake stays locked for a set period as a penalty.",
+    "q2": "How does the Escrow mechanism work?",
+    "a2": "When you create a goal, your stake moves from your own wallet into the WillFolksEscrow contract on Monad. A verdict signed by an authorised attestor tells the contract whether you made it, and the contract releases or locks the funds. If nobody resolves the goal, you can reclaim the stake yourself.",
+    "q3": "What happens if I miss a goal or an alarm?",
+    "a3": "If you don't complete the goal (for example, you sleep through an alarm or go over your screen-time limit), the stake stays locked for the penalty period. It is never kept by us: once the lock ends, it is yours again.",
+    "q4": "How are goals verified if they don't use sensors?",
+    "a4": "Goals your phone can't measure, like studying or chores, are judged by a friend you pick or by an AI agent that reviews your photo proof. Today the friend judge is real and the AI judge is still a simple stand-in.",
+    "q5": "What deposit and withdrawal methods does the app support?",
+    "a5": "Today you stake test USDC on Monad testnet with a wallet created on your phone, plus free test funds once a day. Deposits in local currency, so you can enter and leave without touching crypto, are on the roadmap.",
+    "q6": "Is this real money?",
+    "a6": "Not yet. WillFolks runs on Monad testnet with test USDC and a cap of 10 USDC per goal while the contract is unaudited. You can try the whole flow without risking anything."
+  },
+  "footer": {
+    "tagline": "Put your money where your goals are.",
+    "explore": "Explore",
+    "socialTitle": "Social",
+    "allSocial": "All channels",
+    "legalTitle": "Legal",
+    "terms": "Terms of Service",
+    "privacy": "Privacy Policy",
+    "contactTitle": "Contact",
+    "end": "End of page",
+    "number": "Number 01",
+    "ticker": [
+      "Accountability",
+      "Empowerment",
+      "Playfulness"
+    ],
+    "projectTitle": "Hackathon"
+  },
+  "legal": {
+    "tag": "Legal",
+    "updated": "Updated",
+    "contents": "Contents",
+    "terms": "Terms of Service",
+    "privacy": "Privacy Policy",
+    "contactLabel": "— Questions about this document"
+  },
+  "social": {
+    "metaTitle": "Social",
+    "tag": "Social",
+    "meta": "(06) Channels",
+    "title": "Find the folks.",
+    "body": "Where WillFolks lives outside the app. GitHub and X are open today; the rest of the channels switch on as we get closer to launch.",
+    "open": "Open",
+    "soon": "Coming soon",
+    "soonToast": "{network} is not live yet — soon",
+    "contactLabel": "— Or just write",
+    "back": "Back home"
+  },
+  "notFound": {
+    "title": "ERROR 404",
+    "route": "UNKNOWN ROUTE",
+    "searching": "Searching",
+    "please": "Please",
+    "check": "check the address",
+    "again": "again",
+    "navLabel": "Ways out",
+    "home": "Home",
+    "faq": "FAQ",
+    "social": "Social",
+    "end": "End of test page",
+    "number": "Number 404"
+  },
+  "project": {
+    "tag": "Monad Hackathon",
+    "meta": "Consumer Products & Payments",
+    "nav": {
+      "label": "Project pages",
+      "live": "Live product",
+      "demo": "Tech demo",
+      "pitch": "Pitch",
+      "promo": "Promo",
+      "gtm": "Go-to-market"
+    },
+    "video": {
+      "soon": "In post-production",
+      "soonBody": "The cut lands here as soon as it is rendered. Meanwhile, try the live product.",
+      "inside": "— What you'll see",
+      "more": "— Keep watching",
+      "links": {
+        "demo": "Technical demo",
+        "pitch": "Pitch video",
+        "promo": "Product ad",
+        "live": "Try the live product"
+      }
+    },
+    "live": {
+      "metaTitle": "Live product",
+      "title": "Live on\nMonad testnet.",
+      "titleHighlight": [
+        "monad"
+      ],
+      "lede": "Everything below runs for real on Monad testnet: the app, the API and the escrow contract. No real money is involved, so stake freely.",
+      "get": {
+        "label": "— Get the app",
+        "title": "Android build",
+        "body": "Install the APK from the GitHub releases and sign in with any email. It's a development login: no password, testnet only.",
+        "apk": "Download the APK",
+        "browser": "Or try it in the browser"
+      },
+      "status": {
+        "label": "— Backend",
+        "title": "System status",
+        "api": "API",
+        "checking": "Checking the API…",
+        "up": "API online · database up",
+        "down": "API not answering right now"
+      },
+      "chain": {
+        "network": "Network",
+        "escrow": "WillFolksEscrow",
+        "usdc": "Test USDC",
+        "code": "Source code"
+      },
+      "steps": {
+        "title": "Try it in five steps",
+        "note": "Everything runs on Monad testnet; no real money is involved.",
+        "items": [
+          {
+            "title": "Install & sign in",
+            "body": "Install the Android app from the GitHub releases and sign in with any email (development login)."
+          },
+          {
+            "title": "Get test funds",
+            "body": "Open Wallet and tap \"Get test balance\": you get 3 test USDC plus gas to use them."
+          },
+          {
+            "title": "Stake a goal",
+            "body": "Create an Alarm goal with a 1 USDC stake and tap \"Stake it\". The goal shows the stake as \"Stake in play\" with a link to the transaction."
+          },
+          {
+            "title": "Watch it resolve",
+            "body": "Demo goals last about 5 minutes. When they end, the stake returns and the Wallet history shows the transaction."
+          },
+          {
+            "title": "Try any goal",
+            "body": "You can create any type of goal; depending on which one, it can take a reasonable amount of waiting time to resolve."
+          }
+        ]
+      },
+      "limits": {
+        "title": "Said plainly",
+        "items": [
+          "Unaudited contract, testnet only, capped at 10 USDC per goal.",
+          "One attestor (our backend) signs verdicts today; a quorum of verifiers is planned for a later phase.",
+          "Alarm and app-usage results are reported by the phone and trusted by the server.",
+          "The AI judge is a stub that approves any photo; the friend judge is real.",
+          "Fiat deposits and bank withdrawals are not live yet; sign-in is a development login."
+        ]
+      }
+    },
+    "demo": {
+      "metaTitle": "Technical demo",
+      "title": "Under\nthe hood.",
+      "titleHighlight": [
+        "hood"
+      ],
+      "lede": "A walkthrough of how a goal travels from the phone to the escrow contract on Monad and back: the sensors, the signed verdict and the transactions.",
+      "format": "Technical demo",
+      "length": "Monad testnet",
+      "points": [
+        "Wallet created on the phone and linked to the account with a signature.",
+        "Test funds, then a stake locked in WillFolksEscrow from the user's own wallet.",
+        "The native Android module measuring alarms, app usage and location.",
+        "An EIP-712 verdict signed by the attestor and applied on-chain.",
+        "Stake released, or locked for the penalty period, with every tx on the explorer."
+      ]
+    },
+    "pitch": {
+      "metaTitle": "Pitch",
+      "title": "Put your money\nwhere your goals are.",
+      "titleHighlight": [
+        "goals"
+      ],
+      "lede": "Why commitment works, why people still drop it, and how WillFolks makes keeping your word the easiest move, in a few minutes.",
+      "format": "Pitch video",
+      "length": "Consumer track",
+      "points": [
+        "The problem: everyone sets goals, few keep them, and commitment tools get abandoned.",
+        "The product: stake USDC on a goal, prove it with your phone, keep your money.",
+        "Why Monad: cheap, fast transactions that make small everyday stakes possible.",
+        "The business: no profit from failure, revenue from money moving through the product.",
+        "What is live today and what comes next."
+      ]
+    },
+    "promo": {
+      "metaTitle": "Product ad",
+      "title": "Stake it.\nProve it.\nKeep it.",
+      "titleHighlight": [
+        "keep"
+      ],
+      "lede": "The short version: wake up, log off, show up, and keep the money you put on the line.",
+      "format": "Product ad",
+      "length": "Short cut",
+      "points": [
+        "Wake-up alarms backed by your own money.",
+        "Screen-time limits that cost you to break.",
+        "Location goals verified by your phone.",
+        "Friends as judges and a WillPet that reacts to your progress.",
+        "Money that is never lost, only locked."
+      ]
+    },
+    "gtm": {
+      "metaTitle": "Go-to-market",
+      "title": "Go-to-\nmarket.",
+      "titleHighlight": [
+        "market"
+      ],
+      "lede": "Who tries WillFolks first, how they find it, what we need to learn before scaling, and how the product makes money without profiting from anyone failing.",
+      "pull": "We do not profit from users failing: a stake is only ever locked, never kept.",
+      "sections": [
+        {
+          "id": "first-users",
+          "title": "First users",
+          "body": [
+            "People who already hold USDC and use wallets: Monad and EVM builder communities. They can try the product today, give honest feedback, and understand a commitment contract instantly.",
+            "We treat them as early adopters, not the mass market. Mainstream users will be validated separately with a small-deposit or fiat flow."
+          ]
+        },
+        {
+          "id": "find-us",
+          "title": "How they find us",
+          "body": [
+            "Building in public from day 0: a weekly update with a short clip and a link to the code, one technical post per week, and showing up in builder Discords and Telegram groups to be useful before asking for anything.",
+            "A seven-day open challenge with testnet USDC gives the community a reason to try it together."
+          ]
+        },
+        {
+          "id": "learn",
+          "title": "What we will learn first",
+          "body": [
+            "The real risk is not interest but adoption and retention: people often sign up for commitment tools and then drop them. We write the success thresholds down beforehand and change segment or message if we miss them."
+          ]
+        },
+        {
+          "id": "stay",
+          "title": "Why people stay",
+          "body": [
+            "Friends can act as judges, there is a pet that reacts to progress, and a home-screen widget keeps the stake in view.",
+            "The money is never lost, only locked, which lowers the fear of starting."
+          ]
+        },
+        {
+          "id": "model",
+          "title": "Business model",
+          "body": [
+            "Revenue is planned from three places tied to money moving through the product, so our income grows with the money users commit, not with their mistakes."
+          ],
+          "list": [
+            {
+              "title": "Exchange spread",
+              "body": "A small margin when users convert local currency to USDC and back, so people can enter and leave without touching crypto."
+            },
+            {
+              "title": "Deposit fees",
+              "body": "A small, visible fee on deposits, whether they arrive in crypto or through a local payment method."
+            },
+            {
+              "title": "Share of the yield",
+              "body": "While a stake is locked it can earn yield; the user keeps most of it and we take a percentage."
+            }
+          ],
+          "after": "Later, challenges for communities and teams and a verification service other apps can pay for add revenue that does not depend on user balances."
+        }
+      ],
+      "phases": {
+        "items": [
+          {
+            "step": "Step 01",
+            "title": "15–20 interviews",
+            "body": "Problem interviews before building more."
+          },
+          {
+            "step": "Step 02",
+            "title": "Waitlist A/B",
+            "body": "A waitlist testing two messages."
+          },
+          {
+            "step": "Step 03",
+            "title": "Two-week pilot",
+            "body": "10 to 15 people staking real goals."
+          },
+          {
+            "step": "Step 04",
+            "title": "Closed beta",
+            "body": "20 to 50 users, with the numbers published."
+          }
+        ]
+      },
+      "cta": "Try the live product",
+      "ctaPitch": "Watch the pitch"
+    }
+  }
+}

@@ -1,0 +1,655 @@
+{
+  "meta": {
+    "title": "WillFolks — Pon tu dinero donde están tus metas",
+    "description": "Apuesta USDC por tus metas. Cúmplelas y es tuyo; fállalas y queda bloqueado un tiempo, nunca perdido. Alarmas, tiempo de pantalla, ubicación y metas juzgadas por amigos, en un contrato de escrow en Monad.",
+    "keywords": [
+      "WillFolks",
+      "ahorro gamificado",
+      "seguimiento de metas",
+      "staking",
+      "hábitos",
+      "alarmas",
+      "USDC"
+    ]
+  },
+  "boot": {
+    "lines": [
+      "WILLFOLKS OS ........ V0.1",
+      "> INICIANDO GARANTÍA .. OK",
+      "> SINCRONIZANDO METAS . OK",
+      "> LISTO_"
+    ]
+  },
+  "navbar": {
+    "brand": "WillFolks",
+    "language": "Idioma",
+    "homeLabel": "WillFolks — inicio",
+    "mainLabel": "Principal",
+    "how": "Cómo funciona",
+    "features": "Funciones",
+    "demo": "Demo",
+    "faq": "FAQ",
+    "download": "Descargar",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú",
+    "social": "Redes",
+    "terms": "Términos",
+    "privacy": "Privacidad",
+    "live": "En vivo"
+  },
+  "hero": {
+    "system": "WILLFOLKS OS",
+    "steps": {
+      "stake": "Apuesta",
+      "prove": "Demuestra",
+      "keep": "Conserva"
+    },
+    "status": "Cargando metas",
+    "stamp": "2026 WillFolks",
+    "title": {
+      "line1": "Pon tu",
+      "line2": "dinero donde",
+      "line3": "están tus <hl>metas</hl>."
+    },
+    "subtitle": "Apuesta USDC por tus hábitos. Cumple la meta y vuelve a ser tuyo. Falla y queda bloqueado un tiempo. Nunca se pierde, solo se bloquea.",
+    "ctaDemo": "Probar la demo",
+    "ctaDownload": "Descargar",
+    "specs": {
+      "stake": {
+        "label": "Apuesta",
+        "value": "USDC"
+      },
+      "verify": {
+        "label": "Verifica",
+        "value": "Sensores · Amigos · IA"
+      },
+      "escrow": {
+        "label": "Garantía",
+        "value": "En Monad"
+      }
+    },
+    "ticker": [
+      "Apuesta",
+      "Demuestra",
+      "Conserva",
+      "Despierta",
+      "Desconecta",
+      "Llega"
+    ]
+  },
+  "how": {
+    "tag": "Cómo funciona",
+    "meta": "(03) Pasos",
+    "title": "Tres pasos.\nCero excusas.",
+    "titleHighlight": [
+      "cero"
+    ],
+    "steps": {
+      "stake": {
+        "title": "Apuesta",
+        "body": "Elige una meta y bloquea dinero real en ella. Tu apuesta queda en un depósito on-chain, fuera de tu alcance hasta que la meta se resuelva.",
+        "code": "escrow.lock(2 USDC)"
+      },
+      "prove": {
+        "title": "Demuestra",
+        "body": "Los sensores de tu teléfono, un amigo como juez o un agente de IA comprueban si de verdad lo hiciste. Un veredicto firmado lo resuelve on-chain.",
+        "code": "verify() → true | false"
+      },
+      "keep": {
+        "title": "Conserva",
+        "body": "¿Cumpliste? El dinero es tuyo, retíralo cuando quieras. ¿No? Queda bloqueado un tiempo y luego vuelve a ser tuyo.",
+        "code": "withdraw() || lock(+2d)"
+      }
+    },
+    "win": {
+      "title": "Si cumples",
+      "body": "Apuesta liberada. Retira cuando quieras, mantén la racha, alimenta a tu mascota."
+    },
+    "miss": {
+      "title": "Si fallas",
+      "body": "Apuesta bloqueada durante la penalización. Nunca nos la quedamos: cuando termina el bloqueo, vuelve a ti."
+    }
+  },
+  "features": {
+    "tag": "Funciones",
+    "meta": "(06) Módulos",
+    "sectionTitle": "Seis formas de cumplir tu palabra",
+    "readout": {
+      "shape": "Forma",
+      "mode": "Modo",
+      "modeValue": "Giro · eje Y"
+    },
+    "escrow": {
+      "title": "Escrow en Monad",
+      "description": "Apuesta USDC por tus metas en un contrato de escrow en Monad. Cumple y retira cuando quieras. Falla y tus fondos quedan bloqueados un tiempo. Nunca se pierden, solo se bloquean.",
+      "shape": "Candado"
+    },
+    "alarm": {
+      "title": "Alarmas Inteligentes",
+      "description": "Configura alarmas para despertar respaldadas con dinero real. ¿Ignoraste tu alarma? Tu apuesta se bloquea. La constancia paga — literalmente.",
+      "shape": "Alarma"
+    },
+    "appTimer": {
+      "title": "Temporizador de Apps",
+      "description": "Limita tu tiempo de pantalla en apps que te distraen. Establece límites semanales y pon dinero en juego. Tu billetera te mantiene enfocado.",
+      "shape": "Reloj de arena"
+    },
+    "locator": {
+      "title": "Rastreador de Ubicación",
+      "description": "Establece metas basadas en ubicación. Llega a tiempo al gimnasio, oficina o clase. Tu GPS verifica, tu billetera recompensa.",
+      "shape": "Pin"
+    },
+    "unmeasurable": {
+      "title": "Jueces: amigos e IA",
+      "description": "Las metas que los sensores no pueden medir, como tareas o quehaceres, las juzga un amigo de confianza o un agente de IA que revisa tu foto de prueba.",
+      "shape": "Destello"
+    },
+    "deposits": {
+      "title": "Wallet USDC integrada",
+      "description": "Una wallet creada en tu teléfono guarda tus USDC. Cada apuesta y cada pago es una transacción que puedes revisar en el explorador. Los depósitos en moneda local vienen después.",
+      "shape": "Monedas"
+    }
+  },
+  "demo": {
+    "tag": "Demo en vivo",
+    "meta": "(05) Pantallas",
+    "ghost": "Juega",
+    "title": "Pruébala.\nSin instalar.",
+    "titleHighlight": [
+      "sin"
+    ],
+    "body": "Esta es la app, corriendo en tu navegador. Toca las pestañas, apuesta por una meta o dispara la alarma y mira qué pasa con tu dinero.",
+    "tryLabel": "— Cosas para probar",
+    "scenarios": {
+      "alarm": {
+        "title": "Dispara la alarma de las 07:41",
+        "body": "10 segundos para reaccionar. 2 USDC en juego."
+      },
+      "stake": {
+        "title": "Apuesta por una meta nueva",
+        "body": "Elige el tipo, elige el monto, bloquéalo."
+      },
+      "pet": {
+        "title": "Alimenta a tu WillPet",
+        "body": "Se pone feliz cuando cumples tu palabra."
+      }
+    },
+    "screensLabel": "— Pantallas",
+    "flip": "Pantalla",
+    "note": "Solo datos de demostración. Nada aquí toca una billetera real.",
+    "app": {
+      "tabsLabel": "Secciones de la app",
+      "tabs": {
+        "time": "Hora",
+        "home": "Inicio",
+        "pet": "WillPet",
+        "goals": "Metas",
+        "settings": "Ajustes"
+      },
+      "toast": "Bloqueado",
+      "notes": {
+        "locked": "Bloqueado",
+        "won": "Ganado",
+        "safe": "Apuesta a salvo",
+        "staked": "En garantía",
+        "onTrack": "En curso"
+      },
+      "home": {
+        "welcome": "Hola de nuevo,",
+        "user": "Baluchop",
+        "inEscrow": "En garantía",
+        "yield": "Rend.",
+        "activeGoals": "{count, plural, one {# meta activa} other {# metas activas}}",
+        "recent": "Actividad reciente"
+      },
+      "activity": {
+        "missedAlarm": "Alarma perdida",
+        "instagram": "Instagram",
+        "instagramValue": "180 min/sem",
+        "testFirst": "Termina el examen",
+        "beatAlarm": "Alarma vencida",
+        "staked": {
+          "alarm": "Nueva meta de alarma",
+          "appTimer": "Nuevo límite de app",
+          "locator": "Nueva meta de lugar",
+          "ai": "Nueva meta con IA"
+        }
+      },
+      "time": {
+        "title": "Hora",
+        "local": "Hora local",
+        "friends": "Zonas de tus amigos",
+        "hours": "h"
+      },
+      "pet": {
+        "title": "Tu WillPet",
+        "mood": "Ánimo",
+        "streak": "Racha",
+        "days": "{count, plural, one {# día} other {# días}}",
+        "feed": "Alimentar",
+        "play": "Jugar",
+        "poke": "Toca a tu WillPet",
+        "lines": {
+          "idle": "Cumple tu palabra y yo crezco.",
+          "happy": "¡Eso! Más de eso.",
+          "sad": "Te quedaste dormido. Lo sentí.",
+          "full": "Estoy genial. Tú también."
+        }
+      },
+      "goals": {
+        "title": "Mis metas",
+        "active": "Activa",
+        "paused": "En pausa",
+        "stake": "Monto apostado",
+        "lockDays": "Si fallas",
+        "lockValue": "Bloqueo 2 días",
+        "participants": "Participantes",
+        "days": "Días activos",
+        "daysValue": "L M X J V",
+        "reaction": "Reacción máxima",
+        "tip": "Propina dev",
+        "testAlarm": "Probar esta alarma",
+        "add": "Nueva meta",
+        "kinds": {
+          "alarm": {
+            "name": "Despertar 07:41",
+            "detail": "Alarma",
+            "short": "Alarma"
+          },
+          "appTimer": {
+            "name": "Límite de Instagram",
+            "detail": "Temporizador",
+            "short": "App"
+          },
+          "locator": {
+            "name": "Gimnasio a las 18:00",
+            "detail": "Ubicación",
+            "short": "Lugar"
+          },
+          "ai": {
+            "name": "Termina el examen",
+            "detail": "Revisión IA",
+            "short": "IA"
+          }
+        }
+      },
+      "sheet": {
+        "title": "Nueva meta",
+        "pick": "Tipo de meta",
+        "stake": "Apuesta",
+        "less": "Apostar menos",
+        "more": "Apostar más",
+        "ifMiss": "Si fallas: bloqueado por 2 días",
+        "confirm": "Apostar",
+        "cancel": "Cerrar"
+      },
+      "settings": {
+        "title": "Ajustes",
+        "display": "Pantalla",
+        "theme": {
+          "acid": "Ácido",
+          "void": "Vacío"
+        },
+        "experience": "Experiencia",
+        "alarmFocus": "Alarma y enfoque",
+        "items": {
+          "haptics": {
+            "title": "Respuesta háptica",
+            "body": "Vibra al tocar y al actuar."
+          },
+          "seconds": {
+            "title": "Mostrar segundos",
+            "body": "Segundos en el reloj de Hora."
+          },
+          "reminders": {
+            "title": "Avisos de alarma",
+            "body": "Alerta a pantalla completa al sonar."
+          },
+          "vibration": {
+            "title": "Vibración de alarma",
+            "body": "Sigue vibrando mientras suena."
+          }
+        },
+        "wallet": "Billetera",
+        "hiddenTitle": "Claves ocultas",
+        "hiddenBody": "Autentícate para ver los datos sensibles.",
+        "unlock": "Mantén para desbloquear",
+        "unlocked": "Desbloqueado",
+        "unlockedTitle": "Billetera de demo",
+        "unlockedBody": "Aquí no hay claves reales."
+      },
+      "alarm": {
+        "kicker": "Alarma · Despertar",
+        "wake": "Despierta",
+        "atStake": "{amount} USDC en juego",
+        "left": "{count, plural, one {Queda # segundo} other {Quedan # segundos}}",
+        "awake": "Ya desperté",
+        "wonTitle": "Apuesta a salvo",
+        "wonBody": "Le ganaste a la alarma. Racha: {streak, plural, one {# día} other {# días}}.",
+        "lostTitle": "Apuesta bloqueada",
+        "lostBody": "La dejaste pasar. {amount} USDC bloqueados por 2 días.",
+        "back": "Volver al inicio"
+      }
+    }
+  },
+  "download": {
+    "tag": "Descarga",
+    "meta": "(03) Tiendas",
+    "title": "Llévala en\ntu teléfono.",
+    "titleHighlight": [
+      "teléfono"
+    ],
+    "body": "La versión de Android ya está en los releases de GitHub y funciona en Monad testnet. Google Play y la App Store vienen después.",
+    "status": "APK de Android en GitHub · tiendas en curso",
+    "seal": "PRÓXIMAMENTE · APUESTA · DEMUESTRA · CONSERVA · ",
+    "stores": {
+      "googlePlay": "Google Play",
+      "appStore": "App Store",
+      "github": "GitHub"
+    },
+    "badgeLabel": "Consigue WillFolks en {store}"
+  },
+  "snackbar": {
+    "comingSoon": "WillFolks llegará pronto a {store}"
+  },
+  "faq": {
+    "tag": "FAQ",
+    "meta": "(06) Respuestas",
+    "title": "Preguntas\njustas.",
+    "contactLead": "¿Aún con dudas? Escribe a",
+    "q1": "¿Qué es WillFolks?",
+    "a1": "WillFolks es una app de compromiso: creas una meta (despertar temprano, limitar el uso de apps, llegar a tiempo a un lugar, terminar un quehacer) y bloqueas una apuesta en USDC. Si cumples, el dinero es tuyo y lo retiras cuando quieras. Si fallas, la apuesta queda bloqueada un tiempo como penalización.",
+    "q2": "¿Cómo funciona el Depósito en Garantía (Escrow)?",
+    "a2": "Al crear una meta, tu apuesta pasa de tu propia wallet al contrato WillFolksEscrow en Monad. Un veredicto firmado por un atestador autorizado le dice al contrato si cumpliste, y el contrato libera o bloquea los fondos. Si nadie resuelve la meta, puedes reclamar la apuesta tú mismo.",
+    "q3": "¿Qué pasa si no cumplo con una meta o alarma?",
+    "a3": "Si no cumples la meta (por ejemplo, te quedas dormido con una alarma o pasas tu límite de tiempo de pantalla), la apuesta queda bloqueada durante la penalización. Nunca nos la quedamos: cuando termina el bloqueo, vuelve a ser tuya.",
+    "q4": "¿Cómo se verifican las metas que no tienen sensores?",
+    "a4": "Las metas que tu teléfono no puede medir, como estudiar o hacer quehaceres, las juzga un amigo que eliges o un agente de IA que revisa tu foto de prueba. Hoy el juez amigo es real y el juez de IA todavía es un sustituto simple.",
+    "q5": "¿Qué métodos de depósito y retiro soporta la app?",
+    "a5": "Hoy apuestas USDC de prueba en Monad testnet con una wallet creada en tu teléfono, y recibes fondos de prueba gratis una vez al día. Los depósitos en moneda local, para entrar y salir sin tocar cripto, están en la hoja de ruta.",
+    "q6": "¿Es dinero real?",
+    "a6": "Todavía no. WillFolks funciona en Monad testnet con USDC de prueba y un tope de 10 USDC por meta mientras el contrato no esté auditado. Puedes probar todo el flujo sin arriesgar nada."
+  },
+  "footer": {
+    "tagline": "Pon tu dinero donde están tus metas.",
+    "explore": "Explorar",
+    "socialTitle": "Redes",
+    "allSocial": "Todos los canales",
+    "legalTitle": "Legal",
+    "terms": "Términos de Servicio",
+    "privacy": "Política de Privacidad",
+    "contactTitle": "Contacto",
+    "end": "Fin de la página",
+    "number": "Número 01",
+    "ticker": [
+      "Responsabilidad",
+      "Empoderamiento",
+      "Juego"
+    ],
+    "projectTitle": "Hackathon"
+  },
+  "legal": {
+    "tag": "Legal",
+    "updated": "Actualizado",
+    "contents": "Contenido",
+    "terms": "Términos de Servicio",
+    "privacy": "Política de Privacidad",
+    "contactLabel": "— Dudas sobre este documento"
+  },
+  "social": {
+    "metaTitle": "Redes",
+    "tag": "Redes",
+    "meta": "(06) Canales",
+    "title": "Encuentra a los folks.",
+    "body": "Dónde vive WillFolks fuera de la app. GitHub y X ya están abiertos; el resto de canales se enciende a medida que nos acercamos al lanzamiento.",
+    "open": "Abrir",
+    "soon": "Próximamente",
+    "soonToast": "{network} aún no está activo — pronto",
+    "contactLabel": "— O simplemente escribe",
+    "back": "Volver al inicio"
+  },
+  "notFound": {
+    "title": "ERROR 404",
+    "route": "RUTA DESCONOCIDA",
+    "searching": "Buscando",
+    "please": "Por favor",
+    "check": "revisa la dirección",
+    "again": "otra vez",
+    "navLabel": "Salidas",
+    "home": "Inicio",
+    "faq": "FAQ",
+    "social": "Redes",
+    "end": "Fin de la página de prueba",
+    "number": "Número 404"
+  },
+  "project": {
+    "tag": "Monad Hackathon",
+    "meta": "Consumer Products & Payments",
+    "nav": {
+      "label": "Páginas del proyecto",
+      "live": "Producto en vivo",
+      "demo": "Demo técnica",
+      "pitch": "Pitch",
+      "promo": "Promo",
+      "gtm": "Go-to-market"
+    },
+    "video": {
+      "soon": "En postproducción",
+      "soonBody": "El video aparece aquí apenas termine de renderizarse. Mientras tanto, prueba el producto en vivo.",
+      "inside": "— Lo que vas a ver",
+      "more": "— Sigue viendo",
+      "links": {
+        "demo": "Demo técnica",
+        "pitch": "Video del pitch",
+        "promo": "Anuncio del producto",
+        "live": "Prueba el producto en vivo"
+      }
+    },
+    "live": {
+      "metaTitle": "Producto en vivo",
+      "title": "En vivo en\nMonad testnet.",
+      "titleHighlight": [
+        "monad"
+      ],
+      "lede": "Todo lo de abajo funciona de verdad en Monad testnet: la app, la API y el contrato de escrow. No hay dinero real de por medio, así que apuesta sin miedo.",
+      "get": {
+        "label": "— Consigue la app",
+        "title": "Build de Android",
+        "body": "Instala el APK desde los releases de GitHub e inicia sesión con cualquier correo. Es un login de desarrollo: sin contraseña y solo en testnet.",
+        "apk": "Descargar el APK",
+        "browser": "O pruébala en el navegador"
+      },
+      "status": {
+        "label": "— Backend",
+        "title": "Estado del sistema",
+        "api": "API",
+        "checking": "Revisando la API…",
+        "up": "API en línea · base de datos activa",
+        "down": "La API no responde en este momento"
+      },
+      "chain": {
+        "network": "Red",
+        "escrow": "WillFolksEscrow",
+        "usdc": "USDC de prueba",
+        "code": "Código fuente"
+      },
+      "steps": {
+        "title": "Pruébala en cinco pasos",
+        "note": "Todo corre en Monad testnet; no se usa dinero real.",
+        "items": [
+          {
+            "title": "Instala e inicia sesión",
+            "body": "Instala la app de Android desde los releases de GitHub e inicia sesión con cualquier correo (login de desarrollo)."
+          },
+          {
+            "title": "Pide fondos de prueba",
+            "body": "Abre Wallet y toca \"Recibir saldo de prueba\": recibes 3 USDC de prueba y gas para usarlos."
+          },
+          {
+            "title": "Apuesta una meta",
+            "body": "Crea una meta de Alarma con 1 USDC y toca \"Apostar\". La meta muestra \"Apuesta en juego\" con un enlace a la transacción."
+          },
+          {
+            "title": "Mira cómo se resuelve",
+            "body": "Las metas de demo duran unos 5 minutos. Al terminar, el stake vuelve y el historial de Wallet muestra la transacción."
+          },
+          {
+            "title": "Prueba cualquier meta",
+            "body": "Puedes crear cualquier tipo de meta; según cuál elijas, puede tardar un tiempo razonable en resolverse."
+          }
+        ]
+      },
+      "limits": {
+        "title": "Dicho sin adornos",
+        "items": [
+          "Contrato sin auditar, solo en testnet y con un tope de 10 USDC por meta.",
+          "Hoy un único atestador (nuestro backend) firma los veredictos; un quórum de verificadores llega en una fase posterior.",
+          "El resultado de las alarmas y del uso de apps lo reporta el teléfono y el servidor confía en él.",
+          "El juez de IA es un stub que aprueba cualquier foto; el juez amigo sí es real.",
+          "Los depósitos en fiat y los retiros a cuenta bancaria aún no existen; el inicio de sesión es de desarrollo."
+        ]
+      }
+    },
+    "demo": {
+      "metaTitle": "Demo técnica",
+      "title": "Bajo\nel capó.",
+      "titleHighlight": [
+        "capó"
+      ],
+      "lede": "Un recorrido por cómo viaja una meta desde el teléfono hasta el contrato de escrow en Monad y de vuelta: los sensores, el veredicto firmado y las transacciones.",
+      "format": "Demo técnica",
+      "length": "Monad testnet",
+      "points": [
+        "La wallet se crea en el teléfono y se vincula a la cuenta con una firma.",
+        "Fondos de prueba y luego un stake bloqueado en WillFolksEscrow desde la wallet del propio usuario.",
+        "El módulo nativo de Android midiendo alarmas, uso de apps y ubicación.",
+        "Un veredicto EIP-712 firmado por el atestador y aplicado on-chain.",
+        "El stake liberado, o bloqueado durante la penalización, con cada tx en el explorador."
+      ]
+    },
+    "pitch": {
+      "metaTitle": "Pitch",
+      "title": "Pon tu dinero\ndonde están tus metas.",
+      "titleHighlight": [
+        "metas"
+      ],
+      "lede": "Por qué el compromiso funciona, por qué la gente igual lo abandona y cómo WillFolks hace que cumplir tu palabra sea lo más fácil, en pocos minutos.",
+      "format": "Video del pitch",
+      "length": "Track de consumo",
+      "points": [
+        "El problema: todos nos ponemos metas, pocos las cumplen y las herramientas de compromiso se abandonan.",
+        "El producto: apuesta USDC a una meta, demuéstrala con tu teléfono y conserva tu dinero.",
+        "Por qué Monad: transacciones baratas y rápidas que hacen posibles apuestas pequeñas y diarias.",
+        "El negocio: sin ganar con los fallos; ingresos del dinero que se mueve por el producto.",
+        "Qué funciona hoy y qué viene después."
+      ]
+    },
+    "promo": {
+      "metaTitle": "Anuncio del producto",
+      "title": "Apuéstalo.\nDemuéstralo.\nConsérvalo.",
+      "titleHighlight": [
+        "consérvalo"
+      ],
+      "lede": "La versión corta: despierta, desconéctate, llega a tiempo y conserva el dinero que pusiste en juego.",
+      "format": "Anuncio",
+      "length": "Versión corta",
+      "points": [
+        "Alarmas para despertar respaldadas por tu propio dinero.",
+        "Límites de pantalla que cuesta romper.",
+        "Metas de ubicación verificadas por tu teléfono.",
+        "Amigos como jueces y una WillPet que reacciona a tu progreso.",
+        "Dinero que nunca se pierde, solo se bloquea."
+      ]
+    },
+    "gtm": {
+      "metaTitle": "Go-to-market",
+      "title": "Go-to-\nmarket.",
+      "titleHighlight": [
+        "market"
+      ],
+      "lede": "Quién prueba WillFolks primero, cómo nos encuentra, qué necesitamos aprender antes de escalar y cómo gana dinero el producto sin lucrar con el fracaso de nadie.",
+      "pull": "No ganamos con los fallos de los usuarios: un stake solo se bloquea, nunca nos lo quedamos.",
+      "sections": [
+        {
+          "id": "first-users",
+          "title": "Primeros usuarios",
+          "body": [
+            "Personas que ya tienen USDC y usan wallets: las comunidades de builders de Monad y EVM. Pueden probar el producto hoy, dar feedback honesto y entender un contrato de compromiso al instante.",
+            "Los tratamos como early adopters, no como el mercado masivo. A los usuarios generales los validaremos por separado con un flujo de depósito pequeño o en fiat."
+          ]
+        },
+        {
+          "id": "find-us",
+          "title": "Cómo nos encuentran",
+          "body": [
+            "Construimos en público desde el día 0: una actualización semanal con un clip corto y un enlace al código, un post técnico por semana y presencia en Discords y grupos de Telegram de builders para aportar antes de pedir nada.",
+            "Un reto abierto de siete días con USDC de testnet le da a la comunidad un motivo para probarlo en grupo."
+          ]
+        },
+        {
+          "id": "learn",
+          "title": "Qué aprenderemos primero",
+          "body": [
+            "El riesgo real no es el interés sino la adopción y la retención: la gente suele registrarse en herramientas de compromiso y luego las abandona. Escribimos los umbrales de éxito de antemano y cambiamos de segmento o de mensaje si no los alcanzamos."
+          ]
+        },
+        {
+          "id": "stay",
+          "title": "Por qué se quedan",
+          "body": [
+            "Los amigos pueden ser jueces, hay una mascota que reacciona al progreso y un widget en la pantalla de inicio mantiene el stake a la vista.",
+            "El dinero nunca se pierde, solo se bloquea, y eso baja el miedo a empezar."
+          ]
+        },
+        {
+          "id": "model",
+          "title": "Modelo de negocio",
+          "body": [
+            "Los ingresos vendrán de tres fuentes ligadas al dinero que se mueve por el producto, así que crecen con el dinero que los usuarios comprometen, no con sus errores."
+          ],
+          "list": [
+            {
+              "title": "Spread de cambio",
+              "body": "Un margen pequeño cuando el usuario convierte moneda local a USDC y de vuelta, para entrar y salir sin tocar cripto."
+            },
+            {
+              "title": "Comisión por depósito",
+              "body": "Una comisión pequeña y visible en los depósitos, lleguen en cripto o por un medio de pago local."
+            },
+            {
+              "title": "Parte del rendimiento",
+              "body": "Mientras un stake está bloqueado puede generar rendimiento; el usuario se queda con la mayor parte y nosotros con un porcentaje."
+            }
+          ],
+          "after": "Más adelante, retos para comunidades y equipos y un servicio de verificación que otras apps puedan pagar suman ingresos que no dependen del saldo de los usuarios."
+        }
+      ],
+      "phases": {
+        "items": [
+          {
+            "step": "Paso 01",
+            "title": "15–20 entrevistas",
+            "body": "Entrevistas de problema antes de construir más."
+          },
+          {
+            "step": "Paso 02",
+            "title": "Waitlist A/B",
+            "body": "Una lista de espera que prueba dos mensajes."
+          },
+          {
+            "step": "Paso 03",
+            "title": "Piloto de 2 semanas",
+            "body": "10 a 15 personas apostando metas reales."
+          },
+          {
+            "step": "Paso 04",
+            "title": "Beta cerrada",
+            "body": "20 a 50 usuarios, con los números publicados."
+          }
+        ]
+      },
+      "cta": "Prueba el producto en vivo",
+      "ctaPitch": "Mira el pitch"
+    }
+  }
+}
