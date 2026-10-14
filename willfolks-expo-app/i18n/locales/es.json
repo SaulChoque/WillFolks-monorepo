@@ -1,0 +1,828 @@
+{
+  "common": {
+    "cancel": "Cancelar",
+    "close": "Cerrar",
+    "confirm": "Confirmar",
+    "save": "Guardar",
+    "enabled": "Activado",
+    "disabled": "Desactivado",
+    "none": "Ninguno",
+    "working": "Procesando…",
+    "continue": "Continuar",
+    "loading": "Cargando…",
+    "no": "No",
+    "done": "Listo",
+    "currency": "USD"
+  },
+  "navigation": {
+    "modal": "Modal",
+    "time": "Tiempo",
+    "dashboard": "Inicio",
+    "home3d": "Inicio 3D",
+    "activities": "Actividades",
+    "settings": "Ajustes"
+  },
+  "header": {
+    "goToAccount": "Ir a cuenta",
+    "comments": "Comentarios"
+  },
+  "modalScreen": {
+    "title": "Este es un modal",
+    "goHome": "Ir a la pantalla principal"
+  },
+  "time": {
+    "header": "Tiempo",
+    "friendsTimezones": "Husos horarios de amigos",
+    "localTime": "Hora local"
+  },
+  "dashboard": {
+    "welcomeBack": "Bienvenido de vuelta, {{name}}",
+    "recentActivity": "Actividad reciente"
+  },
+  "activities": {
+    "title": "Mis actividades",
+    "newActivity": "Nueva actividad",
+    "hour": "h",
+    "hours": "h",
+    "minute": "min",
+    "minutes": "min"
+  },
+  "activity": {
+    "notFound": "Actividad no encontrada.",
+    "notifications": "Notificaciones",
+    "amount": "Monto",
+    "cancel": "Cancelar",
+    "noRepeat": "Sin repetición",
+    "type": "Tipo",
+    "alarm": "Alarma",
+    "timer": "Temporizador",
+    "timeAndDate": "Hora y fecha",
+    "start": "Inicio",
+    "end": "Fin",
+    "music": "Música",
+    "vibration": "Vibración",
+    "app": "App",
+    "maxTimePerDay": "Tiempo máximo al día",
+    "selectType": "Selecciona el tipo de actividad",
+    "selectApp": "Selecciona una app",
+    "titlePlaceholder": "Título de actividad",
+    "participantsPlaceholder": "@usuario1, @usuario2",
+    "repeatPlaceholder": "Repetición",
+    "saveActivity": "Guardar actividad",
+    "selectAudio": "Seleccionar audio",
+    "irl": "En persona",
+    "baseSection": "Datos básicos",
+    "stakeAmount": "Monto apostado",
+    "participants": "Participantes",
+    "isGroup": "Es grupal",
+    "defiLockDays": "Días extra de bloqueo",
+    "devTipPercentage": "Propina al equipo (%)",
+    "status": "Estado",
+    "irlSection": "En persona",
+    "aiPrompt": "Instrucción para la IA",
+    "evidenceCids": "Evidencias",
+    "irlEvidenceCount": "{{count}} evidencias",
+    "captureEvidence": "Tomar foto",
+    "attachEvidence": "Adjuntar archivo",
+    "alarmSection": "Alarma",
+    "objectiveTime": "Hora objetivo",
+    "activeDays": "Días activos",
+    "maxReactionSeconds": "Tiempo máximo reacción",
+    "appTimerSection": "Límite de app",
+    "targetApp": "App objetivo",
+    "weeklyMaxMinutes": "Minutos máximos semana"
+  },
+  "focus": {
+    "session": "Sesión",
+    "focusSession": "Sesión de enfoque",
+    "ofLimit": "minutos de {{limit}} hoy",
+    "left": {
+      "one": "Queda {{count}} minuto",
+      "other": "Quedan {{count}} minutos"
+    },
+    "over": {
+      "one": "{{count}} minuto sobre el límite",
+      "other": "{{count}} minutos sobre el límite"
+    },
+    "unsupported": "El tiempo de pantalla solo se mide en Android."
+  },
+  "home3d": {
+    "mood": "Estado",
+    "streak": "Racha",
+    "petTitle": "Tu WillPet"
+  },
+  "settings": {
+    "title": "Ajustes",
+    "experience": "Experiencia",
+    "hapticFeedback": "Retroalimentación háptica",
+    "hapticFeedbackDesc": "Usa vibración al interactuar con pestañas y acciones.",
+    "showSeconds": "Mostrar segundos en el reloj",
+    "showSecondsDesc": "Muestra los segundos en el reloj en vivo de la pestaña Tiempo.",
+    "alarmFocus": "Alarma y enfoque",
+    "alarmReminders": "Recordatorios de alarma",
+    "alarmRemindersDesc": "Activa alertas modales cuando se dispare una actividad de alarma.",
+    "alarmVibration": "Vibración de alarma",
+    "alarmVibrationDesc": "Permite vibración repetida mientras la alarma esté activa.",
+    "openAccount": "Abrir perfil de cuenta",
+    "openAccountDesc": "Ir a detalles de cuenta e información personal.",
+    "wallet": "Mi dinero",
+    "address": "Código de cuenta",
+    "privateKey": "Clave secreta",
+    "mnemonic": "Frase de recuperación",
+    "generatingWallet": "Preparando tu cuenta…",
+    "hiddenSensitiveTitle": "Datos secretos ocultos",
+    "hiddenSensitiveDesc": "Confirma tu huella para ver estos datos.",
+    "unlockWithBiometric": "Desbloquear con huella",
+    "hideSensitiveData": "Ocultar datos secretos"
+  },
+  "account": {
+    "title": "Cuenta",
+    "dateOfInvitation": "Fecha de invitación",
+    "chain": "Cuenta",
+    "totalTransacted": "Total movido",
+    "generalScore": "Puntaje general",
+    "location": "Ubicación",
+    "numberOfFriends": "Número de amigos",
+    "goalsAchieved": "Metas logradas",
+    "favoriteFriend": "Amigo favorito",
+    "streak": "Racha",
+    "deleteAccount": "Eliminar cuenta",
+    "signOut": "Cerrar sesión",
+    "deleteBody": "Tu perfil, metas e historial se borran para siempre.",
+    "deleteConfirm": "Eliminar",
+    "saved": "Perfil guardado."
+  },
+  "biometricModal": {
+    "title": "Activa la protección por huella",
+    "description": "Para proteger tu cuenta, confirma tu huella antes de continuar.",
+    "authenticate": "Autenticar con huella"
+  },
+  "alarmModal": {
+    "defaultTitle": "Alarma",
+    "snoozeFive": "Posponer 5 minutos",
+    "stop": "Parar",
+    "hint": "Puedes bloquear la pantalla; la alarma seguirá sonando mientras la app esté en primer plano."
+  },
+  "walletSecurity": {
+    "seedGenerationFailed": "No fue posible crear tu frase de recuperación.",
+    "noBiometricSetup": "No hay huella configurada en este dispositivo. Configúrala para continuar.",
+    "initializationError": "No pudimos proteger tu cuenta. Inténtalo de nuevo.",
+    "biometricUnavailable": "La autenticación por huella no está disponible en este dispositivo.",
+    "authenticatePrompt": "Autentica con tu huella",
+    "authenticateCancel": "Cancelar",
+    "validationFailed": "No fue posible validar la huella. Inténtalo de nuevo.",
+    "contextError": "La protección de la cuenta no está disponible en esta pantalla."
+  },
+  "mock": {
+    "differencePlus": "+{{count}} h",
+    "differenceMinus": "-{{count}} h",
+    "days": "{{count}} días",
+    "titles": {
+      "missedAlarm": "Alarma perdida",
+      "finishTestFirst": "Termina primero la prueba",
+      "wakeUppp": "¡Despierta!",
+      "redditTimer": "Temporizador de Reddit"
+    },
+    "music": {
+      "morningVibes": "Vibras matutinas",
+      "focusPlaylist": "Playlist de enfoque",
+      "favorites": "Favoritos",
+      "default": "Predeterminado"
+    }
+  },
+  "days": {
+    "monShort": "L",
+    "tueShort": "M",
+    "wedShort": "X",
+    "thuShort": "J",
+    "friShort": "V",
+    "satShort": "S",
+    "sunShort": "D",
+    "workWeekLabel": "Lun, Mar, Mié, Jue, Vie"
+  },
+  "pixel": {
+    "tabsLabel": "Secciones de la app",
+    "tabs": {
+      "time": "Hora",
+      "home": "Inicio",
+      "pet": "WillPet",
+      "goals": "Metas",
+      "settings": "Ajustes"
+    },
+    "toast": "Bloqueado",
+    "notes": {
+      "locked": "Bloqueado",
+      "won": "Ganado",
+      "safe": "Apuesta a salvo",
+      "staked": "En juego",
+      "onTrack": "En curso",
+      "missed": "Fallado"
+    },
+    "home": {
+      "welcome": "Hola de nuevo,",
+      "user": "Baluchop",
+      "inEscrow": "En juego",
+      "yield": "Ganancia",
+      "activeGoals": {
+        "one": "{{count}} meta activa",
+        "other": "{{count}} metas activas"
+      },
+      "recent": "Actividad reciente",
+      "available": "Disponible",
+      "empty": "Aún nada. Apuesta por tu primera meta."
+    },
+    "activity": {
+      "missedAlarm": "Alarma perdida",
+      "instagram": "Instagram",
+      "instagramValue": "180 min/sem",
+      "testFirst": "Termina el examen",
+      "beatAlarm": "Alarma vencida",
+      "staked": {
+        "alarm": "Nueva meta de alarma",
+        "appTimer": "Nuevo límite de app",
+        "locator": "Nueva meta de lugar",
+        "ai": "Nueva meta con IA"
+      },
+      "perWeek": "{{count}} min/sem"
+    },
+    "time": {
+      "title": "Hora",
+      "local": "Hora local",
+      "friends": "Zonas de tus amigos",
+      "hours": "h"
+    },
+    "pet": {
+      "title": "Tu WillPet",
+      "mood": "Ánimo",
+      "streak": "Racha",
+      "days": {
+        "one": "{{count}} día",
+        "other": "{{count}} días"
+      },
+      "feed": "Alimentar",
+      "play": "Jugar",
+      "poke": "Toca a tu WillPet",
+      "lines": {
+        "idle": "Cumple tu palabra y yo crezco.",
+        "happy": "¡Eso! Más de eso.",
+        "sad": "Te quedaste dormido. Lo sentí.",
+        "full": "Estoy genial. Tú también."
+      }
+    },
+    "goals": {
+      "title": "Mis metas",
+      "active": "Activa",
+      "paused": "En pausa",
+      "stake": "Monto apostado",
+      "lockDays": "Si fallas",
+      "lockValue": "Bloqueo 2 días",
+      "participants": "Participantes",
+      "days": "Días activos",
+      "daysValue": "L M X J V",
+      "reaction": "Reacción máxima",
+      "tip": "Propina al equipo",
+      "testAlarm": "Probar esta alarma",
+      "add": "Nueva meta",
+      "kinds": {
+        "alarm": {
+          "name": "Despertar 07:41",
+          "detail": "Alarma",
+          "short": "Alarma"
+        },
+        "appTimer": {
+          "name": "Límite de Instagram",
+          "detail": "Temporizador",
+          "short": "App"
+        },
+        "locator": {
+          "name": "Gimnasio a las 18:00",
+          "detail": "Ubicación",
+          "short": "Lugar"
+        },
+        "ai": {
+          "name": "Termina el examen",
+          "detail": "Revisión IA",
+          "short": "IA"
+        }
+      },
+      "minutesPerDay": "{{app}} · {{count}} min/día",
+      "empty": "Aún no hay metas. Toca + para apostar por una."
+    },
+    "sheet": {
+      "title": "Nueva meta",
+      "pick": "Tipo de meta",
+      "stake": "Apuesta",
+      "less": "Apostar menos",
+      "more": "Apostar más",
+      "ifMiss": "Si fallas: bloqueado por 2 días",
+      "confirm": "Apostar",
+      "cancel": "Cerrar",
+      "available": "Disponible: {{amount}} USD",
+      "next": "Siguiente"
+    },
+    "settings": {
+      "title": "Ajustes",
+      "display": "Pantalla",
+      "theme": {
+        "acid": "Ácido",
+        "void": "Vacío"
+      },
+      "experience": "Experiencia",
+      "alarmFocus": "Alarma y enfoque",
+      "items": {
+        "haptics": {
+          "title": "Respuesta háptica",
+          "body": "Vibra al tocar y al actuar."
+        },
+        "seconds": {
+          "title": "Mostrar segundos",
+          "body": "Segundos en el reloj de Hora."
+        },
+        "reminders": {
+          "title": "Avisos de alarma",
+          "body": "Alerta a pantalla completa al sonar."
+        },
+        "vibration": {
+          "title": "Vibración de alarma",
+          "body": "Sigue vibrando mientras suena."
+        }
+      },
+      "wallet": "Mi dinero",
+      "hiddenTitle": "Datos secretos ocultos",
+      "hiddenBody": "Confirma tu huella para verlos.",
+      "unlock": "Mantén para desbloquear",
+      "unlocked": "Desbloqueado",
+      "unlockedTitle": "Cuenta de demostración",
+      "unlockedBody": "Aquí no hay datos reales.",
+      "accountLink": {
+        "title": "Abrir perfil de cuenta",
+        "body": "Detalles de cuenta e información personal."
+      },
+      "walletKeys": {
+        "address": "Código de cuenta",
+        "privateKey": "Clave secreta",
+        "mnemonic": "Frase de recuperación",
+        "generating": "Preparando tu cuenta…",
+        "unlockedTitle": "Datos visibles",
+        "unlockedBody": "Ocúltalos cuando termines.",
+        "hide": "Ocultar datos secretos",
+        "unlock": "Mantén para desbloquear"
+      },
+      "links": {
+        "account": {
+          "title": "Cuenta",
+          "body": "Perfil, cerrar sesión."
+        },
+        "wallet": {
+          "title": "Mi dinero",
+          "body": "Agregar, retirar y ver movimientos."
+        },
+        "friends": {
+          "title": "Amigos",
+          "body": "Buscar personas, solicitudes, evidencias por juzgar."
+        },
+        "permissions": {
+          "title": "Permisos y widget",
+          "body": "Lo que el teléfono puede medir."
+        }
+      }
+    },
+    "alarm": {
+      "kicker": "Alarma · Despertar",
+      "wake": "Despierta",
+      "atStake": "{{amount}} USD en juego",
+      "left": {
+        "one": "Queda {{count}} segundo",
+        "other": "Quedan {{count}} segundos"
+      },
+      "awake": "Ya desperté",
+      "wonTitle": "Apuesta a salvo",
+      "wonBody": {
+        "one": "Le ganaste a la alarma. Racha: {{streak}} día.",
+        "other": "Le ganaste a la alarma. Racha: {{streak}} días."
+      },
+      "lostTitle": "Apuesta bloqueada",
+      "lostBody": "La dejaste pasar. {{amount}} USD bloqueados por 2 días.",
+      "back": "Volver al inicio",
+      "snooze": "Posponer 5 min",
+      "stop": "Parar",
+      "testKicker": "Alarma de prueba · no se registra nada",
+      "testWonBody": "Así suena. Las alarmas reales ponen tu apuesta en juego.",
+      "testLostBody": "Muy lento. En una alarma real esto bloquearía tu apuesta.",
+      "missTitle": "Alarma perdida",
+      "missBody": {
+        "one": "Eso fue un fallo. {{count}} más y la apuesta se bloquea.",
+        "other": "Eso fue un fallo. {{count}} más y la apuesta se bloquea."
+      }
+    },
+    "screens": {
+      "account": "Cuenta",
+      "activity": "Meta",
+      "focus": "Enfoque",
+      "back": "Volver",
+      "newGoal": "Nueva meta",
+      "wallet": "Mi dinero",
+      "friends": "Amigos",
+      "notifications": "Buzón",
+      "permissions": "Permisos"
+    }
+  },
+  "errors": {
+    "NETWORK": "No hay conexión con el servidor. Revisa tu internet e inténtalo de nuevo.",
+    "INSUFFICIENT_FUNDS": "Saldo insuficiente: tienes {{available}} USD. Agrega dinero primero.",
+    "USERNAME_TAKEN": "Ese nombre de usuario ya está en uso.",
+    "TOO_FAR": "Estás a {{distance}} m. Acércate a menos de {{radius}} m para registrarte.",
+    "NOT_FRIENDS": "Solo puedes invitar a amigos aceptados.",
+    "GOAL_NOT_ACTIVE": "Esta meta no está activa.",
+    "GOAL_CLOSED": "Esta meta ya está cerrada.",
+    "ALREADY_RESOLVED": "El día de hoy ya está resuelto para esta meta.",
+    "unknown": "Algo salió mal.",
+    "NEEDS_GAS": "Te falta saldo para completar esto. Recibe saldo de prueba en la pantalla Mi dinero.",
+    "WALLET_REQUIRED": "Configura tu cuenta primero.",
+    "STAKE_ABOVE_CAP": "Puedes apostar como máximo {{max}} USD por meta.",
+    "GROUP_NOT_SUPPORTED": "Las metas compartidas aún no están disponibles con esta opción.",
+    "FAUCET_COOLDOWN": "Ya recibiste fondos hoy. Intenta más tarde.",
+    "CANCEL_ON_CHAIN": "La apuesta ya está guardada: solo se puede cancelar antes de que empiece la meta.",
+    "TX_REVERTED": "No se pudo completar la operación. Inténtalo de nuevo.",
+    "SERVICE_UNAVAILABLE": "El servicio no está disponible en este momento. Inténtalo más tarde."
+  },
+  "ob": {
+    "step": "Paso {{step}} de {{total}}",
+    "welcome": {
+      "lead": "Apuesta dinero por tu palabra. Cúmplela, o mira cómo se bloquea.",
+      "start": "Empezar",
+      "points": {
+        "stake": {
+          "title": "Apuesta por una meta",
+          "body": "Despertar, soltar una app, llegar a tiempo."
+        },
+        "prove": {
+          "title": "Tu teléfono es el juez",
+          "body": "Alarmas, uso de apps, ubicación y cámara."
+        },
+        "lose": {
+          "title": "Si fallas, pierdes",
+          "body": "La apuesta se bloquea. Si cumples, es tuya."
+        }
+      }
+    },
+    "signIn": {
+      "title": "Iniciar sesión",
+      "lead": "Una cuenta para todo.",
+      "email": "Correo",
+      "name": "Tu nombre",
+      "nameHint": "Solo se usa la primera vez, para crear tu perfil.",
+      "submit": "Continuar",
+      "serverChecking": "● Comprobando conexión…",
+      "serverOnline": "▲ Conectado",
+      "serverOffline": "▼ Sin conexión",
+      "devNote": "Por ahora entras solo con tu correo, sin contraseña."
+    },
+    "profile": {
+      "title": "Tu perfil",
+      "lead": "Así te encontrarán tus amigos.",
+      "camera": "Tomar foto",
+      "gallery": "Galería",
+      "displayName": "Nombre visible",
+      "username": "Usuario",
+      "usernameHint": "3 a 24 letras, números o guiones bajos."
+    },
+    "wallet": {
+      "title": "Tu dinero",
+      "lead": "Se guarda en este teléfono. Aquí entran tus ganancias y salen tus apuestas.",
+      "secure": "Proteger con huella",
+      "finish": "Entrar a WillFolks",
+      "skip": "Omitir y entrar",
+      "securedTitle": "Cuenta protegida",
+      "biometricTitle": "Protege tu cuenta",
+      "biometricBody": "Tus datos secretos solo se muestran tras verificar tu huella.",
+      "noBiometric": "No hay huella registrada en este teléfono. Puedes agregarla luego en los ajustes de Android."
+    }
+  },
+  "perms": {
+    "title": "Permisos",
+    "lead": "Cada tipo de meta mide algo en tu teléfono. Permite lo que pienses usar.",
+    "allow": "Permitir",
+    "granted": "Permitido",
+    "openSettings": "Abrir ajustes",
+    "items": {
+      "notifications": {
+        "title": "Notificaciones",
+        "body": "Recordatorios, resultados y la alarma sonando."
+      },
+      "camera": {
+        "title": "Cámara",
+        "body": "Fotos de evidencia para metas con IA y tu foto de perfil."
+      },
+      "location": {
+        "title": "Ubicación",
+        "body": "Comprueba que llegaste al lugar de una meta de ubicación."
+      },
+      "background": {
+        "title": "Ubicación todo el tiempo",
+        "body": "Registra tu llegada con la app cerrada."
+      },
+      "usage": {
+        "title": "Acceso al uso de apps",
+        "body": "Lee el tiempo de pantalla para juzgar los límites de apps."
+      },
+      "exactAlarms": {
+        "title": "Alarmas exactas",
+        "body": "Permite que las alarmas suenen al minuto."
+      },
+      "fullScreen": {
+        "title": "Alarma a pantalla completa",
+        "body": "Muestra la alarma sobre la pantalla de bloqueo."
+      }
+    },
+    "widget": {
+      "title": "Widget de inicio",
+      "body": "Tu apuesta, racha y próxima alarma de un vistazo.",
+      "add": "Agregar widget",
+      "unsupported": "Tu pantalla de inicio no permite fijar widgets desde apps. Agrégalo desde ella."
+    }
+  },
+  "form": {
+    "defaults": {
+      "alarm": "Despertar temprano",
+      "appTimer": "Menos pantalla",
+      "locator": "Llegar a tiempo",
+      "ai": "Terminarlo"
+    },
+    "kindHint": {
+      "alarm": "Toca \"Estoy despierto\" antes de que acabe la cuenta.",
+      "appTimer": "Mantente bajo un límite diario en una app.",
+      "locator": "Está en un lugar antes de una hora.",
+      "ai": "Envía una foto de evidencia; un juez decide."
+    },
+    "title": "Nombre de la meta",
+    "alarm": {
+      "time": "Hora de la alarma",
+      "reaction": "Tiempo para reaccionar",
+      "vibration": "Vibrar mientras suena"
+    },
+    "app": {
+      "pick": "App a limitar",
+      "search": "Buscar apps",
+      "none": "La lista de apps solo está disponible en Android.",
+      "limit": "Límite diario",
+      "perDay": "min/día",
+      "needsAccess": "El acceso al uso está desactivado: permítelo para que WillFolks pueda medir esta app."
+    },
+    "place": {
+      "use": "Usar mi ubicación actual",
+      "again": "Actualizar ubicación",
+      "label": "Nombre del lugar",
+      "radius": "Radio",
+      "arriveBy": "Llegar antes de",
+      "fallback": "Mi lugar"
+    },
+    "ai": {
+      "prompt": "¿Qué cuenta como hecho?",
+      "promptHint": "El juez compara tu foto con esto.",
+      "judge": "Quién decide",
+      "judgeAi": "Juez IA",
+      "judgeFriend": "Un amigo"
+    },
+    "noFriends": "Agrega primero a un amigo para elegir juez.",
+    "schedule": "Calendario",
+    "endDate": "Termina el",
+    "attempts": "Fallos permitidos antes de perder",
+    "notificationsHint": "Recordatorios los días que aplica.",
+    "invite": "Retar amigos",
+    "mode": {
+      "vs": "Versus",
+      "coop": "Co-op",
+      "vsHint": "Quien falla le paga a los demás.",
+      "coopHint": "Cada uno arriesga solo su apuesta."
+    },
+    "missing": {
+      "title": "Ponle nombre a la meta.",
+      "app": "Elige la app a limitar.",
+      "place": "Define primero el lugar.",
+      "prompt": "Describe qué cuenta como hecho.",
+      "judge": "Elige al amigo que juzgará."
+    }
+  },
+  "detail": {
+    "units": {
+      "seconds": "s",
+      "minutes": "min",
+      "meters": "m"
+    },
+    "results": {
+      "success": "Superado",
+      "fail": "Fallado",
+      "pending": "Esperando veredicto"
+    },
+    "status": {
+      "draft": "Borrador",
+      "active": "Activa",
+      "paused": "En pausa",
+      "completed": "Completada",
+      "failed": "Fallada",
+      "cancelled": "Cancelada"
+    },
+    "participant": {
+      "invited": "Invitado",
+      "accepted": "Jugando",
+      "declined": "Rechazó",
+      "left": "Salió"
+    },
+    "proofStatus": {
+      "pending": "Esperando veredicto",
+      "approved": "Aprobada",
+      "rejected": "Rechazada"
+    },
+    "testScheduled": "La alarma de prueba suena en 3 segundos. No se registra nada.",
+    "arrived": "Registrado, a {{distance}} m del punto.",
+    "cancelTitle": "¿Cancelar esta meta?",
+    "cancelBody": "Tus {{amount}} USD vuelven a tu saldo.",
+    "cancelConfirm": "Cancelar meta",
+    "until": "Termina",
+    "attemptsLeft": "Fallos restantes",
+    "score": "Superados / fallados",
+    "next": "Próximo control",
+    "usedToday": "Usado hoy",
+    "invited": "Te retaron. Unirte bloquea {{amount}} USD.",
+    "imHere": "Ya llegué",
+    "sendProof": "Enviar evidencia",
+    "proofs": "Evidencias",
+    "history": "Historial",
+    "noHistory": "Aún no hay controles.",
+    "escrowTx": "Comprobante de la apuesta",
+    "cancel": "Cancelar meta",
+    "open": "Abrir",
+    "answer": "Responder"
+  },
+  "proofScreen": {
+    "verdict": {
+      "approved": {
+        "title": "Aprobada",
+        "body": "El juez aceptó tu evidencia. Apuesta a salvo."
+      },
+      "pending": {
+        "title": "Enviada",
+        "body": "Tu amigo tiene que revisarla. Recibirás una notificación."
+      },
+      "rejected": {
+        "title": "Rechazada",
+        "body": "El juez no aceptó esta evidencia."
+      }
+    },
+    "note": "Nota para el juez",
+    "retake": "Repetir",
+    "send": "Enviar evidencia",
+    "shoot": "Tomar foto"
+  },
+  "walletScreen": {
+    "available": "Disponible",
+    "amount": "Monto",
+    "method": "Método",
+    "crypto": "Transferencia digital",
+    "fiat": "Pago con QR",
+    "deposit": "Depositar",
+    "withdraw": "Retirar",
+    "simulated": "Versión de prueba: los movimientos se confirman al instante, no se mueve dinero real.",
+    "history": "Movimientos",
+    "empty": "Aún no hay movimientos.",
+    "done": {
+      "deposit": "Depositaste {{amount}} USD · {{reference}}",
+      "withdraw": "Retiraste {{amount}} USD · {{reference}}"
+    },
+    "types": {
+      "deposit": "Depósito",
+      "withdrawal": "Retiro",
+      "stake_lock": "Apuesta en juego",
+      "stake_release": "Apuesta devuelta",
+      "penalty": "Penalización",
+      "reward": "Apuesta ganada",
+      "donation": "Propina al equipo"
+    },
+    "voucher": "Comprobante",
+    "status": {
+      "pending": "Pendiente",
+      "confirmed": "Confirmado",
+      "failed": "Fallido"
+    },
+    "reference": "Referencia",
+    "date": "Fecha",
+    "methods": {
+      "crypto": "Transferencia digital",
+      "fiat": "Pago con QR",
+      "internal": "Interno"
+    },
+    "txHash": "Código del movimiento",
+    "note": "Concepto",
+    "notes": {
+      "qrDeposit": "Depósito por QR",
+      "testBalance": "Saldo de prueba"
+    }
+  },
+  "friendsScreen": {
+    "search": "Buscar personas",
+    "searchHint": "Busca por usuario o nombre.",
+    "already": "Amigos",
+    "sent": "Enviada",
+    "add": "Agregar",
+    "noResults": "No se encontró a nadie.",
+    "reviews": "Evidencias por juzgar",
+    "reviewBy": "Evidencia de {{name}}",
+    "approve": "Aprobar",
+    "reject": "Rechazar",
+    "incoming": "Solicitudes",
+    "accept": "Aceptar",
+    "decline": "Rechazar",
+    "friends": {
+      "one": "{{count}} amigo",
+      "other": "{{count}} amigos",
+      "zero": "Amigos"
+    },
+    "remove": "Quitar",
+    "empty": "Aún no tienes amigos.",
+    "outgoing": "Solicitudes enviadas",
+    "find": "Buscar amigos"
+  },
+  "inbox": {
+    "unread": {
+      "one": "{{count}} sin leer",
+      "other": "{{count}} sin leer",
+      "zero": "Todo leído"
+    },
+    "readAll": "Marcar todo leído",
+    "empty": "Aún no hay nada aquí."
+  },
+  "native": {
+    "channels": {
+      "reminders": "Recordatorios de metas",
+      "results": "Resultados de metas"
+    },
+    "reminders": {
+      "alarm": "Alarma mañana a las {{time}} · {{amount}} USD en juego. Duerme temprano.",
+      "appTimer": "Mantén {{app}} bajo {{minutes}} min hoy.",
+      "locator": "Está en {{place}} antes de las {{time}}.",
+      "ai": "Envía la evidencia de hoy · {{amount}} USD en juego."
+    },
+    "location": {
+      "denied": "Se necesita el permiso de ubicación para esto.",
+      "arrived": "Llegaste a tiempo. Control registrado."
+    },
+    "widget": {
+      "streak": {
+        "one": "Racha {{count}} día",
+        "other": "Racha {{count}} días"
+      },
+      "goals": {
+        "one": "{{count}} meta",
+        "other": "{{count}} metas"
+      },
+      "alarm": "Alarma {{time}}",
+      "noAlarm": "Sin alarma"
+    }
+  },
+  "chain": {
+    "title": "Saldo de prueba",
+    "address": "Tu cuenta",
+    "usdc": "Saldo en tu cuenta",
+    "gas": "Saldo para operaciones",
+    "faucet": "Recibir saldo de prueba",
+    "faucetBody": "Saldo de prueba gratis, una vez al día.",
+    "faucetDone": "+{{amount}} USD recibidos",
+    "faucetCooldown": "Ya recibiste fondos hoy. Intenta más tarde.",
+    "explorer": "Ver mi saldo en Monad Vision",
+    "lockHint": "La apuesta se aparta de tu saldo hasta que termine la meta.",
+    "escrow": "Estado de la apuesta",
+    "state": {
+      "none": "Sin apuesta",
+      "pending": "Esperando tu confirmación",
+      "active": "Apuesta en juego",
+      "succeeded": "Apuesta devuelta",
+      "failed_locked": "Bloqueada hasta que termine el bloqueo",
+      "claimed": "Apuesta devuelta tras el bloqueo",
+      "expired": "Recuperada sin veredicto",
+      "cancelled": "Cancelada"
+    },
+    "createTx": "Apuesta",
+    "resolveTx": "Resultado",
+    "claimTx": "Devolución",
+    "unlockAt": "Se libera",
+    "endAt": "Termina",
+    "depositFiat": "Agregar {{amount}} USD (pago con QR, simulado)",
+    "depositFiatBody": "El pago con QR es simulado; el dinero que recibes es real.",
+    "depositDone": "+{{amount}} USD agregados",
+    "sca": "Cuenta segura",
+    "scaBody": "Una cuenta protegida, ligada a este teléfono. WillFolks la prepara por ti.",
+    "scaCreate": "Crear cuenta segura",
+    "scaReady": "Cuenta segura lista",
+    "scaNone": "Aún no tienes cuenta segura",
+    "viewReceipt": "Ver comprobante en Monad Vision",
+    "receiptHint": "Es un comprobante público: cualquiera puede verificar este movimiento.",
+    "scaView": "Ver mi cuenta segura en Monad Vision",
+    "viewTx": {
+      "createTx": "Ver la apuesta en Monad Vision",
+      "resolveTx": "Ver el resultado en Monad Vision",
+      "claimTx": "Ver la devolución en Monad Vision"
+    },
+    "linkA11y": "Abrir comprobante en Monad Vision"
+  }
+}

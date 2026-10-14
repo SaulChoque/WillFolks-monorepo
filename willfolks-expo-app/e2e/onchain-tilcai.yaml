@@ -1,0 +1,156 @@
+# Flujo e2e on-chain (Monad testnet + TilcAI) para Maestro (https://maestro.dev).
+#   N=$(date +%s)
+#   maestro test e2e/onchain-tilcai.yaml -e EMAIL=nuevo$N@willfolks.test -e USERNAME=onchain$N
+#
+# Requiere: willfolks-database y willfolks-BE con CHAIN_ENABLED=true y TILCAI_ENABLED=true
+# (faucet y depósitos por el vault de TilcAI, juez IA por x402, cuentas por TilcAI),
+# y la app instalada en el emulador (APK de release: ver e2e/onboarding-and-first-goal.yaml).
+#
+# Qué recorre, siempre con la wallet del propio teléfono:
+#   1. alta y wallet vinculada al backend por firma
+#   2. faucet (USDC del vault de TilcAI + gas) y depósito fiat (USDC real del vault)
+#   3. cuenta inteligente con una passkey P-256 que nace y se queda en el teléfono
+#   4. meta con juez de IA: el teléfono firma approve + createGoal; la prueba se juzga por x402
+appId: com.anonymous.willfolksexpodapp
+# EMAIL y USERNAME se pasan con -e (Maestro da prioridad a los valores definidos aquí): cada corrida crea su cuenta.
+---
+- launchApp:
+    clearState: true
+    permissions:
+      all: allow
+- extendedWaitUntil:
+    visible:
+      id: welcome-start
+    timeout: 120000
+- tapOn:
+    id: welcome-start
+- tapOn:
+    id: signin-email
+- inputText: ${EMAIL}
+- tapOn:
+    id: signin-name
+- inputText: Onchain
+- hideKeyboard
+- tapOn:
+    id: signin-submit
+- tapOn:
+    id: profile-username
+- inputText: ${USERNAME}
+- hideKeyboard
+- tapOn:
+    id: profile-submit
+- takeScreenshot: after-profile
+- extendedWaitUntil:
+    visible:
+      id: permissions-continue
+    timeout: 30000
+- tapOn:
+    id: permissions-continue
+- extendedWaitUntil:
+    visible:
+      id: wallet-address
+    timeout: 60000
+- tapOn:
+    id: wallet-finish
+
+# ── 2. dinero: faucet y depósito fiat, ambos pagados por el vault de TilcAI ──
+- tapOn: Home
+- tapOn:
+    id: home-wallet
+- extendedWaitUntil:
+    visible:
+      id: chain-faucet
+    timeout: 60000
+- tapOn:
+    id: chain-faucet
+- extendedWaitUntil:
+    visible: ".*\\+3 USD received.*"
+    timeout: 180000
+# Cada transacción trae su enlace amigable a Monad Vision.
+- assertVisible:
+    id: tx-explorer
+- tapOn:
+    id: chain-deposit-fiat
+- extendedWaitUntil:
+    visible: ".*\\+[0-9.]+ USD added.*"
+    timeout: 180000
+- assertVisible:
+    id: wallet-available
+    text: "4.00"
+# El comprobante de un movimiento ofrece el enlace a Monad Vision.
+- scrollUntilVisible:
+    element:
+      id: tx-deposit
+- tapOn:
+    id: tx-deposit
+- assertVisible:
+    id: voucher-explorer
+- tapOn:
+    id: header-back
+
+# ── 3. cuenta segura: la passkey nace en el teléfono y TilcAI despliega la cuenta ──
+# Requiere TILCAI_ACCOUNTS_API_KEY (clave de tenant con accounts:read/write) en el backend.
+- scrollUntilVisible:
+    element:
+      id: sca-create
+- tapOn:
+    id: sca-create
+- extendedWaitUntil:
+    visible: ".*Secure account ready.*"
+    timeout: 180000
+- assertVisible:
+    id: sca-address
+    text: "Secure account ready"
+
+# ── 4. meta con juez de IA: stake firmado por el teléfono, prueba juzgada por x402 ──
+- tapOn:
+    id: header-back
+- tapOn: Goals
+- tapOn:
+    id: goals-add
+- tapOn:
+    id: sheet-kind-ai
+- tapOn:
+    id: sheet-next
+- tapOn:
+    id: goal-title
+- inputText: Onchain bed
+- tapOn:
+    id: goal-prompt
+- inputText: Photo of a made bed
+- hideKeyboard
+# El stake por defecto (5) supera lo recibido (faucet 3 + depósito 1): se baja a 1 USD.
+- repeat:
+    times: 4
+    commands:
+      - tapOn:
+          id: goal-stake-less
+- scrollUntilVisible:
+    element:
+      id: goal-submit
+- tapOn:
+    id: goal-submit
+- extendedWaitUntil:
+    visible:
+      id: goal-proof
+    timeout: 240000
+- tapOn:
+    id: goal-proof
+- extendedWaitUntil:
+    visible:
+      id: proof-shoot
+    timeout: 30000
+- tapOn:
+    id: proof-shoot
+- extendedWaitUntil:
+    visible:
+      id: proof-send
+    timeout: 30000
+- tapOn:
+    id: proof-send
+- extendedWaitUntil:
+    visible:
+      id: proof-verdict
+    timeout: 120000
+- tapOn:
+    id: proof-done

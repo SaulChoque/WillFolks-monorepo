@@ -1,0 +1,90 @@
+/**
+ * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
+ * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
+ */
+
+import { Platform } from 'react-native';
+
+const tintColorLight = '#0a7ea4';
+const tintColorDark = '#fff';
+
+export const Colors = {
+  light: {
+    text: '#11181C',
+    background: '#fff',
+    tint: tintColorLight,
+    icon: '#687076',
+    tabIconDefault: '#687076',
+    tabIconSelected: tintColorLight,
+  },
+  dark: {
+    text: '#ECEDEE',
+    background: '#151718',
+    tint: tintColorDark,
+    icon: '#9BA1A6',
+    tabIconDefault: '#9BA1A6',
+    tabIconSelected: tintColorDark,
+  },
+};
+
+export const AppColors = {
+  lilac: {
+    textPrimary: '#6d28d9',
+    textSecondary: 'rgba(109,40,217,0.68)',
+    icon: '#7c3aed',
+    iconStrong: '#5b21b6',
+    switchOn: '#8b5cf6',
+    switchOff: 'rgba(139,92,246,0.24)',
+    chip: 'rgba(124,58,237,0.12)',
+    border: 'rgba(124,58,237,0.22)',
+  },
+  limeGlass: {
+    tint: 'rgba(131, 204, 22, 0.57)',
+    highlight: 'rgba(236, 253, 245, 0.71)',
+    stroke: 'rgba(190, 242, 100, 0.37)',
+    tintStrong: 'rgb(131, 204, 22)',
+    highlightStrong: 'rgba(236, 253, 245, 0.47)',
+    strokeStrong: 'rgba(190, 242, 100, 0.31)',
+  },
+};
+
+export const Fonts = Platform.select({
+  ios: {
+    /** iOS `UIFontDescriptorSystemDesignDefault` */
+    sans: 'system-ui',
+    /** iOS `UIFontDescriptorSystemDesignSerif` */
+    serif: 'ui-serif',
+    /** iOS `UIFontDescriptorSystemDesignRounded` */
+    rounded: 'ui-rounded',
+    /** iOS `UIFontDescriptorSystemDesignMonospaced` */
+    mono: 'ui-monospace',
+  },
+  default: {
+    sans: 'normal',
+    serif: 'serif',
+    rounded: 'normal',
+    mono: 'monospace',
+  },
+  web: {
+    sans: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+    serif: "Georgia, 'Times New Roman', serif",
+    rounded: "'SF Pro Rounded', 'Hiragino Maru Gothic ProN', Meiryo, 'MS PGothic', sans-serif",
+    mono: "SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+  },
+});
+
+/** Duotone "LCD" palette shared with the landing: fluorescent green + ink. */
+export const Palettes = {
+  acid: { bg: '#c5ff0a', fg: '#050702', bgRgb: '197,255,10', fgRgb: '5,7,2' },
+  void: { bg: '#060a02', fg: '#c5ff0a', bgRgb: '6,10,2', fgRgb: '197,255,10' },
+} as const;
+
+export type ThemeId = keyof typeof Palettes;
+
+/** Keys match the files registered with `useFonts` in the root layout. */
+export const PixelFonts = {
+  pixel: 'VT323',
+  mono: 'MartianMono-SemiBold',
+  monoBold: 'MartianMono-Bold',
+  monoBlack: 'MartianMono-ExtraBold',
+} as const;
